@@ -52,9 +52,6 @@
                 height: 100vh;
             }
             .armourSub{
-                width: 141.5px;
-                height: 141.5px;
-                line-height: 141.5px;
                 border: 2px solid rgba(0, 0, 0, 0.05);
                 border-radius: 10px;
                 display: inline-block;
@@ -420,15 +417,22 @@
         <script src="https://kit.fontawesome.com/8378f11a1e.js" crossorigin="anonymous"></script>
         <script>
 
-            /*function handleIntersection(entries) {
-                entries.forEach(entry => {
-                  if (!entry.isIntersecting) {
-                    entry.target.remove();
-                  }
-                });
+            var listArmourSubs = document.querySelectorAll(".armourSub");
+
+            function setDeviceVisibility() {
+                var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+                var height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+
+                var calculatedDimensions = height/6-12;
+                console.log(calculatedDimensions)
+                listArmourSubs.forEach(function(e){
+                    e.style.height = calculatedDimensions+"px";
+                    e.style.width = calculatedDimensions+"px";
+                    e.style.lineHeight = calculatedDimensions+"px";
+                })
             }
 
-            var observer = new IntersectionObserver(handleIntersection, { threshold: 0 });*/
+            setDeviceVisibility();
 
             // SRC's
             const BASICTANK_SRC = "https://preview.redd.it/vq62mhb27q521.png?width=281&format=png&auto=webp&s=9aaf5903544521d61590959a4aa89109c13431f3";
