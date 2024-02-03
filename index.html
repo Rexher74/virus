@@ -671,6 +671,8 @@
             var gameOverDiv = document.getElementById("gameOverDiv");
 
             function endGame(){
+                closeBuyMenu();
+                closeUpgradeMenu();
                 lifesCounterDOC.textContent = 0;
                 clearInterval(intervalDifficulty);
                 clearInterval(intervalVirus);
