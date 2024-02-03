@@ -18,6 +18,20 @@
                 display: none;
                 font-family: "Raleway", sans-serif;
             }
+
+            .closeGameOverDiv{
+                position: absolute;
+                top: 25px;
+                right: 25px;
+                margin-left: 15px;
+                color: white;
+                font-weight: bold;
+                float: right;
+                font-size: 50px;
+                line-height: 20px;
+                cursor: pointer;
+                transition: 0.3s;
+            }
               
             .closebtnAlertRed {
                 margin-left: 15px;
@@ -225,6 +239,32 @@
 
             }
 
+            #gameOverDiv{
+                width: 100vw;
+                height: 100vh;
+                display: none;
+            }
+
+            #gameOverSubDiv{
+                width: 600px;
+                height: 165px;
+                background-color: rgba(0, 0, 0, .2);
+                border-radius: 50px;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: space-evenly;
+                z-index: 100;
+                font-family: "Raleway", sans-serif;
+                font-size: 40px;
+                font-weight: 700;
+                padding: 30px;
+            }
+
             /*.freezzerBullet{
                 position: absolute;
                 border-radius: 50%;
@@ -338,6 +378,12 @@
             </div>
         </div>
         <div class="dataPlayer"><i class="fa-solid fa-sack-dollar" style="color: rgb(205, 205, 0)"></i><span id="moneyCounter" style="color: rgb(205, 205, 0); margin-left: 5px;"></span><i class="fa-solid fa-heart" style="margin-left: 20px;color: red"></i><span id="lifesCounter" style="color:red; margin-left: 5px;"></span></div>
+        <div id="gameOverDiv">
+            <div id="gameOverSubDiv">
+                <span class="closeGameOverDiv" onclick="this.parentElement.parentElement.style.display='none';">&times;</span> 
+                Game Over!<br><span id="timeResistedGameOver"></span>
+            </div>
+        </div>
         <!--<div class="skillsDiv"><div class="buttonFreezeSkill"><img src="https://cdn2.iconfinder.com/data/icons/lil-weather/161/snowflake-512.png" style="width: 25px;height: 25px; margin-right: 5px;">2000$</div></div>-->
         <div id="armourSpace">
             <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
@@ -621,6 +667,9 @@
                 })
             }
 
+            var timeResisted = document.getElementById("timeResistedGameOver");
+            var gameOverDiv = document.getElementById("gameOverDiv");
+
             function endGame(){
                 lifesCounterDOC.textContent = 0;
                 clearInterval(intervalDifficulty);
@@ -634,7 +683,8 @@
                     ele.remove();
                 })
                 let newCurrentDate = new Date().getTime();
-                alert("Game Over :(\nYou resisted "+Math.round((newCurrentDate-d)/1000, 2)+" seconds");
+                gameOverDiv.style.display = "contents";
+                timeResisted.textContent = "You resisted "+Math.round((newCurrentDate-d)/1000, 2)+" seconds";
             }
 
             function closeBuyMenu(){
@@ -1571,7 +1621,6 @@
 
             function spawnVirus(basic, double, diseaseB, covid, diseaseH, boss) {
                 var typeSpawned;
-                console.log(basic, double, diseaseB, covid, diseaseH, boss);
 
                 var newVirus = document.createElement("div");
                 newVirus.classList.add("fa-solid");
@@ -1740,7 +1789,8 @@
                 controlBossSpawning();
             }
 
-            startGame();
+            //startGame();
+
         </script>
     </body>
     <!--Copyright Alex Mangues Rubia 2024-->
