@@ -52,6 +52,7 @@
                 font-size: 0;
             }
             .armourSub{
+                visibility: hidden;
                 aspect-ratio: 1/1;
                 height: 15.85%;
                 border: 2px solid rgba(0, 0, 0, 0.05);
@@ -1686,6 +1687,7 @@
             function setUpUserView(){
                 document.querySelectorAll(".armourSub").forEach(function(e){
                     e.style.lineHeight = window.getComputedStyle(e).getPropertyValue('height');
+                    e.style.visibility = "visible";
                 })
                 armourSpaceDiv.style.width = parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[0]).getPropertyValue('width'))*5+41+"px";
                 console.log(window.getComputedStyle(document.querySelectorAll(".armourSub")[0]).getPropertyValue('width'));
