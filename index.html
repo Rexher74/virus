@@ -712,6 +712,9 @@
 
             function upgradeMenu(space, i) {
                 closeBuyMenu();
+                if (selectedIndex != i) {
+                    alertNoMoneyUpgrade.style.display = "none";
+                }
                 selectUpgrade.style.display = "contents";
 
                 selectedSpace = space.currentTarget;
@@ -784,6 +787,8 @@
 
             function bulidSpace(space, i) {
                 closeUpgradeMenu();
+                alertNoMoney.style.display = "none";
+                
                 selectToBuild.style.display = "contents";
 
                 selectedSpace = space.currentTarget;
