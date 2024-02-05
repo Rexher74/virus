@@ -503,9 +503,9 @@
                 1: 350,
                 2: 500,
                 3: 750,
-                4: 900,
-                5: 1100,
-                6: 1500
+                4: 1000,
+                5: 1300,
+                6: 1750
             }
 
             var upgradeMultiTank = {
@@ -590,11 +590,11 @@
             var timeUpgradeGoldmine = {
                 0: 2000,
                 1: 1700,
-                2: 1400,
-                3: 1100,
-                4: 800,
-                5: 500,
-                6: 300
+                2: 1450,
+                3: 1200,
+                4: 1000,
+                5: 800,
+                6: 500
             }
 
             var lifeUpgradeWall = {
@@ -1653,7 +1653,7 @@
             function createDifficultyInterval(){
                 intervalDifficulty = setInterval(function(){
                     clearInterval(intervalVirus);
-                    difficultySpawn*=0.955;
+                    difficultySpawn*=0.95;
                     createIntervalSpawnVirus(difficultySpawn);
                 }, 10000)
             }
