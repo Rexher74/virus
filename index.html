@@ -48,16 +48,19 @@
                 color: black;
             }
             #armourSpace{
-                width: 770px;
+                width: 780px;
                 height: 100vh;
             }
             .armourSub{
+                aspect-ratio: 1/1;
+                height: 15.8%;
                 border: 2px solid rgba(0, 0, 0, 0.05);
                 border-radius: 10px;
+                box-sizing: border-box;
                 display: inline-block;
                 text-align: center;
                 font-family: "Raleway", sans-serif;
-                font-size: 20px;
+                font-size: 125%;
                 margin: 2.5px;
                 cursor: pointer;;
                 color: rgba(0, 0, 0, 0);
@@ -80,7 +83,31 @@
                 font-weight: 600;
             }
 
+            .habilitiesPlayerDiv{
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                text-align: center;
+                bottom: 10px;
+            }
+
+            .newHabilityDiv{
+                position: relative;
+                font-family: "Raleway", sans-serif;
+                font-weight: 600;
+                font-size: 20px;
+                margin-right: 10px;
+                cursor: pointer;
+                border-radius: 2px;
+                background-color: #00bbff;
+                color: white;
+                padding: 7px;
+                border-radius: 10px;
+                z-index: 1000;
+            }
+
             .mainMenuOperations{
+                position: static;
                 width: 100vw;
                 height: 100vh;
                 display: none;
@@ -135,6 +162,9 @@
                 width: 50px;
                 height: 50px;
                 background-color: rgba(119, 101, 255, 0.8);
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
             }
 
             .bigBulletStyle{
@@ -262,72 +292,35 @@
                 padding: 30px;
             }
 
-            /*.freezzerBullet{
+            .divFreezeAllAnimation{
                 position: absolute;
-                border-radius: 50%;
-                transform: translate(-50%, -50%);
-                border: 5px solid rgba(119, 101, 255, 0.8);
-                background-color: transparent;
-                box-sizing: border-box;
-                z-index: -1;
-                animation: moveFreezzer 2s linear;
-                overflow: hidden;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }*/
-
-            /*.skillsDiv{
-                position: absolute;
-                left: 50%;
-                transform: translateX(-50%);
-                text-align: center;
-                font-size: 24px;
-                font-family: "Raleway", sans-serif;
-                bottom: 5px;
-                font-family: "Raleway", sans-serif;
-                display: flex;
-                align-items: center;
+                top: 0;
+                left: -1000px;
+                height: 100vh;
+                width: 1000px;
+                animation: freezeAnimationDiv 1s linear;
+                background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(0, 166, 255, 0.2), rgba(255, 255, 255, 0));;
             }
 
-            .buttonFreezeSkill{
-                border-radius: 20px;
-                background-color: rgb(0, 149, 255);
-                padding: 10px;
-                z-index: 1000;
-                cursor: pointer;
-                display: flex;
-                align-items: center;
-            }*/
+            @keyframes freezeAnimationDiv {
+                100% { left: 3000px; }
+            }
 
             @keyframes moveBulletL1 {
-                0% { left: 120px; }
                 100% { left: 2000px; }
             }
             @keyframes moveBulletL2 {
-                0% { left: 275px; }
                 100% { left: 2000px; }
             }
             @keyframes moveBulletL3 {
-                0% { left: 425px; }
                 100% { left: 2000px; }
             }
             @keyframes moveBulletL4 {
-                0% { left: 580px; }
                 100% { left: 2000px; }
             }
             @keyframes moveBulletL5 {
-                0% { left: 725px; }
                 100% { left: 2000px; }
             }
-            /*@keyframes moveFreezzer {
-                0% { width: 0;
-                    height: 0;
-                }
-                100% { width: 2000px; 
-                    height: 2000px;    
-                }
-            }*/
 
             @keyframes moveEnemy {
                 100% { left: -60px; }
@@ -417,22 +410,13 @@
         <script src="https://kit.fontawesome.com/8378f11a1e.js" crossorigin="anonymous"></script>
         <script>
 
-            var listArmourSubs = document.querySelectorAll(".armourSub");
-
-            function setDeviceVisibility() {
-                var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-                var height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-
-                var calculatedDimensions = height/6-12;
-                console.log(calculatedDimensions)
-                listArmourSubs.forEach(function(e){
-                    e.style.height = calculatedDimensions+"px";
-                    e.style.width = calculatedDimensions+"px";
-                    e.style.lineHeight = calculatedDimensions+"px";
+            function setUpUserView(){
+                document.querySelectorAll(".armourSub").forEach(function(e){
+                    e.style.lineHeight = window.getComputedStyle(e).getPropertyValue('width');
                 })
             }
 
-            setDeviceVisibility();
+            setUpUserView();
 
             // SRC's
             const BASICTANK_SRC = "https://preview.redd.it/vq62mhb27q521.png?width=281&format=png&auto=webp&s=9aaf5903544521d61590959a4aa89109c13431f3";
@@ -642,7 +626,7 @@
             var priceToUpgradeSpan = document.getElementById("price_to_upgrade");
 
             // OTHER
-            var currentMoney = 1000;
+            var currentMoney = 1000000;
             var currentLifes = 5;
 
             var moneyCounterDOC = document.getElementById("moneyCounter");
@@ -805,11 +789,37 @@
                 );
             }
 
+            function freezeAll(time) {
+                var freezeDivAnimation = document.createElement("div");
+                freezeDivAnimation.classList.add("divFreezeAllAnimation");
+                document.body.appendChild(freezeDivAnimation);
+
+                freezeDivAnimation.addEventListener("animationend", function(e){
+                    e.currentTarget.remove();
+                })
+                setTimeout(function(){
+                    document.querySelectorAll(".enemy").forEach(function(ele){
+                        ele.style.animationPlayState = "paused";
+                    })
+                }, 350)
+
+                setTimeout(function(){
+                    document.querySelectorAll(".enemy").forEach(function(ele){
+                        ele.style.animationPlayState = "running";
+                    })
+                }, time+350)
+            }
+
+            var listSpacesQuery = document.querySelectorAll(".armourSub");
+
             function createIntervalBasicTank(index, timing){
                 spacesIntervals[index] = setInterval(function(){
                     newBullet = document.createElement("div");
                     newBullet.classList.add("bulletType");
                     newBullet.classList.add("bulletStyle");
+                    newBullet.style.left = listSpacesQuery[index].getBoundingClientRect().left+parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[index]).getPropertyValue('width'))+"px";
+                    newBullet.style.top = listSpacesQuery[index].getBoundingClientRect().top+parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[index]).getPropertyValue('width'))/2+"px";
+                    
                     if (index%5 == 0) {
                         newBullet.classList.add("bulletMoveL1");
                     }
@@ -826,7 +836,7 @@
                         newBullet.classList.add("bulletMoveL5");
                     }
 
-                    if (index<5) {
+                    /*if (index<5) {
                         newBullet.style.top = 60+"px";
                     }
                     else if (index<10) {
@@ -843,7 +853,8 @@
                     }
                     else if (index<30) {
                         newBullet.style.top = 810+"px";
-                    }
+                    }*/
+
                     document.body.appendChild(newBullet);
 
                     newBullet.addEventListener('animationend', function(e){
@@ -860,6 +871,9 @@
                         newBullet = document.createElement("div");
                         newBullet.classList.add("bulletType");
                         newBullet.classList.add("bulletStyle");
+                        newBullet.style.left = listSpacesQuery[index].getBoundingClientRect().left+parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[index]).getPropertyValue('width'))+"px";
+                        newBullet.style.top = listSpacesQuery[index].getBoundingClientRect().top+parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[index]).getPropertyValue('width'))/2+i+"px";
+
                         if (index%5 == 0) {
                             newBullet.classList.add("bulletMoveL1");
                         }
@@ -876,24 +890,6 @@
                             newBullet.classList.add("bulletMoveL5");
                         }
     
-                        if (index<5) {
-                            newBullet.style.top = 60+i+"px";
-                        }
-                        else if (index<10) {
-                            newBullet.style.top = 210+i+"px";
-                        }
-                        else if (index<15) {
-                            newBullet.style.top = 360+i+"px";
-                        }
-                        else if (index<20) {
-                            newBullet.style.top = 510+i+"px";
-                        }
-                        else if (index<25) {
-                            newBullet.style.top = 660+i+"px";
-                        }
-                        else if (index<30) {
-                            newBullet.style.top = 810+i+"px";
-                        }
                         document.body.appendChild(newBullet);
     
                         newBullet.addEventListener('animationend', function(e){
@@ -910,6 +906,10 @@
                     newBullet = document.createElement("div");
                     newBullet.classList.add("bulletType");
                     newBullet.classList.add("bigBulletStyle");
+                    newBullet.style.left = listSpacesQuery[index].getBoundingClientRect().left+parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[index]).getPropertyValue('width'))+"px";
+                    newBullet.style.top = listSpacesQuery[index].getBoundingClientRect().top+parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[index]).getPropertyValue('width'))/2+"px";
+
+                    
                     if (index%5 == 0) {
                         newBullet.classList.add("bulletMoveL1");
                     }
@@ -926,24 +926,6 @@
                         newBullet.classList.add("bulletMoveL5");
                     }
 
-                    if (index<5) {
-                        newBullet.style.top = 85+"px";
-                    }
-                    else if (index<10) {
-                        newBullet.style.top = 235+"px";
-                    }
-                    else if (index<15) {
-                        newBullet.style.top = 385+"px";
-                    }
-                    else if (index<20) {
-                        newBullet.style.top = 535+"px";
-                    }
-                    else if (index<25) {
-                        newBullet.style.top = 685+"px";
-                    }
-                    else if (index<30) {
-                        newBullet.style.top = 835+"px";
-                    }
                     document.body.appendChild(newBullet);
 
                     newBullet.addEventListener('animationend', function(e){
@@ -959,6 +941,10 @@
                     newBullet = document.createElement("div");
                     newBullet.classList.add("bulletType");
                     newBullet.classList.add("iceBulletStyle");
+                    newBullet.style.left = listSpacesQuery[index].getBoundingClientRect().left+parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[index]).getPropertyValue('width'))+"px";
+                    newBullet.style.top = listSpacesQuery[index].getBoundingClientRect().top+parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[index]).getPropertyValue('width'))/2+"px";
+
+                    
                     if (index%5 == 0) {
                         newBullet.classList.add("bulletMoveL1");
                     }
@@ -975,24 +961,6 @@
                         newBullet.classList.add("bulletMoveL5");
                     }
 
-                    if (index<5) {
-                        newBullet.style.top = 85+"px";
-                    }
-                    else if (index<10) {
-                        newBullet.style.top = 235+"px";
-                    }
-                    else if (index<15) {
-                        newBullet.style.top = 385+"px";
-                    }
-                    else if (index<20) {
-                        newBullet.style.top = 535+"px";
-                    }
-                    else if (index<25) {
-                        newBullet.style.top = 685+"px";
-                    }
-                    else if (index<30) {
-                        newBullet.style.top = 835+"px";
-                    }
                     document.body.appendChild(newBullet);
 
                     newBullet.addEventListener('animationend', function(e){
@@ -1002,52 +970,6 @@
                     //observer.observe(newBullet);
                 }, timing)
             }
-
-            /*function createIntervalMinnerTank(index, timing) {
-                var newFreezzer;
-                spacesIntervals[index] = setInterval(function(){
-                    newFreezzer = document.createElement("div");
-                    newFreezzer.classList.add("bulletType");
-                    newFreezzer.classList.add("freezzerBullet");
-                    if (index<5) {
-                        newFreezzer.style.top = 85+"px";
-                    }
-                    else if (index<10) {
-                        newFreezzer.style.top = 235+"px";
-                    }
-                    else if (index<15) {
-                        newFreezzer.style.top = 385+"px";
-                    }
-                    else if (index<20) {
-                        newFreezzer.style.top = 535+"px";
-                    }
-                    else if (index<25) {
-                        newFreezzer.style.top = 685+"px";
-                    }
-                    else if (index<30) {
-                        newFreezzer.style.top = 835+"px";
-                    }
-                    if (index%5 == 0) {
-                        newFreezzer.style.left = 100+"px";
-                    }
-                    else if (index%5 == 1) {
-                        newFreezzer.style.left = 250+"px";
-                    }
-                    else if (index%5 == 2) {
-                        newFreezzer.style.left = 400+"px";
-                    }
-                    else if (index%5 == 3) {
-                        newFreezzer.style.left = 550+"px";
-                    }
-                    else if (index%5 == 4) {
-                        newFreezzer.style.left = 700+"px";
-                    }
-                    newFreezzer.addEventListener('animationend', function(e){
-                        e.currentTarget.remove();
-                    });
-                    document.body.appendChild(newFreezzer);
-                }, timing)
-            }*/
 
             function createIntervalGoldmine(index, timing){
                 spacesIntervals[index] = setInterval(function() {
@@ -1072,9 +994,6 @@
                 else if (type == 6){
                     createIntervalIceTank(_selectedIndex, relationUpgradeSkills[type][0]);
                 }
-                /*else if (type == 6){
-                    createIntervalMinnerTank(_selectedIndex, 6000);
-                }*/
             }
 
             function animar() {
@@ -1447,43 +1366,6 @@
                 }
             }
 
-            /*function createNewMinnerTank() {
-                if (spacesToBuy[selectedIndex] != 6){
-                    if (currentMoney >= 1500) {
-                        if (spacesToBuy[selectedIndex] != 0) {
-                            var toRefund = 0;
-                            for (var i = 0; i < levelsSpaces[selectedIndex]; ++i){
-                                toRefund += realtionUpgrade[spacesToBuy[selectedIndex]][i];
-                            }
-                            currentMoney += toRefund*0.5;
-                            moneyCounterDOC.textContent = currentMoney;
-                        }
-                        selectedSpace.firstChild.textContent = "";
-                        var newEle = document.createElement("img");
-                        newEle.setAttribute("src", MINNERTANK_SRC);
-                        newEle.classList.add("structureOwned");
-                        selectedSpace.firstChild.appendChild(newEle);
-                        selectedSpace.firstChild.style.background = 'linear-gradient(to right, rgba(111, 111, 111, 0.1) 100%, rgba(0, 0, 0, 0) 100%)';
-                        lifeSpaces[selectedIndex] = LIFES_MINNER_TANK;
-                        levelsSpaces[selectedIndex] = 1;
-                        currentMoney -= 1500;
-                        moneyCounterDOC.textContent = currentMoney;
-
-                        spacesToBuy[selectedIndex] = 6;
-
-                        createIntervalBullet(selectedIndex, 6);
-                    }
-                    else {
-                        alertNoMoney.innerHTML = `<span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span>Not Enough Money!`
-                        alertNoMoney.style.display = "block";
-                    }
-                }
-                else {
-                    alertNoMoney.innerHTML = `<span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span>You already have this structure built here!`
-                    alertNoMoney.style.display = "block";
-                }
-            }*/
-
             function createNewGoldmine(){
                 if (spacesToBuy[selectedIndex] != 3){
                     if (currentMoney >= 400) {
@@ -1592,9 +1474,9 @@
                 }, 120000);
             }
 
-            function spawnDisease(horde=false, pos=getRandomInt(915)+5) {
+            function spawnDisease(horde=false, pos=getRandomInt(window.innerHeight-5)+5) {
                 if (horde) {
-                    for (var i = 50; i < 900; i+=80) {
+                    for (var i = window.innerHeight/20; i < window.innerHeight; i+=window.innerHeight/10) {
                         spawnDisease(false, i);
                     }
                 }
@@ -1608,7 +1490,7 @@
                     newVirus.dataset.slowed = "false";
                     newVirus.classList.add("enemy");
                     newVirus.style.top = pos + "px";
-                    newVirus.style.left = 2000+"px";
+                    newVirus.style.left = window.innerWidth+40+"px";
                     document.body.appendChild(newVirus);
 
                     newVirus.addEventListener("animationend", function(evt){
@@ -1633,12 +1515,12 @@
                 newVirus.dataset.lifes = 5;
                 newVirus.dataset.slowed = "false";
                 let currentTimeCheckBoss = new Date().getTime();
-                if (Math.random() > 0.996 && boss && (currentTimeCheckBoss - lastBossSpawned > 120000)) {
+                if (Math.random() > 0.997 && boss && (currentTimeCheckBoss - lastBossSpawned > 120000)) {
                     spawnVirusBoss(1200);
                     lastBossSpawned = new Date().getTime();
                     typeSpawned = "boss";
                 }
-                if (Math.random() > 0.97 && diseaseH) {
+                if (Math.random() > 0.99 && diseaseH) {
                     spawnDisease(true);
                     typeSpawned = "diseaseH";
                 }
@@ -1646,7 +1528,7 @@
                     newVirus.classList.add("fa-virus-covid");
                     newVirus.classList.add("enemySlow");
                     newVirus.style.fontSize = 200+"px";
-                    newVirus.style.left = 2100+"px";
+                    newVirus.style.left = window.innerWidth+100+"px";
                     typeSpawned = "covid";
                 }
                 else if (Math.random() > 0.91 && diseaseB) {
@@ -1657,14 +1539,14 @@
                     newVirus.classList.add("fa-viruses");
                     newVirus.classList.add("fa-4x");
                     newVirus.classList.add("enemyBasic");
-                    newVirus.style.left = 2000+"px";
+                    newVirus.style.left = window.innerWidth+40+"px";
                     typeSpawned = "double";
                 }
                 else if (basic){
                     newVirus.classList.add("fa-virus");
                     newVirus.classList.add("fa-4x");
                     newVirus.classList.add("enemyBasic");
-                    newVirus.style.left = 2000+"px";
+                    newVirus.style.left = window.innerWidth+40+"px";
                     typeSpawned = "basic";
                 }
                 else {
@@ -1673,7 +1555,7 @@
 
                 if (typeSpawned == "basic" || typeSpawned == "double" || typeSpawned == "covid") {
                     newVirus.classList.add("enemy");
-                    newVirus.style.top = getRandomInt(915)+5 + "px";
+                    newVirus.style.top = getRandomInt(window.innerHeight-5)+5 + "px";
 
                     newVirus.addEventListener("animationend", function(evt){
                         if (evt.currentTarget.classList.contains("fa-virus")){
@@ -1733,8 +1615,8 @@
                 newVirus.style.fontSize = size+"px";
                 newVirus.style.color = "#FF9F9F";
 
-                newVirus.style.top = getRandomInt(100)+400 + "px";
-                newVirus.style.left =  2000+(size/2)+"px";
+                newVirus.style.top = getRandomInt(window.innerHeight/10)+window.innerHeight/2 + "px";
+                newVirus.style.left =  window.innerWidth+(size/2)+"px";
 
                 newVirus.addEventListener("animationend", function(evt){
                     currentLifes -= parseInt(evt.currentTarget.style.fontSize)/10;
@@ -1795,7 +1677,7 @@
                 controlBossSpawning();
             }
 
-            startGame();
+            //startGame();
 
         </script>
     </body>
