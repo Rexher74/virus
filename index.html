@@ -53,7 +53,7 @@
             }
             .armourSub{
                 aspect-ratio: 1/1;
-                height: 15.8%;
+                height: 15.85%;
                 border: 2px solid rgba(0, 0, 0, 0.05);
                 border-radius: 10px;
                 box-sizing: border-box;
@@ -409,14 +409,6 @@
         </div>
         <script src="https://kit.fontawesome.com/8378f11a1e.js" crossorigin="anonymous"></script>
         <script>
-
-            function setUpUserView(){
-                document.querySelectorAll(".armourSub").forEach(function(e){
-                    e.style.lineHeight = window.getComputedStyle(e).getPropertyValue('width');
-                })
-            }
-
-            setUpUserView();
 
             // SRC's
             const BASICTANK_SRC = "https://preview.redd.it/vq62mhb27q521.png?width=281&format=png&auto=webp&s=9aaf5903544521d61590959a4aa89109c13431f3";
@@ -1663,6 +1655,18 @@
                     moneyCounterDOC.textContent = currentMoney;
                 }, 2000);
             }
+
+            // Make the page responsible
+
+            function setUpUserView(){
+                document.querySelectorAll(".armourSub").forEach(function(e){
+                    e.style.lineHeight = window.getComputedStyle(e).getPropertyValue('height');
+                })
+                armourSpaceDiv.style.width = parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[0]).getPropertyValue('width'))*5+41+"px";
+                console.log(window.getComputedStyle(document.querySelectorAll(".armourSub")[0]).getPropertyValue('width'))
+            }
+
+            setUpUserView();
             
 
             // RUN THE GAME
