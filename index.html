@@ -48,7 +48,6 @@
                 color: black;
             }
             #armourSpace{
-                width: 780px;
                 height: 100vh;
             }
             .armourSub{
@@ -302,6 +301,17 @@
                 background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(0, 166, 255, 0.2), rgba(255, 255, 255, 0));;
             }
 
+            #mainChrono{
+                font-family: "Raleway", sans-serif;
+                font-size: 25px;
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                text-align: center;
+                font-weight: 600;
+                bottom: 10px;
+            }
+
             @keyframes freezeAnimationDiv {
                 100% { left: 3000px; }
             }
@@ -368,6 +378,7 @@
             </div>
         </div>
         <div class="dataPlayer"><i class="fa-solid fa-sack-dollar" style="color: rgb(205, 205, 0)"></i><span id="moneyCounter" style="color: rgb(205, 205, 0); margin-left: 5px;"></span><i class="fa-solid fa-heart" style="margin-left: 20px;color: red"></i><span id="lifesCounter" style="color:red; margin-left: 5px;"></span></div>
+        <div id="mainChrono">0.0</div>
         <div id="gameOverDiv">
             <div id="gameOverSubDiv">
                 <span class="closeGameOverDiv" onclick="this.parentElement.parentElement.style.display='none';">&times;</span> 
@@ -658,6 +669,7 @@
                 clearInterval(intervalVirus);
                 clearInterval(mainMoneyInterval);
                 clearInterval(controlBossSpawnInterval);
+                clearInterval(chronoInterval);
                 for (var i = 0; i < 30; ++i) {
                     clearInterval(spacesIntervals[i]);
                 }
@@ -1626,7 +1638,7 @@
             function createDifficultyInterval(){
                 intervalDifficulty = setInterval(function(){
                     clearInterval(intervalVirus);
-                    difficultySpawn*=0.96;
+                    difficultySpawn*=0.955;
                     createIntervalSpawnVirus(difficultySpawn);
                 }, 10000)
             }
@@ -1656,17 +1668,25 @@
                 }, 2000);
             }
 
-            // Make the page responsible
-
             function setUpUserView(){
                 document.querySelectorAll(".armourSub").forEach(function(e){
                     e.style.lineHeight = window.getComputedStyle(e).getPropertyValue('height');
                 })
                 armourSpaceDiv.style.width = parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[0]).getPropertyValue('width'))*5+41+"px";
-                console.log(window.getComputedStyle(document.querySelectorAll(".armourSub")[0]).getPropertyValue('width'))
+                console.log(window.getComputedStyle(document.querySelectorAll(".armourSub")[0]).getPropertyValue('width'));
             }
 
             setUpUserView();
+
+            var chrono = document.getElementById("mainChrono");
+            var chronoInterval;
+
+            function startChrono(){
+                chronoInterval = setInterval(function(){
+                    let currentTime = new Date().getTime();
+                    chrono.textContent = (parseFloat(currentTime-d)/1000 + 0.1).toFixed(1).toString();
+                }, 100);
+            }
             
 
             // RUN THE GAME
@@ -1679,6 +1699,8 @@
                 createMainMoneyInterval();
 
                 controlBossSpawning();
+
+                startChrono();
             }
 
             startGame();
