@@ -6,8 +6,12 @@
         <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
         <title>Game</title>
         <style>
+            html{
+                margin: 0;
+            }
             body {
                 overflow: hidden;
+                margin: 0;
             }
             .alertRed {
                 position: absolute;
@@ -54,7 +58,7 @@
             .armourSub{
                 visibility: hidden;
                 aspect-ratio: 1/1;
-                height: 15.85%;
+                height: 16.1%;
                 border: 2px solid rgba(0, 0, 0, 0.05);
                 border-radius: 10px;
                 box-sizing: border-box;
@@ -314,6 +318,60 @@
                 bottom: 10px;
             }
 
+            #divPreStartGame{
+                position: absolute;
+                width: 100vw;
+                height: 100vh;
+                z-index: 1001;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: rgba(185, 185, 185, 0.1);
+            }
+
+            #divPresentationGame{
+                padding: 30px;
+                border-radius: 20px;
+                background-color: rgb(200, 200, 200);
+            }
+
+            #mainTitleStartGame{
+                font-family: "Raleway", sans-serif;
+                font-size: 50px;
+                font-weight: 700;
+                text-align: center;
+                margin-bottom: 20px;
+                
+            }
+
+            #instructionsSetStartGame{
+                font-family: "Raleway", sans-serif;
+            }
+
+            #instructionsMain{
+                font-size: 20px;
+                line-height: 170%;
+            }
+
+            #buttonPlayStartGame{
+                background: rgb(32, 71, 137);
+                font-size: 30px;
+                color: white;
+                transition: background .2s;
+                cursor: pointer;
+                width: 100px;
+                border-radius: 30px;
+                padding: 20px;
+                text-align: center;
+                margin: auto;
+                margin-top: 25px;
+                font-weight: 900;
+            }
+
+            #buttonPlayStartGame:hover{
+                background: rgb(13, 40, 85);
+            }
+
             @keyframes freezeAnimationDiv {
                 100% { left: 3000px; }
             }
@@ -343,17 +401,32 @@
             }
         </style>
     </head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RFZM98L10H"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-    
-      gtag('config', 'G-RFZM98L10H');
-    </script>
     <body>
         <!--<div id="test" style="position:absolute; top: 500px; right: 400px; width: 400px; height: 400px; background: linear-gradient(90deg, #3498db 40%, #ffffff 40%);"></div>-->
+        <div id="divPreStartGame">
+            <div id="divPresentationGame">
+                <div id="mainTitleStartGame"><i class="fa-solid fa-virus"></i> Virutz <i class="fa-solid fa-virus"></i></i></div>
+                <div id="instructionsSetStartGame">
+                    <span style="font-size: 30px; font-weight: 800;">Instructions</span>
+                    <div id="instructionsMain">
+                        <strong>Objective:</strong> eliminate viruses and resist as long as possible.<br>
+                        To do this, you have six types of structures:<br>
+                        BASIC TANK ( <i class="fa-solid fa-heart"></i> 4/<i class="fa-solid fa-sack-dollar"></i> 200 ): <i>Shoots bullets one at a time.</i><br>
+                        ICE TANK ( <i class="fa-solid fa-heart"></i> 3/<i class="fa-solid fa-sack-dollar"></i> 400 ): <i>Slows down viruses and harms them.</i><br>
+                        GUNNER TANK ( <i class="fa-solid fa-heart"></i> 5/<i class="fa-solid fa-sack-dollar"></i> 500 ): <i>Fires large bullets that split upon.</i><br>
+                        MULTI TANK ( <i class="fa-solid fa-heart"></i> 7/<i class="fa-solid fa-sack-dollar"></i> 1000 ): <i>Shoots bullets three at a time.</i><br>
+                        GOLDMINE( <i class="fa-solid fa-heart"></i> 3/<i class="fa-solid fa-sack-dollar"></i> 400 ): <i>Gives you 25$ every 2 seconds (at level 1).</i><br>
+                        WALL( <i class="fa-solid fa-heart"></i> 15/<i class="fa-solid fa-sack-dollar"></i> 300 ): <i>Prevent viruses from passing.</i><br>
+                        <br>
+                        Keep in mind that you have a extra income of 25$ every<br>
+                        2 seconds, and also that you can upgrade structures<br>
+                        with right click, max level is 7.<br><br>
+                        Feel ready to strat? Press the button and start playing!
+                    </div>
+                    <div id="buttonPlayStartGame" onclick="startGame()">PLAY</div>
+                </div>
+            </div>
+        </div>
         <div id="selectBulid" class="mainMenuOperations">
             <div id="divOptions" class="divOptionsMainMenu">
                 <i id="xmark_close_buy" class="fa-solid fa-xmark fa-2x" style="position:absolute; top: 20px; right: 20px;color:rgba(0, 0, 0, .3); cursor: pointer;"></i>
@@ -446,8 +519,6 @@
             var xmark_close_buy = document.getElementById("xmark_close_buy");
             var xmark_close_buy_upgrade = document.getElementById("xmark_close_buy_upgrade")
 
-            var d = new Date().getTime();
-
             // LIFES
             const LIFES_BASIC_TANK = 4;
             const LIFES_MULTI_TANK = 7;
@@ -504,9 +575,9 @@
                 1: 350,
                 2: 500,
                 3: 750,
-                4: 1000,
-                5: 1300,
-                6: 1750
+                4: 900,
+                5: 1100,
+                6: 1500
             }
 
             var upgradeMultiTank = {
@@ -591,11 +662,11 @@
             var timeUpgradeGoldmine = {
                 0: 2000,
                 1: 1700,
-                2: 1450,
-                3: 1200,
-                4: 1000,
-                5: 800,
-                6: 500
+                2: 1400,
+                3: 1100,
+                4: 800,
+                5: 500,
+                6: 300
             }
 
             var lifeUpgradeWall = {
@@ -659,6 +730,17 @@
             var selectedSpace;
             var selectedIndex;
 
+            function setUpUserView(){
+                document.querySelectorAll(".armourSub").forEach(function(e){
+                    e.style.lineHeight = window.getComputedStyle(e).getPropertyValue('height');
+                    e.style.visibility = "visible";
+                })
+                armourSpaceDiv.style.width = parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[0]).getPropertyValue('width'))*5+41+"px";
+                console.log(window.getComputedStyle(document.querySelectorAll(".armourSub")[0]).getPropertyValue('width'));
+            }
+
+            setUpUserView();
+
             function getRandomInt(max) {
                 return Math.floor(Math.random() * max);
             }
@@ -716,6 +798,7 @@
                 if (selectedIndex != i) {
                     alertNoMoneyUpgrade.style.display = "none";
                 }
+             
                 selectUpgrade.style.display = "contents";
 
                 selectedSpace = space.currentTarget;
@@ -787,9 +870,8 @@
             //minnerTank.addEventListener("click", createNewMinnerTank);
 
             function bulidSpace(space, i) {
-                closeUpgradeMenu();
                 alertNoMoney.style.display = "none";
-                
+                closeUpgradeMenu();
                 selectToBuild.style.display = "contents";
 
                 selectedSpace = space.currentTarget;
@@ -1684,19 +1766,10 @@
                 }, 2000);
             }
 
-            function setUpUserView(){
-                document.querySelectorAll(".armourSub").forEach(function(e){
-                    e.style.lineHeight = window.getComputedStyle(e).getPropertyValue('height');
-                    e.style.visibility = "visible";
-                })
-                armourSpaceDiv.style.width = parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[0]).getPropertyValue('width'))*5+41+"px";
-                console.log(window.getComputedStyle(document.querySelectorAll(".armourSub")[0]).getPropertyValue('width'));
-            }
-
-            setUpUserView();
-
             var chrono = document.getElementById("mainChrono");
             var chronoInterval;
+
+            var d;
 
             function startChrono(){
                 chronoInterval = setInterval(function(){
@@ -1705,10 +1778,16 @@
                 }, 100);
             }
             
+            var stratGameMainDiv = document.getElementById("divPreStartGame");
 
             // RUN THE GAME
 
             function startGame(){
+
+                d = new Date().getTime();
+
+                stratGameMainDiv.style.display = "none";
+
                 createIntervalSpawnVirus(difficultySpawn);
 
                 createDifficultyInterval();
