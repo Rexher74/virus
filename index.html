@@ -1923,34 +1923,39 @@
 
             var gameStatePaused = false;
 
+            var timePaused;
+
             function pauseGame(){
-                closeBuyMenu();
-                closeUpgradeMenu();
-                gameStatePaused = true;
-                clearInterval(intervalDifficulty);
-                clearInterval(intervalVirus);
-                clearInterval(mainMoneyInterval);
-                clearInterval(controlBossSpawnInterval);
-                clearInterval(chronoInterval);
+                if (!gameStatePaused) {
+                    timePaused = new Date().getTime();
+                    closeBuyMenu();
+                    closeUpgradeMenu();
+                    gameStatePaused = true;
+                    clearInterval(intervalDifficulty);
+                    clearInterval(intervalVirus);
+                    clearInterval(mainMoneyInterval);
+                    clearInterval(controlBossSpawnInterval);
+                    clearInterval(chronoInterval);
 
-                for (var i = 0; i < 30; ++i) {
-                    clearInterval(spacesIntervals[i]);
-                    clearInterval(spacesIntervals[i]);
+                    for (var i = 0; i < 30; ++i) {
+                        clearInterval(spacesIntervals[i]);
+                        clearInterval(spacesIntervals[i]);
+                    }
+
+                    document.querySelectorAll(".enemy").forEach(function(ele){
+                        let animationsVirus = ele.getAnimations();
+                        if (animationsVirus.length == 1) {
+                            animationsVirus[0].pause();
+                        }
+                        else {
+                            animationsVirus[1].pause();
+                        }
+                    });
+
+                    document.querySelectorAll(".bulletType").forEach(function(ele){
+                        ele.getAnimations()[0].pause();
+                    });
                 }
-
-                document.querySelectorAll(".enemy").forEach(function(ele){
-                    let animationsVirus = ele.getAnimations();
-                    if (animationsVirus.length == 1) {
-                        animationsVirus[0].pause();
-                    }
-                    else {
-                        animationsVirus[1].pause();
-                    }
-                });
-
-                document.querySelectorAll(".bulletType").forEach(function(ele){
-                    ele.getAnimations()[0].pause();
-                });
             }   
 
             function reanudeGame(){
@@ -1958,6 +1963,11 @@
                 window.removeEventListener("contextmenu", reanudeGame);
                 if (gameStatePaused) {
                     gameStatePaused = false;
+
+                    let currentTimeReanuded = new Date().getTime();
+
+                    d += (currentTimeReanuded-timePaused);
+
                     createIntervalSpawnVirus(difficultySpawn);
 
                     createDifficultyInterval(eqDiffChange[currentDiffString]);
