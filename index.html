@@ -333,6 +333,7 @@
                 padding: 30px;
                 border-radius: 20px;
                 background-color: rgb(200, 200, 200);
+                min-width: 525px;
             }
 
             #mainTitleStartGame{
@@ -361,7 +362,7 @@
                 cursor: pointer;
                 width: 100px;
                 border-radius: 30px;
-                padding: 20px;
+                padding: 17.5px;
                 text-align: center;
                 margin: auto;
                 margin-top: 20px;
@@ -469,26 +470,26 @@
             <div id="divPresentationGame">
                 <div id="mainTitleStartGame"><i class="fa-solid fa-virus"></i> Virutz <i class="fa-solid fa-virus"></i></i></div>
                 <div id="instructionsSetStartGame">
-                    <span id="instructionsHeader">Instructions</span>
-                    <div id="instructionsMain">
+                    <span id="instructionsHeader">How to Play <i id="arrowDownInstructions" style="cursor: pointer; font-size: 20px;" class="fa-solid fa-chevron-down" onclick="toggleInstructions()"></i></span>
+                    <div id="instructionsMain" style="display: none">
                         <strong>Objective:</strong> eliminate viruses and resist as long as possible.<br>
                         To do this, you have six types of structures:<br>
                         BASIC TANK ( <i class="fa-solid fa-heart"></i> 4/<i class="fa-solid fa-sack-dollar"></i> 200 ): <i>Shoots bullets one at a time.</i><br>
                         ICE TANK ( <i class="fa-solid fa-heart"></i> 3/<i class="fa-solid fa-sack-dollar"></i> 400 ): <i>Slows down viruses and harms them.</i><br>
                         GUNNER TANK ( <i class="fa-solid fa-heart"></i> 5/<i class="fa-solid fa-sack-dollar"></i> 500 ): <i>Fires large bullets that split.</i><br>
                         MULTI TANK ( <i class="fa-solid fa-heart"></i> 7/<i class="fa-solid fa-sack-dollar"></i> 1000 ): <i>Shoots bullets three at a time.</i><br>
-                        GOLDMINE( <i class="fa-solid fa-heart"></i> 3/<i class="fa-solid fa-sack-dollar"></i> 400 ): <i>Gives you 25$ every 2 seconds (at level 1).</i><br>
+                        GOLDMINE( <i class="fa-solid fa-heart"></i> 3/<i class="fa-solid fa-sack-dollar"></i> 400 ): <i>Gives you 25$ every 2 seconds.</i><br>
                         WALL( <i class="fa-solid fa-heart"></i> 15/<i class="fa-solid fa-sack-dollar"></i> 300 ): <i>Prevent viruses from passing.</i><br>
                         <br style="margin-top: 2em; display: inline-block; content: '';">Remember, you earn an extra $25 every 2 seconds and can<br>
-                        upgrade structures by right-clicking, with a maximum level of 7.<br><br style="margin-top: 2em; display: inline-block; content: '';">
-                        <strong>Select the difficulty:</strong><br>
-                        <div id="selectDifficultyDiv">
-                            <div id="elementaryDifficultyDiv" class="optionDifficulty" style="background-color:rgb(0 191 198); border-top-left-radius: 10px; border-bottom-left-radius: 10px;">Elementary</div>
-                            <div id="easyDifficultyDiv" class="optionDifficulty" style="background-color:rgb(122, 191, 47)">Easy</div>
-                            <div id="normalDifficultyDiv" class="optionDifficulty difficultySelectedOptn" style="background-color:rgb(236, 200, 55)">Normal</div>
-                            <div id="hardDifficultyDiv" class="optionDifficulty" style="background-color:rgb(246, 127, 127)">Hard</div>
-                            <div id="impossibleDifficultyDiv" class="optionDifficulty" style="background-color:rgb(170, 0, 0); color: white; border-top-right-radius: 10px; border-bottom-right-radius: 10px;">Impossible</div>
-                        </div>
+                        upgrade structures by right-clicking, with a maximum level of 7.<br>
+                    </div>
+                    <strong style="display: block; margin-top: 15px; margin-bottom: 5px;">Select the difficulty:</strong>
+                    <div id="selectDifficultyDiv">
+                        <div id="elementaryDifficultyDiv" class="optionDifficulty" style="background-color:rgb(0 191 198); border-top-left-radius: 10px; border-bottom-left-radius: 10px;">Elementary</div>
+                        <div id="easyDifficultyDiv" class="optionDifficulty" style="background-color:rgb(122, 191, 47)">Easy</div>
+                        <div id="normalDifficultyDiv" class="optionDifficulty difficultySelectedOptn" style="background-color:rgb(236, 200, 55)">Normal</div>
+                        <div id="hardDifficultyDiv" class="optionDifficulty" style="background-color:rgb(246, 127, 127)">Hard</div>
+                        <div id="impossibleDifficultyDiv" class="optionDifficulty" style="background-color:rgb(170, 0, 0); color: white; border-top-right-radius: 10px; border-bottom-right-radius: 10px;">Impossible</div>
                     </div>
                     <div id="buttonPlayStartGame" onclick="startGame()">PLAY</div>
                 </div>
@@ -579,7 +580,22 @@
             const WALL_SRC = "https://cdn-icons-png.flaticon.com/512/8568/8568552.png";
             const GUNNERTANK_SRC = "https://mblogthumb-phinf.pstatic.net/20160917_195/wmsla2009_14741207470512rgqB_PNG/annilator.png?type=w800";
             const ICETANK_SRC = "https://preview.redd.it/tjaa7j118q521.png?width=293&format=png&auto=webp&s=ad9dcc5b342d5b8f10f169d677a54c91f29424cc";
-            //const MINNERTANK_SRC = "https://static.wikia.nocookie.net/scenexeio/images/9/9e/Shrapnel-Base.png/revision/latest?cb=20220204105239";
+            
+            var instructionsMain = document.getElementById("instructionsMain");
+            var arrowDownInstructions = document.getElementById("arrowDownInstructions");
+
+            function toggleInstructions(){
+                if (instructionsMain.style.display == "block") {
+                    instructionsMain.style.display = "none";
+                    arrowDownInstructions.classList.remove("fa-chevron-up");
+                    arrowDownInstructions.classList.add("fa-chevron-down");
+                }
+                else {
+                    instructionsMain.style.display = "block";
+                    arrowDownInstructions.classList.remove("fa-chevron-down");
+                    arrowDownInstructions.classList.add("fa-chevron-up");
+                }
+            }
 
             var selectToBuild = document.getElementById("selectBulid");
             var selectUpgrade = document.getElementById("selectUpgrade");
