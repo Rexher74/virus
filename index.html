@@ -279,7 +279,7 @@
 
             #gameOverSubDiv{
                 width: 600px;
-                height: 165px;
+                height: 200px;
                 background-color: rgba(0, 0, 0, .2);
                 border-radius: 50px;
                 position: absolute;
@@ -326,7 +326,7 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                background-color: rgba(185, 185, 185, 0.1);
+                background-color: rgba(185, 185, 185, 0.2);
             }
 
             #divPresentationGame{
@@ -337,10 +337,10 @@
 
             #mainTitleStartGame{
                 font-family: "Raleway", sans-serif;
-                font-size: 50px;
+                font-size: 45px;
                 font-weight: 700;
                 text-align: center;
-                margin-bottom: 20px;
+                margin-bottom: 10px;
                 
             }
 
@@ -349,7 +349,7 @@
             }
 
             #instructionsMain{
-                font-size: 20px;
+                font-size: 18px;
                 line-height: 170%;
             }
 
@@ -364,12 +364,49 @@
                 padding: 20px;
                 text-align: center;
                 margin: auto;
-                margin-top: 25px;
+                margin-top: 20px;
                 font-weight: 900;
             }
 
             #buttonPlayStartGame:hover{
                 background: rgb(13, 40, 85);
+            }
+
+            #selectDifficultyDiv{
+                width: 100%;
+                border-radius: 10px;
+                display: flex;
+                margin-top: 5px;
+            }
+
+            .optionDifficulty{
+                width: 20%;
+                text-align: center;
+                padding: 8.5px;
+                box-sizing: border-box;
+                font-size: 17px;
+                font-weight: 700;
+                cursor: pointer;
+                display: flex;
+                align-content: center;
+                justify-content: center;
+                flex-wrap: wrap;
+                min-width: 100px;
+            }
+
+            .difficultySelectedOptn{
+                border: 4px solid black;
+            }
+
+            #difficultyModeGameOver{
+                font-size: 24px;
+                font-weight: 600;
+                font-style: italic;
+            }
+
+            #instructionsHeader{
+                font-size: 27.5px;
+                font-weight: 700;
             }
 
             @keyframes freezeAnimationDiv {
@@ -399,6 +436,31 @@
             @keyframes moveEnemySlow {
                 100% { left: -200px; }
             }
+
+            @media screen and (max-height: 850px) {
+                #instructionsMain{
+                    font-size: 16px;
+                }
+            }
+
+            @media screen and (max-height: 730px) {
+                #instructionsMain{
+                    font-size: 15px;
+                }
+
+                #mainTitleStartGame{
+                    font-size: 40px;
+                }
+
+                #instructionsHeader{
+                    font-size: 22.5px;
+                }
+
+                .optionDifficulty{
+                    font-size: 15px;
+                }
+            }
+
         </style>
     </head>
     <body>
@@ -407,7 +469,7 @@
             <div id="divPresentationGame">
                 <div id="mainTitleStartGame"><i class="fa-solid fa-virus"></i> Virutz <i class="fa-solid fa-virus"></i></i></div>
                 <div id="instructionsSetStartGame">
-                    <span style="font-size: 30px; font-weight: 800;">Instructions</span>
+                    <span id="instructionsHeader">Instructions</span>
                     <div id="instructionsMain">
                         <strong>Objective:</strong> eliminate viruses and resist as long as possible.<br>
                         To do this, you have six types of structures:<br>
@@ -417,11 +479,16 @@
                         MULTI TANK ( <i class="fa-solid fa-heart"></i> 7/<i class="fa-solid fa-sack-dollar"></i> 1000 ): <i>Shoots bullets three at a time.</i><br>
                         GOLDMINE( <i class="fa-solid fa-heart"></i> 3/<i class="fa-solid fa-sack-dollar"></i> 400 ): <i>Gives you 25$ every 2 seconds (at level 1).</i><br>
                         WALL( <i class="fa-solid fa-heart"></i> 15/<i class="fa-solid fa-sack-dollar"></i> 300 ): <i>Prevent viruses from passing.</i><br>
-                        <br>
-                        Keep in mind that you have a extra income of 25$ every<br>
-                        2 seconds, and also that you can upgrade structures<br>
-                        with right click, max level is 7.<br><br>
-                        Feel ready to strat? Press the button and start playing!
+                        <br style="margin-top: 2em; display: inline-block; content: '';">Remember, you earn an extra $25 every 2 seconds and can<br>
+                        upgrade structures by right-clicking, with a maximum level of 7.<br><br style="margin-top: 2em; display: inline-block; content: '';">
+                        <strong>Select the difficulty:</strong><br>
+                        <div id="selectDifficultyDiv">
+                            <div id="elementaryDifficultyDiv" class="optionDifficulty" style="background-color:rgb(0 191 198); border-top-left-radius: 10px; border-bottom-left-radius: 10px;">Elementary</div>
+                            <div id="easyDifficultyDiv" class="optionDifficulty" style="background-color:rgb(122, 191, 47)">Easy</div>
+                            <div id="normalDifficultyDiv" class="optionDifficulty difficultySelectedOptn" style="background-color:rgb(236, 200, 55)">Normal</div>
+                            <div id="hardDifficultyDiv" class="optionDifficulty" style="background-color:rgb(246, 127, 127)">Hard</div>
+                            <div id="impossibleDifficultyDiv" class="optionDifficulty" style="background-color:rgb(170, 0, 0); color: white; border-top-right-radius: 10px; border-bottom-right-radius: 10px;">Impossible</div>
+                        </div>
                     </div>
                     <div id="buttonPlayStartGame" onclick="startGame()">PLAY</div>
                 </div>
@@ -466,7 +533,7 @@
         <div id="gameOverDiv">
             <div id="gameOverSubDiv">
                 <span class="closeGameOverDiv" onclick="this.parentElement.parentElement.style.display='none';">&times;</span> 
-                Game Over!<br><span id="timeResistedGameOver"></span>
+                Game Over!<br><span id="timeResistedGameOver"></span><br><span id="difficultyModeGameOver"></span>
             </div>
         </div>
         <!--<div class="skillsDiv"><div class="buttonFreezeSkill"><img src="https://cdn2.iconfinder.com/data/icons/lil-weather/161/snowflake-512.png" style="width: 25px;height: 25px; margin-right: 5px;">2000$</div></div>-->
@@ -526,7 +593,69 @@
             const LIFES_WALL = 15;
             const LIFES_GUNNER_TANK = 5;
             const LIFES_ICE_TANK = 3;
-            //const LIFES_MINNER_TANK = 5;
+
+            // DIFFICULTY SELCTORS
+            var elementaryDiff = document.getElementById("elementaryDifficultyDiv");
+            var easyDiff = document.getElementById("easyDifficultyDiv");
+            var normalDiff = document.getElementById("normalDifficultyDiv");
+            var hardDiff = document.getElementById("hardDifficultyDiv");
+            var impossibleDiff = document.getElementById("impossibleDifficultyDiv");
+
+            var difficultySpawn;
+
+            var eqDiffIni = {
+                "Elementary": 9000,
+                "Easy": 7000,
+                "Normal": 5500,
+                "Hard": 3750,
+                "Impossible": 2000
+            }
+
+            var eqDiffChange = {
+                "Elementary": 0.98,
+                "Easy": 0.965,
+                "Normal": 0.95,
+                "Hard": 0.93,
+                "Impossible": 0.91
+            }
+
+            var currentSelectedDifficulty = normalDiff;
+            var currentDiffString = "Normal";
+
+            elementaryDiff.addEventListener("click", function(){
+                currentSelectedDifficulty.classList.remove("difficultySelectedOptn");
+                elementaryDiff.classList.add("difficultySelectedOptn");
+                currentSelectedDifficulty = elementaryDiff;
+                currentDiffString = "Elementary";
+            });
+
+            easyDiff.addEventListener("click", function(){
+                currentSelectedDifficulty.classList.remove("difficultySelectedOptn");
+                easyDiff.classList.add("difficultySelectedOptn");
+                currentSelectedDifficulty = easyDiff;
+                currentDiffString = "Easy";
+            });
+
+            normalDiff.addEventListener("click", function(){
+                currentSelectedDifficulty.classList.remove("difficultySelectedOptn");
+                normalDiff.classList.add("difficultySelectedOptn");
+                currentSelectedDifficulty = normalDiff;
+                currentDiffString = "Normal";
+            });
+
+            hardDiff.addEventListener("click", function(){
+                currentSelectedDifficulty.classList.remove("difficultySelectedOptn");
+                hardDiff.classList.add("difficultySelectedOptn");
+                currentSelectedDifficulty = hardDiff;
+                currentDiffString = "Hard";
+            });
+
+            impossibleDiff.addEventListener("click", function(){
+                currentSelectedDifficulty.classList.remove("difficultySelectedOptn");
+                impossibleDiff.classList.add("difficultySelectedOptn");
+                currentSelectedDifficulty = impossibleDiff;
+                currentDiffString = "Impossible";
+            });
 
             // TO BUY SELECTIONS
             var basicTank = document.getElementById("buyBasicTank");
@@ -736,7 +865,6 @@
                     e.style.visibility = "visible";
                 })
                 armourSpaceDiv.style.width = parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[0]).getPropertyValue('width'))*5+41+"px";
-                console.log(window.getComputedStyle(document.querySelectorAll(".armourSub")[0]).getPropertyValue('width'));
             }
 
             setUpUserView();
@@ -753,6 +881,7 @@
 
             var timeResisted = document.getElementById("timeResistedGameOver");
             var gameOverDiv = document.getElementById("gameOverDiv");
+            var diffGameOver = document.getElementById("difficultyModeGameOver");
 
             function endGame(){
                 closeBuyMenu();
@@ -772,6 +901,7 @@
                 let newCurrentDate = new Date().getTime();
                 gameOverDiv.style.display = "contents";
                 timeResisted.textContent = "You resisted "+Math.round((newCurrentDate-d)/1000, 2)+" seconds";
+                diffGameOver.textContent = "In "+currentDiffString+" difficulty";
             }
 
             function closeBuyMenu(){
@@ -1679,8 +1809,6 @@
                 }
             }
 
-            var difficultySpawn = 6000;
-
             var intervalVirus;
             function createIntervalSpawnVirus(difficultySpawn){
                 intervalVirus = setInterval(function(){
@@ -1733,10 +1861,10 @@
             }
             
             var intervalDifficulty;
-            function createDifficultyInterval(){
+            function createDifficultyInterval(diffChange){
                 intervalDifficulty = setInterval(function(){
                     clearInterval(intervalVirus);
-                    difficultySpawn*=0.95;
+                    difficultySpawn*=diffChange;
                     createIntervalSpawnVirus(difficultySpawn);
                 }, 10000)
             }
@@ -1777,7 +1905,6 @@
                     chrono.textContent = (parseFloat(currentTime-d)/1000 + 0.1).toFixed(1).toString();
                 }, 100);
             }
-
             
             var stratGameMainDiv = document.getElementById("divPreStartGame");
 
@@ -1789,9 +1916,11 @@
 
                 stratGameMainDiv.style.display = "none";
 
+                difficultySpawn = eqDiffIni[currentDiffString];
+
                 createIntervalSpawnVirus(difficultySpawn);
 
-                createDifficultyInterval();
+                createDifficultyInterval(eqDiffChange[currentDiffString]);
 
                 createMainMoneyInterval();
 
@@ -1799,7 +1928,7 @@
 
                 startChrono();
             }
-            
+
         </script>
     </body>
     <!--Copyright Alex Mangues Rubia 2024-->
