@@ -6,7 +6,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
         <title>Game</title>
         <style>
-            
             html{
                 margin: 0;
             }
@@ -411,6 +410,23 @@
                 font-weight: 700;
             }
 
+            #gamePausedDiv{
+                position: absolute;
+                display: none;
+                width: 100vw;
+                height: 100vh;
+                background: rgba(0,0,0,.3);
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+            }
+
+            .basicText{
+                font-family: "Raleway", sans-serif;
+                font-size: 25px;
+                font-weight: 700;
+            }
+
             @keyframes freezeAnimationDiv {
                 100% { left: 3000px; }
             }
@@ -466,6 +482,7 @@
         </style>
     </head>
     <body>
+        <div id="gamePausedDiv"><i class="fa-solid fa-pause" style="font-size: 80px;"></i><br><span class="basicText">Click anywhere to reanude the game</span></div>
         <div id="divPreStartGame">
             <div id="divPresentationGame">
                 <div id="mainTitleStartGame"><i class="fa-solid fa-virus"></i> Virutz <i class="fa-solid fa-virus"></i></i></div>
@@ -481,7 +498,7 @@
                         GOLDMINE( <i class="fa-solid fa-heart"></i> 3/<i class="fa-solid fa-sack-dollar"></i> 400 ): <i>Gives you 25$ every 2 seconds.</i><br>
                         WALL( <i class="fa-solid fa-heart"></i> 15/<i class="fa-solid fa-sack-dollar"></i> 300 ): <i>Prevent viruses from passing.</i><br>
                         <br style="margin-top: 2em; display: inline-block; content: '';">Remember, you earn an extra $25 every 2 seconds and can<br>
-                        upgrade structures by right-clicking, with a maximum level of 7.<br>
+                        upgrade structures by right-clicking, with a maximum level of 7.<br>Also remember you can pause the game by leaving this window.<br>
                     </div>
                     <!--<strong style="display: block; margin-top: 15px; margin-bottom: 5px;">Select the difficulty:</strong>-->
                     <div id="selectDifficultyDiv">
@@ -572,6 +589,14 @@
         </div>
         <script src="https://kit.fontawesome.com/8378f11a1e.js" crossorigin="anonymous"></script>
         <script>
+
+            var moveEnemyKeyFrames = [
+                { left: "-60px" }
+            ];
+
+            var moveEnemySlowKeyFrames = [
+                { left: "-200px" }
+            ];
 
             // SRC's
             const BASICTANK_SRC = "https://preview.redd.it/vq62mhb27q521.png?width=281&format=png&auto=webp&s=9aaf5903544521d61590959a4aa89109c13431f3";
@@ -1248,22 +1273,39 @@
                 document.querySelectorAll(".enemy").forEach(function(virus){
                     document.querySelectorAll(".bulletType").forEach(function(bullet){
                         if (colision(virus, bullet)) {
-                            if (bullet.classList.contains("iceBulletStyle")){
+                            if (bullet.classList.contains("iceBulletStyle") && virus.dataset.slowed == "false"){
+                                console.log("aa")
                                 if (virus.classList.contains("enemyBasic")){
-                                    virus.style.animation = "moveEnemy 30s linear paused, moveEnemy 46s linear";
+                                    virus.getAnimations()[0].pause();
+                                    virus.animate(moveEnemyKeyFrames, {
+                                        duration: 46000,
+                                    })
                                     virus.style.color = "#72E5FF";
+                                    console.log("aa1")
                                 }
                                 else if (virus.classList.contains("enemySlow")){
-                                    virus.style.animation = "moveEnemySlow 45s linear paused, moveEnemy 62s linear";
+                                    virus.getAnimations()[0].pause();
+                                    virus.animate(moveEnemySlowKeyFrames, {
+                                        duration: 62000,
+                                    })
                                     virus.style.color = "#72E5FF";
+                                    console.log("aa2")
                                 }
                                 else if (virus.classList.contains("enemySuperSlow")){
-                                    virus.style.animation = "moveEnemySlow 200s linear paused, moveEnemySlow 245s linear";
+                                    virus.getAnimations()[0].pause();
+                                    virus.animate(moveEnemySlowKeyFrames, {
+                                        duration: 300000,
+                                    })
                                     virus.style.color = "#72E5FF";
+                                    console.log("hh")
                                 }
                                 else if (virus.classList.contains("enemySuperFast")){
-                                    virus.style.animation = "moveEnemy 10s linear paused, moveEnemy 22s linear";
+                                    virus.getAnimations()[0].pause();
+                                    virus.animate(moveEnemySlowKeyFrames, {
+                                        duration: 22000,
+                                    })
                                     virus.style.color = "#72E5FF";
+                                    console.log("aa3")
                                 }
                                 virus.dataset.slowed = "true";
                             }
@@ -1857,6 +1899,7 @@
                 newVirus.classList.add("enemy");
                 newVirus.classList.add("enemySuperSlow");
                 newVirus.dataset.lifes = 3;
+                newVirus.dataset.slowed = "false";
 
                 newVirus.style.fontSize = size+"px";
                 newVirus.style.color = "#FF9F9F";
@@ -1926,8 +1969,11 @@
 
             var timePaused;
 
+            var pausedMainIconDiv = document.getElementById("gamePausedDiv");
+
             function pauseGame(){
                 if (!gameStatePaused) {
+                    pausedMainIconDiv.style.display = "flex";
                     timePaused = new Date().getTime();
                     closeBuyMenu();
                     closeUpgradeMenu();
@@ -1949,7 +1995,9 @@
                             animationsVirus[0].pause();
                         }
                         else {
+                            animationsVirus[0].pause();
                             animationsVirus[1].pause();
+                            console.log(animationsVirus);
                         }
                     });
 
@@ -1963,6 +2011,7 @@
                 window.removeEventListener("click", reanudeGame);
                 window.removeEventListener("contextmenu", reanudeGame);
                 if (gameStatePaused) {
+                    pausedMainIconDiv.style.display = "none";
                     gameStatePaused = false;
 
                     let currentTimeReanuded = new Date().getTime();
@@ -1990,6 +2039,7 @@
                         }
                         else {
                             animationsVirus[1].play();
+                            console.log(animationsVirus);
                         }
                     });
 
