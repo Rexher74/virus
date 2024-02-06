@@ -1748,20 +1748,28 @@
                 }
             }
 
+
+
             var controlBossSpawnInterval;
             var bossSpawnCount = 1;
+            var lastControlBossSpawn = new Date().getTime();
             function controlBossSpawning(){
                 controlBossSpawnInterval = setInterval(function(){
-                    let actualTimeBoss = new Date().getTime();
-                    if (actualTimeBoss - d >= 300000) {
-                        for(var i = 10000; i <= bossSpawnCount*10000; i+=10000) {
-                            setTimeout(function(){
-                                spawnVirusBoss(1200);
-                            }, 10000+i);
+                    var actualTimeBoss = new Date().getTime();
+                    if (actualTimeBoss - d >= 400000) {
+                        if (actualTimeBoss - lastControlBossSpawn > 200000) {
+                            console.log("entered");
+                            lastControlBossSpawn = actualTimeBoss;
+                            for(var i = 10000; i <= bossSpawnCount*10000; i+=10000) {
+                                setTimeout(function(){
+                                    spawnVirusBoss(1200);
+                                }, 10000+i);
+                            }
+                            bossSpawnCount++;
+
                         }
-                        bossSpawnCount++;
                     }
-                }, 120000);
+                }, 1000);
             }
 
             function spawnDisease(horde=false, pos=getRandomInt(window.innerHeight-5)+5) {
@@ -1867,28 +1875,32 @@
                 }
             }
 
+            function spawnVirusTime(){
+                let currentTime = new Date().getTime();
+                if (currentTime - d < 60000) {
+                    spawnVirus(true, false, false, false, false, false);
+                }
+                else if (currentTime - d < 120000) {
+                    spawnVirus(true, true, false, false, false, false);
+                }
+                else if (currentTime - d < 180000){
+                    spawnVirus(true, true, true, false, false, false);
+                }
+                else if (currentTime - d < 240000){
+                    spawnVirus(true, true, true, true, false, false);
+                }
+                else if (currentTime - d < 300000){
+                    spawnVirus(true, true, true, true, true, false);
+                }
+                else {
+                    spawnVirus(true, true, true, true, true, true);
+                }
+            }
+
             var intervalVirus;
             function createIntervalSpawnVirus(difficultySpawn){
                 intervalVirus = setInterval(function(){
-                    let currentTime = new Date().getTime();
-                    if (currentTime - d < 60000) {
-                        spawnVirus(true, false, false, false, false, false);
-                    }
-                    else if (currentTime - d < 120000) {
-                        spawnVirus(true, true, false, false, false, false);
-                    }
-                    else if (currentTime - d < 180000){
-                        spawnVirus(true, true, true, false, false, false);
-                    }
-                    else if (currentTime - d < 240000){
-                        spawnVirus(true, true, true, true, false, false);
-                    }
-                    else if (currentTime - d < 300000){
-                        spawnVirus(true, true, true, true, true, false);
-                    }
-                    else {
-                        spawnVirus(true, true, true, true, true, true);
-                    }
+                    spawnVirusTime();
                 }, difficultySpawn);
             }
 
@@ -2011,6 +2023,7 @@
                 window.removeEventListener("click", reanudeGame);
                 window.removeEventListener("contextmenu", reanudeGame);
                 if (gameStatePaused) {
+                    spawnVirusTime();
                     pausedMainIconDiv.style.display = "none";
                     gameStatePaused = false;
 
