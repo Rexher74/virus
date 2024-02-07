@@ -62,7 +62,7 @@
                 border: 2px solid rgba(0, 0, 0, 0.05);
                 border-radius: 10px;
                 box-sizing: border-box;
-                display: inline-block;
+                display: inline-flex;
                 text-align: center;
                 font-family: "Raleway", sans-serif;
                 font-size: 125%;
@@ -289,12 +289,12 @@
                 display: flex;
                 flex-wrap: wrap;
                 align-items: center;
-                justify-content: space-evenly;
+                justify-content: center;
                 z-index: 100;
+                padding: 30px;
                 font-family: "Raleway", sans-serif;
                 font-size: 40px;
                 font-weight: 700;
-                padding: 30px;
             }
 
             /*.divFreezeAllAnimation{
@@ -427,6 +427,70 @@
                 font-weight: 700;
             }
 
+            /*.levelTagUp {
+                bottom: 20%;
+            }
+
+            .levelTagDown {
+                bottom: 17.5%;
+            }
+
+            .levelArmourTag{
+                position: relative;
+                left: 10%;
+                transform: translateX(-50%);
+                background-color: #8b8b8b00;
+                padding: 5px;
+                width: 10%;
+                line-height: 100%;
+                font-size: 15px;
+                margin: auto;
+                color: rgba(0, 0, 0, 0.5);
+                font-family: "Raleway", sans-serif;
+                font-weight: 700;
+                border-radius: 50%;
+            }*/
+
+            .leaderboardUser {
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                font-size: 45px;
+                color: rgb(135 135 135);
+                cursor: pointer;
+            }
+
+            #userBestMarksDiv{
+                position: relative;
+                display: none;
+                padding: 50px;
+                background-color: rgb(200, 200, 200);
+                border-radius: 10px;
+            }
+
+            .titleUserBestMarks{
+                text-align: center;
+                margin-bottom: 20px;
+                font-size: 50px;
+                font-family: "Raleway", sans-serif;
+                font-weight: 700;
+            }
+
+            .difficultylevelBestMarks{
+                font-size: 30px;
+                font-family: "Raleway", sans-serif;
+                font-weight: 500;
+                line-height: 175%;
+            }
+
+            #xMark_userBestMarks{
+                position: absolute;
+                top: 5%;
+                right: 5%;
+                font-size: 25px;
+                cursor: pointer;
+            }
+
             @keyframes freezeAnimationDiv {
                 100% { left: 3000px; }
             }
@@ -484,15 +548,27 @@
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-RFZM98L10H"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-RFZM98L10H');
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        
+        gtag('config', 'G-RFZM98L10H');
     </script>
     <body>
-        <div id="gamePausedDiv"><i class="fa-solid fa-pause" style="font-size: 80px;"></i><br><span class="basicText">Click anywhere to reanude the game</span></div>
+        <div id="gamePausedDiv"><i class="fa-solid fa-pause" style="font-size: 80px;"></i><br><span class="basicText">Click anywhere to resume the game</span></div>
         <div id="divPreStartGame">
+            <i id="leaderBoardUserBestMarksIcon" class="fa-solid fa-ranking-star leaderboardUser" onclick="showBestMarksUser()"></i>
+
+            <div id="userBestMarksDiv">
+                <i id="xMark_userBestMarks" class="fa-solid fa-circle-xmark" onclick="closeBestMarkUserMenu()"></i>
+                <div class="titleUserBestMarks">Best Marks</div>
+                <div class="difficultylevelBestMarks"><span style="font-weight: 700; font-style: italic;">Elementary: </span><span id="bestMarkElementary">332 seconds</span></div>
+                <div class="difficultylevelBestMarks"><span style="font-weight: 700; font-style: italic;">Easy: </span><span id="bestMarkEasy">-</span></div>
+                <div class="difficultylevelBestMarks"><span style="font-weight: 700; font-style: italic;">Normal: </span><span id="bestMarkNormal">856 seconds</span></div>
+                <div class="difficultylevelBestMarks"><span style="font-weight: 700; font-style: italic;">Hard: </span><span id="bestMarkHard">761 seconds</span></div>
+                <div class="difficultylevelBestMarks"><span style="font-weight: 700; font-style: italic;">Impossible: </span><span id="bestMarkImpossible">1569 seconds</span></div>
+            </div>
+
             <div id="divPresentationGame">
                 <div id="mainTitleStartGame"><i class="fa-solid fa-virus"></i> Virutz <i class="fa-solid fa-virus"></i></i></div>
                 <div id="instructionsSetStartGame">
@@ -559,7 +635,7 @@
         <div id="gameOverDiv">
             <div id="gameOverSubDiv">
                 <span class="closeGameOverDiv" onclick="this.parentElement.parentElement.style.display='none';">&times;</span> 
-                Game Over!<br><span id="timeResistedGameOver"></span><br><span id="difficultyModeGameOver"></span>
+                <span id="gameOverOrNewRecordSpan">Game Over!</span><br><span id="timeResistedGameOver"></span><br><span id="difficultyModeGameOver"></span>
             </div>
         </div>
         <!--<div class="skillsDiv"><div class="buttonFreezeSkill"><img src="https://cdn2.iconfinder.com/data/icons/lil-weather/161/snowflake-512.png" style="width: 25px;height: 25px; margin-right: 5px;">2000$</div></div>-->
@@ -597,6 +673,8 @@
         </div>
         <script src="https://kit.fontawesome.com/8378f11a1e.js" crossorigin="anonymous"></script>
         <script>
+
+            // KEYFRAMES
 
             var moveEnemyKeyFrames = [
                 { left: "-60px" }
@@ -705,6 +783,65 @@
                 currentSelectedDifficulty = impossibleDiff;
                 currentDiffString = "Impossible";
             });
+
+            // BEST MARKS USER
+
+            var userBestMarksDiv = document.getElementById("userBestMarksDiv");
+            var divPresentationGame = document.getElementById("divPresentationGame");
+            var iconShowBestMarks = document.getElementById("leaderBoardUserBestMarksIcon");
+
+            var BMElementary = document.getElementById("bestMarkElementary");
+            var BMEasy = document.getElementById("bestMarkEasy");
+            var BMNormal = document.getElementById("bestMarkNormal");
+            var BMHard = document.getElementById("bestMarkHard");
+            var BMImpossible = document.getElementById("bestMarkImpossible");
+
+            function showBestMarksUser() {
+                userBestMarksDiv.style.display = "block";
+                divPresentationGame.style.display = "none";
+                iconShowBestMarks.style.display = "none";
+
+                if (localStorage.getItem("bestMarkElementary") != null) {
+                    BMElementary.textContent = localStorage.getItem("bestMarkElementary")+" seconds";
+                }
+                else {
+                    BMElementary.textContent = "(Not played yet)";
+                }
+
+                if (localStorage.getItem("bestMarkEasy") != null) {
+                    BMEasy.textContent = localStorage.getItem("bestMarkEasy")+" seconds";
+                }
+                else {
+                    BMEasy.textContent = "(Not played yet)";
+                }
+
+                if (localStorage.getItem("bestMarkNormal") != null) {
+                    BMNormal.textContent = localStorage.getItem("bestMarkNormal")+" seconds";
+                }
+                else {
+                    BMNormal.textContent = "(Not played yet)";
+                }
+
+                if (localStorage.getItem("bestMarkHard") != null) {
+                    BMHard.textContent = localStorage.getItem("bestMarkHard")+" seconds";
+                }
+                else {
+                    BMHard.textContent = "(Not played yet)";
+                }
+
+                if (localStorage.getItem("bestMarkImpossible") != null) {
+                    BMImpossible.textContent = localStorage.getItem("bestMarkImpossible")+" seconds";
+                }
+                else {
+                    BMImpossible.textContent = "(Not played yet)";
+                }
+            }
+
+            function closeBestMarkUserMenu() {
+                userBestMarksDiv.style.display = "none";
+                divPresentationGame.style.display = "block";
+                iconShowBestMarks.style.display = "block";
+            }
 
             // TO BUY SELECTIONS
             var basicTank = document.getElementById("buyBasicTank");
@@ -932,7 +1069,12 @@
             var gameOverDiv = document.getElementById("gameOverDiv");
             var diffGameOver = document.getElementById("difficultyModeGameOver");
 
+            var endGameVar = false;
+
+            var gameOverOrNewRecord = document.getElementById("gameOverOrNewRecordSpan");
+
             function endGame(){
+                endGameVar = true;
                 closeBuyMenu();
                 closeUpgradeMenu();
                 lifesCounterDOC.textContent = 0;
@@ -948,9 +1090,24 @@
                     ele.remove();
                 })
                 let newCurrentDate = new Date().getTime();
+                let timeResistedByUser = Math.round((newCurrentDate-d)/1000, 2);
                 gameOverDiv.style.display = "contents";
-                timeResisted.textContent = "You resisted "+Math.round((newCurrentDate-d)/1000, 2)+" seconds";
+                timeResisted.textContent = "You resisted "+timeResistedByUser+" seconds";
                 diffGameOver.textContent = "In "+currentDiffString+" difficulty";
+                gameOverOrNewRecord.textContent = "Game Over!";
+
+                let currentBestMark = localStorage.getItem("bestMark"+currentDiffString);
+                if (currentBestMark == null) {
+                    gameOverOrNewRecord.textContent = "New Record!";
+                    localStorage.setItem("bestMark"+currentDiffString, timeResistedByUser);
+                }
+                else {
+                    if (timeResistedByUser > currentBestMark) {
+                        gameOverOrNewRecord.textContent = "New Record!";
+                        localStorage.setItem("bestMark"+currentDiffString, timeResistedByUser);
+                    }
+                }
+
             }
 
             function closeBuyMenu(){
@@ -1032,7 +1189,13 @@
                     else if (type == 6) {
                         createIntervalIceTank(index, relationUpgradeSkills[spacesToBuy[index]][levelsSpaces[index]]);
                     }
+
                     levelsSpaces[index]++;
+
+                    /*if (type != 4) {
+                        document.getElementsByClassName("armourSub")[index].firstChild.children[1].textContent = levelsSpaces[index];
+                    }*/
+
                 }
                 else {
                     alertNoMoneyUpgrade.innerHTML = `<span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span>Not Enough Money!`
@@ -1070,7 +1233,7 @@
                 );
             }
 
-            function freezeAll(time) {
+            /*function freezeAll(time) {
                 var freezeDivAnimation = document.createElement("div");
                 freezeDivAnimation.classList.add("divFreezeAllAnimation");
                 document.body.appendChild(freezeDivAnimation);
@@ -1089,7 +1252,7 @@
                         ele.style.animationPlayState = "running";
                     })
                 }, time+350)
-            }
+            }*/
 
             var listSpacesQuery = document.querySelectorAll(".armourSub");
 
@@ -1282,14 +1445,12 @@
                     document.querySelectorAll(".bulletType").forEach(function(bullet){
                         if (colision(virus, bullet)) {
                             if (bullet.classList.contains("iceBulletStyle") && virus.dataset.slowed == "false"){
-                                console.log("aa")
                                 if (virus.classList.contains("enemyBasic")){
                                     virus.getAnimations()[0].pause();
                                     virus.animate(moveEnemyKeyFrames, {
                                         duration: 46000,
                                     })
                                     virus.style.color = "#72E5FF";
-                                    console.log("aa1")
                                 }
                                 else if (virus.classList.contains("enemySlow")){
                                     virus.getAnimations()[0].pause();
@@ -1297,7 +1458,6 @@
                                         duration: 62000,
                                     })
                                     virus.style.color = "#72E5FF";
-                                    console.log("aa2")
                                 }
                                 else if (virus.classList.contains("enemySuperSlow")){
                                     virus.getAnimations()[0].pause();
@@ -1305,7 +1465,6 @@
                                         duration: 300000,
                                     })
                                     virus.style.color = "#72E5FF";
-                                    console.log("hh")
                                 }
                                 else if (virus.classList.contains("enemySuperFast")){
                                     virus.getAnimations()[0].pause();
@@ -1313,7 +1472,6 @@
                                         duration: 22000,
                                     })
                                     virus.style.color = "#72E5FF";
-                                    console.log("aa3")
                                 }
                                 virus.dataset.slowed = "true";
                             }
@@ -1512,6 +1670,14 @@
                             spacesToBuy[selectedIndex] = 1;
     
                             createIntervalBullet(selectedIndex, 1);
+
+                            // SHOW LEVEL
+                            /*let newLevelTag = document.createElement("div");
+                            newLevelTag.classList.add("levelArmourTag");
+                            newLevelTag.classList.add("levelTagUp");
+                            newLevelTag.textContent = 1;
+                            selectedSpace.firstChild.appendChild(newLevelTag);*/
+
                         }
                         else {
                             alertNoMoney.innerHTML = `<span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span>You have already built the maximum number of this type of structure!`
@@ -1556,7 +1722,14 @@
     
                             spacesToBuy[selectedIndex] = 2;
     
-                            createIntervalBullet(selectedIndex, 2)
+                            createIntervalBullet(selectedIndex, 2);
+
+                            // SHOW LEVEL
+                            /*let newLevelTag = document.createElement("div");
+                            newLevelTag.classList.add("levelArmourTag");
+                            newLevelTag.classList.add("levelTagUp");
+                            newLevelTag.textContent = 1;
+                            selectedSpace.firstChild.appendChild(newLevelTag);*/
                         }
                         else {
                             alertNoMoney.innerHTML = `<span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span>You have already built the maximum number of this type of structure!`
@@ -1602,6 +1775,13 @@
                             spacesToBuy[selectedIndex] = 5;
     
                             createIntervalBullet(selectedIndex, 5);
+                            
+                            // SHOW LEVEL
+                            /*let newLevelTag = document.createElement("div");
+                            newLevelTag.classList.add("levelArmourTag");
+                            newLevelTag.classList.add("levelTagUp");
+                            newLevelTag.textContent = 1;
+                            selectedSpace.firstChild.appendChild(newLevelTag);*/
                         }
                         else {
                             alertNoMoney.innerHTML = `<span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span>You have already built the maximum number of this type of structure!`
@@ -1647,6 +1827,13 @@
                             spacesToBuy[selectedIndex] = 6;
     
                             createIntervalBullet(selectedIndex, 6);
+                            
+                            // SHOW LEVEL
+                            /*let newLevelTag = document.createElement("div");
+                            newLevelTag.classList.add("levelArmourTag");
+                            newLevelTag.classList.add("levelTagDown");
+                            newLevelTag.textContent = 1;
+                            selectedSpace.firstChild.appendChild(newLevelTag);*/
                         }
                         else {
                             alertNoMoney.innerHTML = `<span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span>You have already built the maximum number of this type of structure!`
@@ -1694,6 +1881,13 @@
                             clearInterval(spacesIntervals[selectedIndex]);
     
                             createIntervalGoldmine(selectedIndex, relationUpgradeSkills[3][0]);
+                            
+                            // SHOW LEVEL
+                            /*let newLevelTag = document.createElement("div");
+                            newLevelTag.classList.add("levelArmourTag");
+                            newLevelTag.classList.add("levelTagDown");
+                            newLevelTag.textContent = 1;
+                            selectedSpace.firstChild.appendChild(newLevelTag);*/
                         }
                         else {
                             alertNoMoney.innerHTML = `<span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span>You have already built the maximum number of this type of structure!`
@@ -1766,7 +1960,6 @@
                     var actualTimeBoss = new Date().getTime();
                     if (actualTimeBoss - d >= 400000) {
                         if (actualTimeBoss - lastControlBossSpawn > 200000) {
-                            console.log("entered");
                             lastControlBossSpawn = actualTimeBoss;
                             for(var i = 10000; i <= bossSpawnCount*10000; i+=10000) {
                                 setTimeout(function(){
@@ -1992,7 +2185,7 @@
             var pausedMainIconDiv = document.getElementById("gamePausedDiv");
 
             function pauseGame(){
-                if (!gameStatePaused) {
+                if (!gameStatePaused && !endGameVar) {
                     pausedMainIconDiv.style.display = "flex";
                     timePaused = new Date().getTime();
                     closeBuyMenu();
@@ -2017,7 +2210,6 @@
                         else {
                             animationsVirus[0].pause();
                             animationsVirus[1].pause();
-                            console.log(animationsVirus);
                         }
                     });
 
@@ -2030,7 +2222,7 @@
             function reanudeGame(){
                 window.removeEventListener("click", reanudeGame);
                 window.removeEventListener("contextmenu", reanudeGame);
-                if (gameStatePaused) {
+                if (gameStatePaused && !endGameVar) {
                     spawnVirusTime();
                     pausedMainIconDiv.style.display = "none";
                     gameStatePaused = false;
@@ -2060,7 +2252,6 @@
                         }
                         else {
                             animationsVirus[1].play();
-                            console.log(animationsVirus);
                         }
                     });
 
