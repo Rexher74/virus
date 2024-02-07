@@ -674,8 +674,6 @@
         <script src="https://kit.fontawesome.com/8378f11a1e.js" crossorigin="anonymous"></script>
         <script>
 
-            const windowWidth = window.innerWidth;
-
             // TIMER
             var Timer = function(callback, delay) {
                 var timerId, start, remaining = delay;
@@ -1470,20 +1468,18 @@
                 }
             }
 
-            const indexSlow = 1.75;
+            const indexSlow = 2;
 
             function animar() {
                 document.querySelectorAll(".enemy").forEach(function(virus){
                     document.querySelectorAll(".bulletType").forEach(function(bullet){
                         if (colision(virus, bullet)) {
                             if (bullet.classList.contains("iceBulletStyle") && virus.dataset.slowed == "false"){
+                                
                                 virus.getAnimations()[0].pause();
                                 virus.style.color = "#72E5FF";
-                                let currentTimeAnimation = new Date().getTime();
 
-                                let totalTimeAnimation = currentTimeAnimation-d-virus.getAnimations()[0].startTime;
-
-                                let timeRemaining = parseInt(window.getComputedStyle(virus).animationDuration)*1000-totalTimeAnimation;
+                                let timeRemaining = (1-virus.getAnimations()[0].effect.getComputedTiming().progress)*parseInt(window.getComputedStyle(virus).animationDuration)*1000;
 
                                 if (virus.classList.contains("enemyBasic")){
                                     virus.animate(moveEnemyKeyFrames, {
@@ -2024,7 +2020,7 @@
                 let sizeSkull = Math.pow(2, size-1)*40;
                 newSkull.style.color = "#393939";
                 newSkull.style.fontSize = sizeSkull+"px";
-                newSkull.style.left = windowWidth+sizeSkull/2+"px"
+                newSkull.style.left = window.innerWidth+sizeSkull/2+"px"
                 newSkull.style.top = getRandomInt(window.innerHeight-2*(sizeSkull+10))+sizeSkull+10+"px";
 
                 newSkull.dataset.lifes = size;
@@ -2055,7 +2051,7 @@
                     newVirus.dataset.slowed = "false";
                     newVirus.classList.add("enemy");
                     newVirus.style.top = pos + "px";
-                    newVirus.style.left = windowWidth+40+"px";
+                    newVirus.style.left = window.innerWidth+40+"px";
                     document.body.appendChild(newVirus);
 
                     newVirus.addEventListener("animationend", function(evt){
@@ -2093,7 +2089,7 @@
                     newVirus.classList.add("fa-virus-covid");
                     newVirus.classList.add("enemySlow");
                     newVirus.style.fontSize = 200+"px";
-                    newVirus.style.left = windowWidth+100+"px";
+                    newVirus.style.left = window.innerWidth+100+"px";
                     typeSpawned = "covid";
                 }
                 else if (Math.random() > 0.91 && diseaseB) {
@@ -2104,14 +2100,14 @@
                     newVirus.classList.add("fa-viruses");
                     newVirus.classList.add("fa-4x");
                     newVirus.classList.add("enemyBasic");
-                    newVirus.style.left = windowWidth+40+"px";
+                    newVirus.style.left = window.innerWidth+40+"px";
                     typeSpawned = "double";
                 }
                 else if (basic){
                     newVirus.classList.add("fa-virus");
                     newVirus.classList.add("fa-4x");
                     newVirus.classList.add("enemyBasic");
-                    newVirus.style.left = windowWidth+40+"px";
+                    newVirus.style.left = window.innerWidth+40+"px";
                     typeSpawned = "basic";
                 }
                 else {
@@ -2184,7 +2180,7 @@
                 newVirus.style.color = "#FF9F9F";
 
                 newVirus.style.top = getRandomInt(window.innerHeight/10)+window.innerHeight/2 + "px";
-                newVirus.style.left =  windowWidth+(size/2)+"px";
+                newVirus.style.left =  window.innerWidth+(size/2)+"px";
 
                 newVirus.addEventListener("animationend", function(evt){
                     currentLifes -= parseInt(evt.currentTarget.style.fontSize)/10;
