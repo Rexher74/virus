@@ -610,6 +610,7 @@
                 <div class="optnToBuyMiniDiv"><img id="buyIceTank" style="width: 115px; cursor: pointer;" src="https://preview.redd.it/tjaa7j118q521.png?width=293&format=png&auto=webp&s=ad9dcc5b342d5b8f10f169d677a54c91f29424cc"><span class="moneyText">400$</span></div>
                 <div class="optnToBuyMiniDiv"><img id="buyGunnerTank" style="width: 150px; cursor: pointer;" src="https://mblogthumb-phinf.pstatic.net/20160917_195/wmsla2009_14741207470512rgqB_PNG/annilator.png?type=w800"><span class="moneyText">500$</span></div>
                 <div class="optnToBuyMiniDiv"><img id="buyMultiTank" style="width: 150px; cursor: pointer" src="https://preview.redd.it/kjgx439g5q521.png?width=293&format=png&auto=webp&s=88ef558ce60a98fe9cc0eff9f92017dd9ec6b7cf" ><span class="moneyText">1000$</span></div>
+                <!--<div class="optnToBuyMiniDiv"><img id="buyMinnerTank" style="width: 110px; cursor: pointer" src="https://static.wikia.nocookie.net/scenexeio/images/9/9e/Shrapnel-Base.png/revision/latest?cb=20220204105239" ><span class="moneyText">1500$</span></div>-->
                 <div class="optnToBuyMiniDiv"><img id="buyGoldmine" style="width: 100px; cursor: pointer" src="docs/assets/goldmine.png"><span class="moneyText">400$</span></div>
                 <div class="optnToBuyMiniDiv"><img id="buyWall" style="width: 100px; cursor: pointer" src="docs/assets/wall.png"><span class="moneyText">300$</span></div>
 
@@ -638,7 +639,6 @@
                 <span id="gameOverOrNewRecordSpan">Game Over!</span><br><span id="timeResistedGameOver"></span><br><span id="difficultyModeGameOver"></span>
             </div>
         </div>
-        <!--<div class="skillsDiv"><div class="buttonFreezeSkill"><img src="https://cdn2.iconfinder.com/data/icons/lil-weather/161/snowflake-512.png" style="width: 25px;height: 25px; margin-right: 5px;">2000$</div></div>-->
         <div id="armourSpace">
             <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
             <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
@@ -674,6 +674,29 @@
         <script src="https://kit.fontawesome.com/8378f11a1e.js" crossorigin="anonymous"></script>
         <script>
 
+            const windowWidth = window.innerWidth;
+
+            // TIMER
+            var Timer = function(callback, delay) {
+                var timerId, start, remaining = delay;
+            
+                this.pause = function() {
+                    window.clearTimeout(timerId);
+                    timerId = null;
+                    remaining -= Date.now() - start;
+                };
+            
+                this.resume = function() {
+                    if (timerId) {
+                        return;
+                    }
+                    start = Date.now();
+                    timerId = window.setTimeout(callback, remaining);
+                };
+            
+                this.resume();
+            };
+
             // KEYFRAMES
 
             var moveEnemyKeyFrames = [
@@ -687,8 +710,8 @@
             // SRC's
             const BASICTANK_SRC = "https://preview.redd.it/vq62mhb27q521.png?width=281&format=png&auto=webp&s=9aaf5903544521d61590959a4aa89109c13431f3";
             const MULTITANK_SRC = "https://preview.redd.it/kjgx439g5q521.png?width=293&format=png&auto=webp&s=88ef558ce60a98fe9cc0eff9f92017dd9ec6b7cf";
-            const GOLDMINE_SRC = "docs/assets/goldmine.png";
-            const WALL_SRC = "docs/assets/wall.png";
+            const GOLDMINE_SRC = "https://cdn-icons-png.freepik.com/512/9110/9110092.png";
+            const WALL_SRC = "https://cdn-icons-png.flaticon.com/512/8568/8568552.png";
             const GUNNERTANK_SRC = "https://mblogthumb-phinf.pstatic.net/20160917_195/wmsla2009_14741207470512rgqB_PNG/annilator.png?type=w800";
             const ICETANK_SRC = "https://preview.redd.it/tjaa7j118q521.png?width=293&format=png&auto=webp&s=ad9dcc5b342d5b8f10f169d677a54c91f29424cc";
             
@@ -1053,6 +1076,8 @@
                 armourSpaceDiv.style.width = parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[0]).getPropertyValue('width'))*5+41+"px";
             }
 
+            window.addEventListener("resize", setUpUserView);
+
             setUpUserView();
 
             function getRandomInt(max) {
@@ -1083,6 +1108,11 @@
                 clearInterval(mainMoneyInterval);
                 clearInterval(controlBossSpawnInterval);
                 clearInterval(chronoInterval);
+
+                for (var i = 0; i < listTimeOutsSpawnBoss.length; i++) {
+                    clearTimeout(listTimeOutsSpawnBoss[i]);
+                }
+
                 for (var i = 0; i < 30; ++i) {
                     clearInterval(spacesIntervals[i]);
                 }
@@ -1440,38 +1470,40 @@
                 }
             }
 
+            const indexSlow = 1.75;
+
             function animar() {
                 document.querySelectorAll(".enemy").forEach(function(virus){
                     document.querySelectorAll(".bulletType").forEach(function(bullet){
                         if (colision(virus, bullet)) {
                             if (bullet.classList.contains("iceBulletStyle") && virus.dataset.slowed == "false"){
+                                virus.getAnimations()[0].pause();
+                                virus.style.color = "#72E5FF";
+                                let currentTimeAnimation = new Date().getTime();
+
+                                let totalTimeAnimation = currentTimeAnimation-d-virus.getAnimations()[0].startTime;
+
+                                let timeRemaining = parseInt(window.getComputedStyle(virus).animationDuration)*1000-totalTimeAnimation;
+
                                 if (virus.classList.contains("enemyBasic")){
-                                    virus.getAnimations()[0].pause();
                                     virus.animate(moveEnemyKeyFrames, {
-                                        duration: 46000,
+                                        duration: timeRemaining*indexSlow,
                                     })
-                                    virus.style.color = "#72E5FF";
                                 }
                                 else if (virus.classList.contains("enemySlow")){
-                                    virus.getAnimations()[0].pause();
                                     virus.animate(moveEnemySlowKeyFrames, {
-                                        duration: 62000,
+                                        duration: timeRemaining*indexSlow,
                                     })
-                                    virus.style.color = "#72E5FF";
                                 }
                                 else if (virus.classList.contains("enemySuperSlow")){
-                                    virus.getAnimations()[0].pause();
                                     virus.animate(moveEnemySlowKeyFrames, {
-                                        duration: 300000,
+                                        duration: timeRemaining*indexSlow,
                                     })
-                                    virus.style.color = "#72E5FF";
                                 }
                                 else if (virus.classList.contains("enemySuperFast")){
-                                    virus.getAnimations()[0].pause();
                                     virus.animate(moveEnemySlowKeyFrames, {
-                                        duration: 22000,
+                                        duration: timeRemaining*indexSlow,
                                     })
-                                    virus.style.color = "#72E5FF";
                                 }
                                 virus.dataset.slowed = "true";
                             }
@@ -1950,7 +1982,7 @@
                 }
             }
 
-
+            var listTimeOutsSpawnBoss = [];
 
             var controlBossSpawnInterval;
             var bossSpawnCount = 1;
@@ -1962,15 +1994,49 @@
                         if (actualTimeBoss - lastControlBossSpawn > 200000) {
                             lastControlBossSpawn = actualTimeBoss;
                             for(var i = 10000; i <= bossSpawnCount*10000; i+=10000) {
-                                setTimeout(function(){
+                                let newTimeOut = new Timer(function() {
                                     spawnVirusBoss(1200);
+                                    listTimeOutsSpawnBoss.shift();
                                 }, 10000+i);
+                                listTimeOutsSpawnBoss.push(newTimeOut);
                             }
                             bossSpawnCount++;
 
                         }
                     }
                 }, 1000);
+            }
+
+            function divideSkull(oldSkull){
+
+
+
+
+                oldSkull.remove();
+            }
+
+            function spawnSkull(size){
+                var newSkull = document.createElement("div");
+                newSkull.classList.add("enemy");
+                newSkull.classList.add("fa-solid");
+                newSkull.classList.add("fa-skull");
+                newSkull.classList.add("enemySlow");
+                let sizeSkull = Math.pow(2, size-1)*40;
+                newSkull.style.color = "#393939";
+                newSkull.style.fontSize = sizeSkull+"px";
+                newSkull.style.left = windowWidth+sizeSkull/2+"px"
+                newSkull.style.top = getRandomInt(window.innerHeight-2*(sizeSkull+10))+sizeSkull+10+"px";
+
+                newSkull.dataset.lifes = size;
+                newSkull.dataset.slowed = "false";
+
+                document.body.appendChild(newSkull);
+
+
+                newSkull.addEventListener("animationend", function(evt){
+                    evt.currentTarget.remove();
+                    endGame();
+                });
             }
 
             function spawnDisease(horde=false, pos=getRandomInt(window.innerHeight-5)+5) {
@@ -1989,7 +2055,7 @@
                     newVirus.dataset.slowed = "false";
                     newVirus.classList.add("enemy");
                     newVirus.style.top = pos + "px";
-                    newVirus.style.left = window.innerWidth+40+"px";
+                    newVirus.style.left = windowWidth+40+"px";
                     document.body.appendChild(newVirus);
 
                     newVirus.addEventListener("animationend", function(evt){
@@ -2027,7 +2093,7 @@
                     newVirus.classList.add("fa-virus-covid");
                     newVirus.classList.add("enemySlow");
                     newVirus.style.fontSize = 200+"px";
-                    newVirus.style.left = window.innerWidth+100+"px";
+                    newVirus.style.left = windowWidth+100+"px";
                     typeSpawned = "covid";
                 }
                 else if (Math.random() > 0.91 && diseaseB) {
@@ -2038,14 +2104,14 @@
                     newVirus.classList.add("fa-viruses");
                     newVirus.classList.add("fa-4x");
                     newVirus.classList.add("enemyBasic");
-                    newVirus.style.left = window.innerWidth+40+"px";
+                    newVirus.style.left = windowWidth+40+"px";
                     typeSpawned = "double";
                 }
                 else if (basic){
                     newVirus.classList.add("fa-virus");
                     newVirus.classList.add("fa-4x");
                     newVirus.classList.add("enemyBasic");
-                    newVirus.style.left = window.innerWidth+40+"px";
+                    newVirus.style.left = windowWidth+40+"px";
                     typeSpawned = "basic";
                 }
                 else {
@@ -2118,7 +2184,7 @@
                 newVirus.style.color = "#FF9F9F";
 
                 newVirus.style.top = getRandomInt(window.innerHeight/10)+window.innerHeight/2 + "px";
-                newVirus.style.left =  window.innerWidth+(size/2)+"px";
+                newVirus.style.left =  windowWidth+(size/2)+"px";
 
                 newVirus.addEventListener("animationend", function(evt){
                     currentLifes -= parseInt(evt.currentTarget.style.fontSize)/10;
@@ -2186,6 +2252,11 @@
 
             function pauseGame(){
                 if (!gameStatePaused && !endGameVar) {
+
+                    for (var i = 0; i < listTimeOutsSpawnBoss.length; i++) {
+                        listTimeOutsSpawnBoss[i].pause();
+                    }
+
                     pausedMainIconDiv.style.display = "flex";
                     timePaused = new Date().getTime();
                     closeBuyMenu();
@@ -2200,6 +2271,10 @@
                     for (var i = 0; i < 30; ++i) {
                         clearInterval(spacesIntervals[i]);
                         clearInterval(spacesIntervals[i]);
+                    }
+
+                    for (var i = 0; i < listTimeOutsSpawnBoss.length; i++) {
+                        clearTimeout(listTimeOutsSpawnBoss[i]);
                     }
 
                     document.querySelectorAll(".enemy").forEach(function(ele){
@@ -2223,6 +2298,11 @@
                 window.removeEventListener("click", reanudeGame);
                 window.removeEventListener("contextmenu", reanudeGame);
                 if (gameStatePaused && !endGameVar) {
+
+                    for (var i = 0; i < listTimeOutsSpawnBoss.length; i++) {
+                        listTimeOutsSpawnBoss[i].resume();
+                    }
+
                     spawnVirusTime();
                     pausedMainIconDiv.style.display = "none";
                     gameStatePaused = false;
