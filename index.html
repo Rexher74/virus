@@ -1099,7 +1099,7 @@
                 artisticName: "Fast & Furious",
                 goalTime: 600000,
                 iniDiffSpawn: 4000,
-                changeDiffSpawn: .975,
+                changeDiffSpawn: 0.97,
                 money: 1000,
                 moneyIntervalEarned: 50,
                 virusTimeline: {
@@ -1109,7 +1109,7 @@
                         params: {
                             skullSize: undefined,
                             bossSize: undefined,
-                            timeAnimation: 15
+                            timeAnimation: 14
                         },
                         diffSpawn: 0,
                         fixedSP: false,
@@ -1122,7 +1122,7 @@
                         params: {
                             skullSize: undefined,
                             bossSize: undefined,
-                            timeAnimation: 10
+                            timeAnimation: 9
                         },
                         diffSpawn: 0,
                         fixedSP: false,
@@ -1139,7 +1139,7 @@
                 artisticName: "Covid Planet",
                 goalTime: 750000,
                 iniDiffSpawn: 7000,
-                changeDiffSpawn: 0.96,
+                changeDiffSpawn: 0.95,
                 money: 2000,
                 moneyIntervalEarned: 50,
                 virusTimeline: {
@@ -1260,7 +1260,7 @@
                 nameLevel: "Level 5",
                 artisticName: "Epidemic",
                 goalTime: 200000,
-                iniDiffSpawn: 2000,
+                iniDiffSpawn: 2250,
                 changeDiffSpawn: 0.9,
                 money: 4000,
                 moneyIntervalEarned: 25,
@@ -1344,7 +1344,7 @@
                 nameLevel: "Level 7",
                 artisticName: "Out Of Control",
                 goalTime: 400000,
-                iniDiffSpawn: 4500,
+                iniDiffSpawn: 4000,
                 changeDiffSpawn: 0.95,
                 money: 1000,
                 moneyIntervalEarned: 100,
@@ -1385,7 +1385,7 @@
                 artisticName: "On and On",
                 goalTime: 600000,
                 iniDiffSpawn: 7500,
-                changeDiffSpawn: 0.935, 
+                changeDiffSpawn: 0.93, 
                 money: 2500,
                 moneyIntervalEarned: 100,
                 virusTimeline: {
@@ -1443,7 +1443,7 @@
                 artisticName: "Skull Cave",
                 goalTime: 800000,
                 iniDiffSpawn: 5000,
-                changeDiffSpawn: 0.955,
+                changeDiffSpawn: 0.95,
                 money: 1500,
                 moneyIntervalEarned: 25,
                 virusTimeline: {
@@ -3161,7 +3161,7 @@
             }
 
 
-            function spawnVirusBoss(size){
+            function spawnVirusBoss(size, animationTime = null){
                 var newVirus = document.createElement("div");
                 newVirus.classList.add("fa-solid");
                 newVirus.classList.add("fa-virus");
@@ -3172,6 +3172,10 @@
 
                 newVirus.style.fontSize = size+"px";
                 newVirus.style.color = "#FF9F9F";
+
+                if (animationTime != null) {
+                    newVirus.style.animationDuration = animationTime+"s";
+                }
 
                 newVirus.style.top = getRandomInt(window.innerHeight-size)+0.5*size+"px";
                 newVirus.style.left =  window.innerWidth+(size/2)+"px";
@@ -3526,10 +3530,10 @@
                 }
                 else if (type == "boss"){
                     if (bossSize != undefined) {
-                        spawnVirusBoss(bossSize);
+                        spawnVirusBoss(bossSize, timeAnimation);
                     }
                     else {
-                        spawnVirusBoss(1200);
+                        spawnVirusBoss(1200, timeAnimation);
                     }
                 }
             }
