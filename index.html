@@ -4,7 +4,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-        <title>Game</title>
+        <title>Virutz</title>
         <style>
             html{
                 margin: 0;
@@ -12,6 +12,25 @@
             body {
                 overflow: hidden;
                 margin: 0;
+            }
+                        /* width */
+            ::-webkit-scrollbar {
+                width: 10px;
+            }
+            
+            /* Track */
+            ::-webkit-scrollbar-track {
+                background: #f1f1f1; 
+            }
+            
+            /* Handle */
+            ::-webkit-scrollbar-thumb {
+                background: #888; 
+            }
+            
+            /* Handle on hover */
+            ::-webkit-scrollbar-thumb:hover {
+                background: #555; 
             }
             .alertRed {
                 position: absolute;
@@ -287,6 +306,7 @@
                 left: 50%;
                 transform: translate(-50%, -50%);
                 display: flex;
+                flex-direction: column;
                 flex-wrap: wrap;
                 align-items: center;
                 justify-content: center;
@@ -304,7 +324,7 @@
                 height: 100vh;
                 width: 1000px;
                 animation: freezeAnimationDiv 1s linear;
-                background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(0, 166, 255, 0.2), rgba(255, 255, 255, 0));;
+                background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(0, 166, 255, 0.2), rgba(255, 255, 255, 0));
             }*/
 
             #mainChrono{
@@ -468,6 +488,20 @@
                 border-radius: 10px;
             }
 
+            #playByLevelDiv{
+                position: relative;
+                display: none;
+                padding: 50px;
+                background-color: rgb(200, 200, 200);
+                border-radius: 10px;
+            }
+
+            #box-levels{
+                max-height: 50vh;
+                overflow: auto;
+                padding: 25px;
+            }
+
             .titleUserBestMarks{
                 text-align: center;
                 margin-bottom: 20px;
@@ -483,12 +517,82 @@
                 line-height: 175%;
             }
 
-            #xMark_userBestMarks{
+            .newLevelToShowUser {
+                padding: 10px;
+                font-size: 27.5px;
+                font-family: "Raleway", sans-serif;
+                font-weight: 600;
+                line-height: 175%;
+                border-radius: 20px;
+                cursor: pointer;
+                transition: background .3s;
+                margin-bottom: 10px;
+            }
+
+            .newLevelToShowUser:hover {
+                background: rgb(110, 110, 110, .3);
+            }
+
+            .xMark_top_right{
                 position: absolute;
                 top: 5%;
                 right: 5%;
                 font-size: 25px;
                 cursor: pointer;
+            }
+
+            #presentationLevelDiv{
+                position: absolute;
+                width: 100vw;
+                height: 100vh;
+                left: -100vw;
+                background: transparent;
+                animation: presenNewtLevel cubic-bezier(0,1,1,0) 4s;
+                display: none;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                font-family: "Raleway", sans-serif;
+                font-weight: 700;
+            }
+
+            #playByLevelOptionDiv{
+                margin-top: 15px;
+                margin-bottom: 15px;
+                font-size: 20px;
+                font-weight: 800;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+            }
+
+            .newInfoDataLevel{
+                padding: 0 10px;
+                font-family: "Raleway", sans-serif;
+                font-size: 20px;
+            }
+
+            .buttonOpenLevel{
+                background: rgb(32, 71, 137);
+                font-size: 20px;
+                color: white;
+                transition: background .2s;
+                cursor: pointer;
+                border-radius: 30px;
+                padding: 17.5px;
+                text-align: center;
+                margin: auto;
+                margin: 20px 0;
+                font-weight: 900;
+            }
+
+            .buttonOpenLevel:hover{
+                background: rgb(13, 40, 85);
+            }
+
+            @keyframes presenNewtLevel {
+                0% { left: -100vw }
+                100% { left: 100vw }
             }
 
             @keyframes freezeAnimationDiv {
@@ -548,25 +652,106 @@
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-RFZM98L10H"></script>
     <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        
-        gtag('config', 'G-RFZM98L10H');
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-RFZM98L10H');
     </script>
     <body>
+        <div id="presentationLevelDiv">
+            <span id="levelNum" style="font-size: 50px;"></span>
+            <span style="font-size: 35px;">Resist <span id="levelTimeGoal"></span> seconds</span>
+        </div>
         <div id="gamePausedDiv"><i class="fa-solid fa-pause" style="font-size: 80px;"></i><br><span class="basicText">Click anywhere to resume the game</span></div>
         <div id="divPreStartGame">
             <i id="leaderBoardUserBestMarksIcon" class="fa-solid fa-ranking-star leaderboardUser" onclick="showBestMarksUser()"></i>
 
             <div id="userBestMarksDiv">
-                <i id="xMark_userBestMarks" class="fa-solid fa-circle-xmark" onclick="closeBestMarkUserMenu()"></i>
+                <i id="xMark_userBestMarks" class="fa-solid fa-circle-xmark xMark_top_right" onclick="closeBestMarkUserMenu()"></i>
                 <div class="titleUserBestMarks">Best Marks</div>
-                <div class="difficultylevelBestMarks"><span style="font-weight: 700; font-style: italic;">Elementary: </span><span id="bestMarkElementary">332 seconds</span></div>
-                <div class="difficultylevelBestMarks"><span style="font-weight: 700; font-style: italic;">Easy: </span><span id="bestMarkEasy">-</span></div>
-                <div class="difficultylevelBestMarks"><span style="font-weight: 700; font-style: italic;">Normal: </span><span id="bestMarkNormal">856 seconds</span></div>
-                <div class="difficultylevelBestMarks"><span style="font-weight: 700; font-style: italic;">Hard: </span><span id="bestMarkHard">761 seconds</span></div>
-                <div class="difficultylevelBestMarks"><span style="font-weight: 700; font-style: italic;">Impossible: </span><span id="bestMarkImpossible">1569 seconds</span></div>
+                <div class="difficultylevelBestMarks"><span style="font-weight: 700; font-style: italic;">Elementary: </span><span id="bestMarkElementary"></span></div>
+                <div class="difficultylevelBestMarks"><span style="font-weight: 700; font-style: italic;">Easy: </span><span id="bestMarkEasy"></span></div>
+                <div class="difficultylevelBestMarks"><span style="font-weight: 700; font-style: italic;">Normal: </span><span id="bestMarkNormal"></span></div>
+                <div class="difficultylevelBestMarks"><span style="font-weight: 700; font-style: italic;">Hard: </span><span id="bestMarkHard"></span></div>
+                <div class="difficultylevelBestMarks"><span style="font-weight: 700; font-style: italic;">Impossible: </span><span id="bestMarkImpossible"></span></div>
+            </div>
+
+            <div id="playByLevelDiv">
+                <i id="xMark_playByLevel" class="fa-solid fa-circle-xmark xMark_top_right" onclick="closeLevelsUserMenu()"></i>
+                <div class="titleUserBestMarks">Levels</div>
+                <div id="box-levels">
+                    <div class="newLevelToShowUser"></div>
+                    <div class="newInfoDataLevel">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div class="buttonOpenLevel">Play</div>
+                    </div>
+                    <div class="newLevelToShowUser"></div>
+                    <div class="newInfoDataLevel">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div class="buttonOpenLevel">Play</div>
+                    </div>
+                    <div class="newLevelToShowUser"></div>
+                    <div class="newInfoDataLevel">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div class="buttonOpenLevel">Play</div>
+                    </div>
+                    <div class="newLevelToShowUser"></div>
+                    <div class="newInfoDataLevel">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div class="buttonOpenLevel">Play</div>
+                    </div>
+                    <div class="newLevelToShowUser"></div>
+                    <div class="newInfoDataLevel">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div class="buttonOpenLevel">Play</div>
+                    </div>
+                    <div class="newLevelToShowUser"></div>
+                    <div class="newInfoDataLevel">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div class="buttonOpenLevel">Play</div>
+                    </div>
+                    <div class="newLevelToShowUser"></div>
+                    <div class="newInfoDataLevel">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div class="buttonOpenLevel">Play</div>
+                    </div>
+                    <div class="newLevelToShowUser"></div>
+                    <div class="newInfoDataLevel">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div class="buttonOpenLevel">Play</div>
+                    </div>
+                    <div class="newLevelToShowUser"></div>
+                    <div class="newInfoDataLevel">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div class="buttonOpenLevel">Play</div>
+                    </div>
+                    <div class="newLevelToShowUser"></div>
+                    <div class="newInfoDataLevel">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div class="buttonOpenLevel">Play</div>
+                    </div>
+                </div>
             </div>
 
             <div id="divPresentationGame">
@@ -581,11 +766,11 @@
                         GUNNER TANK ( <i class="fa-solid fa-heart"></i> 5/<i class="fa-solid fa-sack-dollar"></i> 500 ): <i>Fires large bullets that split.</i><br>
                         MULTI TANK ( <i class="fa-solid fa-heart"></i> 7/<i class="fa-solid fa-sack-dollar"></i> 1000 ): <i>Shoots bullets three at a time.</i><br>
                         GOLDMINE( <i class="fa-solid fa-heart"></i> 3/<i class="fa-solid fa-sack-dollar"></i> 400 ): <i>Gives you 25$ every 2 seconds.</i><br>
-                        WALL( <i class="fa-solid fa-heart"></i> 15/<i class="fa-solid fa-sack-dollar"></i> 300 ): <i>Prevent viruses from passing.</i><br>
+                        WALL( <i class="fa-solid fa-heart"></i> 16/<i class="fa-solid fa-sack-dollar"></i> 300 ): <i>Prevent viruses from passing.</i><br>
                         <br style="margin-top: 2em; display: inline-block; content: '';">Remember, you earn an extra $25 every 2 seconds and can<br>
                         upgrade structures by right-clicking, with a maximum level of 7.<br>Also remember you can pause the game by leaving this window.<br>
                     </div>
-                    <!--<strong style="display: block; margin-top: 15px; margin-bottom: 5px;">Select the difficulty:</strong>-->
+                    <div id="playByLevelOptionDiv" onclick="displayLevels()">Play by Level</div>
                     <div id="selectDifficultyDiv">
                         <div id="elementaryDifficultyDiv" class="optionDifficulty" style="background-color:rgb(0 191 198); border-top-left-radius: 10px; border-bottom-left-radius: 10px;">Elementary</div>
                         <div id="easyDifficultyDiv" class="optionDifficulty" style="background-color:rgb(122, 191, 47)">Easy</div>
@@ -599,7 +784,7 @@
         </div>
         <div id="selectBulid" class="mainMenuOperations">
             <div id="divOptions" class="divOptionsMainMenu">
-                <i id="xmark_close_buy" class="fa-solid fa-xmark fa-2x" style="position:absolute; top: 20px; right: 20px;color:rgba(0, 0, 0, .3); cursor: pointer;"></i>
+                <i id="xmark_close_buy" class="fa-solid fa-xmark fa-2x" style="position:absolute; top: 20px; right: 20px;color:rgb(132, 132, 132); cursor: pointer;"></i>
             
                 <!--TO BUY-->
                 <div id="alertNotEnoughMoney" class="alertRed">
@@ -618,7 +803,7 @@
         </div>
         <div id="selectUpgrade" class="mainMenuOperations">
             <div id="divOptionsUpgrade" class="divOptionsMainMenu">
-                <i id="xmark_close_buy_upgrade" class="fa-solid fa-xmark fa-2x" style="position:absolute; top: 20px; right: 20px;color:rgba(0, 0, 0, .3); cursor: pointer;"></i>
+                <i id="xmark_close_buy_upgrade" class="fa-solid fa-xmark fa-2x" style="position:absolute; top: 20px; right: 20px;color:rgb(132, 132, 132); cursor: pointer;"></i>
             
                 <!--TO UPGRADE-->
                 <div id="alertNotEnoughMoneyUpgrade" class="alertRed">
@@ -636,7 +821,7 @@
         <div id="gameOverDiv">
             <div id="gameOverSubDiv">
                 <span class="closeGameOverDiv" onclick="this.parentElement.parentElement.style.display='none';">&times;</span> 
-                <span id="gameOverOrNewRecordSpan">Game Over!</span><br><span id="timeResistedGameOver"></span><br><span id="difficultyModeGameOver"></span>
+                <span id="gameOverOrNewRecordSpan">Game Over!</span><span id="timeResistedGameOver" style="margin-top: 25px; margin-bottom: 25px;"></span><span id="difficultyModeGameOver"></span>
             </div>
         </div>
         <div id="armourSpace">
@@ -738,7 +923,7 @@
             const LIFES_BASIC_TANK = 4;
             const LIFES_MULTI_TANK = 7;
             const LIFES_GOLDMINE = 3;
-            const LIFES_WALL = 15;
+            const LIFES_WALL = 16;
             const LIFES_GUNNER_TANK = 5;
             const LIFES_ICE_TANK = 3;
 
@@ -805,6 +990,551 @@
                 currentDiffString = "Impossible";
             });
 
+            // LEVELS EVENT LISTENERS
+            
+            /*
+            var newLevelOptions = {
+                indexLevel
+                nameLevel
+                artisticName
+                goalTime
+                virusTimeline
+                iniDiffSpawn
+                changeDiffSpawn
+                money
+                moneyIntervalEarned
+            }
+
+            var spawnTypeLvl = {
+                typeBasic: bool
+                typeDouble: bool
+                typeCovid: bool
+                typeDiseaseB: bool
+                typeDiseaseH: bool
+                typeSkull: bool
+                typeBoss: bool
+            }
+
+            var params = {
+                skullSize: list
+                bossSize: int
+                timeAnimation: int
+            }
+
+
+            var options = {
+                uniqueType: bool
+                typeUnique: string
+                params: type
+                diffSpawn: int (miliseconds)
+                fixedSP: bool
+                setDiffSpawnGlobal: bool
+                spawn: spawnTypeLvl
+            }
+            */
+
+            var undefinedParams = {
+                skullSize: undefined,
+                bossSize: undefined,
+                timeAnimation: undefined
+            }
+
+            var undefinedSpawnType = {
+                typeBasic: undefined,
+                typeDouble: undefined,
+                typeCovid: undefined,
+                typeDiseaseB: undefined,
+                typeDiseaseH: undefined,
+                typeSkull: undefined,
+                typeBoss: undefined
+            }
+
+
+
+            var optionsL1 = {
+                id: 1,
+                indexLevel: 1,
+                nameLevel: "Level 1",
+                artisticName: "Virus Playground",
+                goalTime: 400000,
+                iniDiffSpawn: 5000,
+                changeDiffSpawn: .96,
+                money: 1500,
+                moneyIntervalEarned: 25,
+                virusTimeline: {
+                    0: {
+                        uniqueType: true,
+                        typeUnique: "basic",
+                        params: undefinedParams,
+                        diffSpawn: 0,
+                        fixedSP: false,
+                        setDiffSpawnGlobal: false,
+                        spawn: undefinedSpawnType
+                    },
+                    35:{
+                        uniqueType: true,
+                        typeUnique: "double",
+                        params: undefinedParams,
+                        diffSpawn: 0,
+                        fixedSP: false,
+                        setDiffSpawnGlobal: false,
+                        spawn: undefinedSpawnType
+                    },
+                    70:{
+                        uniqueType: true,
+                        typeUnique: "diseaseB",
+                        params: undefinedParams,
+                        diffSpawn: 0,
+                        fixedSP: false,
+                        setDiffSpawnGlobal: false,
+                        spawn: undefinedSpawnType
+                    }
+                }
+            }
+
+            var optionsL2 = {
+                id: 2,
+                indexLevel: 2,
+                nameLevel: "Level 2",
+                artisticName: "Fast & Furious",
+                goalTime: 600000,
+                iniDiffSpawn: 4000,
+                changeDiffSpawn: .975,
+                money: 1000,
+                moneyIntervalEarned: 50,
+                virusTimeline: {
+                    0: {
+                        uniqueType: true,
+                        typeUnique: "basic",
+                        params: {
+                            skullSize: undefined,
+                            bossSize: undefined,
+                            timeAnimation: 15
+                        },
+                        diffSpawn: 0,
+                        fixedSP: false,
+                        setDiffSpawnGlobal: false,
+                        spawn: undefinedSpawnType
+                    },
+                    50:{
+                        uniqueType: true,
+                        typeUnique: "basic",
+                        params: {
+                            skullSize: undefined,
+                            bossSize: undefined,
+                            timeAnimation: 10
+                        },
+                        diffSpawn: 0,
+                        fixedSP: false,
+                        setDiffSpawnGlobal: false,
+                        spawn: undefinedSpawnType
+                    },
+                }
+            }
+            
+            var optionsL3 = {
+                id: 3,
+                indexLevel: 3,
+                nameLevel: "Level 3",
+                artisticName: "Covid Planet",
+                goalTime: 750000,
+                iniDiffSpawn: 7000,
+                changeDiffSpawn: 0.97,
+                money: 2000,
+                moneyIntervalEarned: 50,
+                virusTimeline: {
+                    0: {
+                        uniqueType: true,
+                        typeUnique: "covid",
+                        params: undefinedParams,
+                        diffSpawn: 0,
+                        fixedSP: false,
+                        setDiffSpawnGlobal: false,
+                        spawn: undefinedSpawnType
+                    },
+                }
+            }
+
+            var optionsL4 = {
+                id: 4,
+                indexLevel: 4,
+                nameLevel: "Level 4",
+                artisticName: "Hard Life",
+                goalTime: 1000000,
+                iniDiffSpawn: 8000,
+                changeDiffSpawn: 0.975,
+                money: 800,
+                moneyIntervalEarned: 10,
+                virusTimeline: {
+                    0: {
+                        uniqueType: false,
+                        typeUnique: undefined,
+                        params: undefinedParams,
+                        diffSpawn: 0,
+                        fixedSP: false,
+                        setDiffSpawnGlobal: false,
+                        spawn: {
+                            typeBasic: true,
+                            typeDouble: true,
+                            typeCovid: false,
+                            typeDiseaseB: false,
+                            typeDiseaseH: false,
+                            typeSkull: false,
+                            typeBoss: false
+                        }
+                    },
+                    15: {
+                        uniqueType: false,
+                        typeUnique: undefined,
+                        params: undefinedParams,
+                        diffSpawn: 0,
+                        fixedSP: false,
+                        setDiffSpawnGlobal: false,
+                        spawn: {
+                            typeBasic: true,
+                            typeDouble: true,
+                            typeCovid: true,
+                            typeDiseaseB: false,
+                            typeDiseaseH: false,
+                            typeSkull: false,
+                            typeBoss: false
+                        }
+                    },
+                    30: {
+                        uniqueType: false,
+                        typeUnique: undefined,
+                        params: undefinedParams,
+                        diffSpawn: 0,
+                        fixedSP: false,
+                        setDiffSpawnGlobal: false,
+                        spawn: {
+                            typeBasic: true,
+                            typeDouble: true,
+                            typeCovid: true,
+                            typeDiseaseB: true,
+                            typeDiseaseH: false,
+                            typeSkull: false,
+                            typeBoss: false
+                        }
+                    },
+                    50: {
+                        uniqueType: false,
+                        typeUnique: undefined,
+                        params: undefinedParams,
+                        diffSpawn: 0,
+                        fixedSP: false,
+                        setDiffSpawnGlobal: false,
+                        spawn: {
+                            typeBasic: true,
+                            typeDouble: true,
+                            typeCovid: true,
+                            typeDiseaseB: true,
+                            typeDiseaseH: false,
+                            typeSkull: true,
+                            typeBoss: false
+                        }
+                    },
+                    75: {
+                        uniqueType: false,
+                        typeUnique: undefined,
+                        params: undefinedParams,
+                        diffSpawn: 0,
+                        fixedSP: false,
+                        setDiffSpawnGlobal: false,
+                        spawn: {
+                            typeBasic: true,
+                            typeDouble: true,
+                            typeCovid: true,
+                            typeDiseaseB: true,
+                            typeDiseaseH: true,
+                            typeSkull: true,
+                            typeBoss: true
+                        }
+                    }
+                }
+            }
+
+            var optionsL5 = {
+                id: 5,
+                indexLevel: 5,
+                nameLevel: "Level 5",
+                artisticName: "Epidemic",
+                goalTime: 200000,
+                iniDiffSpawn: 2000,
+                changeDiffSpawn: 0.9,
+                money: 4000,
+                moneyIntervalEarned: 25,
+                virusTimeline: {
+                    0: {
+                        uniqueType: false,
+                        typeUnique: undefined,
+                        params: undefinedParams,
+                        diffSpawn: 0,
+                        fixedSP: false,
+                        setDiffSpawnGlobal: false,
+                        spawn: {
+                            typeBasic: false,
+                            typeDouble: true,
+                            typeCovid: true,
+                            typeDiseaseB: true,
+                            typeDiseaseH: true,
+                            typeSkull: true,
+                            typeBoss: true
+                        }
+                    },
+                }
+            }
+
+            var optionsL6 = {
+                id: 6,
+                indexLevel: 6,
+                nameLevel: "Level 6",
+                artisticName: "Beat The Boss",
+                goalTime: 50000,
+                iniDiffSpawn: 5000,
+                changeDiffSpawn: 0.97,
+                money: 1500,
+                moneyIntervalEarned: 25,
+                virusTimeline: {
+                    0: {
+                        uniqueType: true,
+                        typeUnique: "none",
+                        params: undefinedParams,
+                        diffSpawn: 0,
+                        fixedSP: false,
+                        setDiffSpawnGlobal: false,
+                        spawn: undefinedSpawnType
+                    },
+                    10: {
+                        uniqueType: true,
+                        typeUnique: "boss",
+                        params: {
+                            skullSize: undefined,
+                            bossSize: 2000,
+                            timeAnimation: undefined,
+                        },
+                        diffSpawn: 400,
+                        fixedSP: true,
+                        setDiffSpawnGlobal: false,
+                        spawn: undefinedSpawnType
+                    },
+                    11:{
+                        uniqueType: false,
+                        typeUnique: undefined,
+                        params: undefinedParams,
+                        diffSpawn: 0,
+                        fixedSP: false,
+                        setDiffSpawnGlobal: false,
+                        spawn: {
+                            typeBasic: true,
+                            typeDouble: true,
+                            typeCovid: true,
+                            typeDiseaseB: true,
+                            typeDiseaseH: true,
+                            typeSkull: true,
+                            typeBoss: false
+                        }
+                    }
+                }
+            }
+
+            var optionsL7 = {
+                id: 7,
+                indexLevel: 7,
+                nameLevel: "Level 7",
+                artisticName: "Out Of Control",
+                goalTime: 400000,
+                iniDiffSpawn: 5000,
+                changeDiffSpawn: 0.95,
+                money: 1500,
+                moneyIntervalEarned: 100,
+                virusTimeline: {
+                    0: {
+                        uniqueType: true,
+                        typeUnique: "diseaseB",
+                        params: undefinedParams,
+                        diffSpawn: 0,
+                        fixedSP: false,
+                        setDiffSpawnGlobal: false,
+                        spawn: undefinedSpawnType
+                    },
+                    50: {
+                        uniqueType: false,
+                        typeUnique: undefined,
+                        params: undefinedParams,
+                        diffSpawn: 0,
+                        fixedSP: false,
+                        setDiffSpawnGlobal: false,
+                        spawn: {
+                            typeBasic: false,
+                            typeDouble: false,
+                            typeCovid: false,
+                            typeDiseaseB: true,
+                            typeDiseaseH: true,
+                            typeSkull: false,
+                            typeBoss: false
+                        }
+                    }
+                }
+            }
+
+            var optionsL8 = {
+                id: 8,
+                indexLevel: 8,
+                nameLevel: "Level 8",
+                artisticName: "On and On",
+                goalTime: 600000,
+                iniDiffSpawn: 7500,
+                changeDiffSpawn: 0.94, 
+                money: 2500,
+                moneyIntervalEarned: 100,
+                virusTimeline: {
+                    0: {
+                        uniqueType: false,
+                        typeUnique: undefined,
+                        params: undefinedParams,
+                        diffSpawn: 0,
+                        fixedSP: false,
+                        setDiffSpawnGlobal: false,
+                        spawn: {
+                            typeBasic: true,
+                            typeDouble: true,
+                            typeCovid: true,
+                            typeDiseaseB: true,
+                            typeDiseaseH: true,
+                            typeSkull: true,
+                            typeBoss: true
+                        }
+                    },
+                }
+            }
+
+            var optionsL9 = {
+                id: 9,
+                indexLevel: 9,
+                nameLevel: "Level 9",
+                artisticName: "Bad Guys",
+                goalTime: 700000,
+                iniDiffSpawn: 5000, // No relevant because of fixed
+                changeDiffSpawn: 0.97, // No relevant because of fixed
+                money: 4000,
+                moneyIntervalEarned: 75,
+                virusTimeline: {
+                    0: {
+                        uniqueType: true,
+                        typeUnique: "boss",
+                        params: {
+                            skullSize: undefined,
+                            bossSize: 400,
+                            timeAnimation: 100,
+                        },
+                        diffSpawn: 9000,
+                        fixedSP: true,
+                        setDiffSpawnGlobal: false,
+                        spawn: undefinedSpawnType
+                    },
+                }
+            }
+
+            var optionsL10 = {
+                id: 10,
+                indexLevel: 10,
+                nameLevel: "Level 10",
+                artisticName: "Skull Cave",
+                goalTime: 800000,
+                iniDiffSpawn: 6000,
+                changeDiffSpawn: 0.96,
+                money: 1500,
+                moneyIntervalEarned: 50,
+                virusTimeline: {
+                    0: {
+                        uniqueType: true,
+                        typeUnique: "skull",
+                        params: {
+                            skullSize: [1, 2],
+                            bossSize: undefined,
+                            timeAnimation: undefined,
+                        },
+                        diffSpawn: 0,
+                        fixedSP: false,
+                        setDiffSpawnGlobal: false,
+                        spawn: undefinedSpawnType
+                    },
+                    25: {
+                        uniqueType: true,
+                        typeUnique: "skull",
+                        params: {
+                            skullSize: [1, 2, 3],
+                            bossSize: undefined,
+                            timeAnimation: undefined,
+                        },
+                        diffSpawn: 0,
+                        fixedSP: false,
+                        setDiffSpawnGlobal: false,
+                        spawn: undefinedSpawnType
+                    },
+                    40: {
+                        uniqueType: true,
+                        typeUnique: "skull",
+                        params: {
+                            skullSize: [1, 2, 3, 4],
+                            bossSize: undefined,
+                            timeAnimation: undefined,
+                        },
+                        diffSpawn: 0,
+                        fixedSP: false,
+                        setDiffSpawnGlobal: false,
+                        spawn: undefinedSpawnType
+                    },
+                    70: {
+                        uniqueType: true,
+                        typeUnique: "skull",
+                        params: {
+                            skullSize: [1, 2, 3, 4, 5],
+                            bossSize: undefined,
+                            timeAnimation: undefined,
+                        },
+                        diffSpawn: 0,
+                        fixedSP: false,
+                        setDiffSpawnGlobal: false,
+                        spawn: undefinedSpawnType
+                    },
+                }
+            }
+
+
+
+
+            var levelsOptionsMain = [null, optionsL1, optionsL2, optionsL3, optionsL4, optionsL5, optionsL6, optionsL7, optionsL8, optionsL9, optionsL10];
+
+            document.querySelectorAll(".newLevelToShowUser").forEach(function(e, i){
+                e.nextElementSibling.style.display = "none";
+
+                e.nextElementSibling.querySelector(":nth-child(1)").innerHTML = "<strong>Goal time: </strong>"+levelsOptionsMain[i+1].goalTime/1000+" seconds";
+                e.nextElementSibling.querySelector(":nth-child(2)").innerHTML = "<strong>Money: </strong>"+levelsOptionsMain[i+1].money+"$";
+                e.nextElementSibling.querySelector(":nth-child(3)").innerHTML = "<strong>Basic Income: </strong>"+levelsOptionsMain[i+1].moneyIntervalEarned+"$";
+
+
+                e.addEventListener("click", function(){
+                    if (e.nextElementSibling.style.display == "none") {
+                        e.nextElementSibling.style.display = "block";
+                    }
+                    else {
+                        e.nextElementSibling.style.display = "none";
+                    }
+                })
+                console.log(e.nextElementSibling.querySelector(":nth-child(4)"));
+                e.nextElementSibling.querySelector(":nth-child(4)").addEventListener("click", function(){
+                    newLevel(levelsOptionsMain[i+1]);
+                })
+                e.textContent = levelsOptionsMain[i+1].nameLevel+": "+levelsOptionsMain[i+1].artisticName;
+
+                if (localStorage.getItem("level"+levelsOptionsMain[i+1].id+"_completed") == "true") {
+                    e.style.backgroundColor = "rgba(0, 255, 31, 0.25)";
+                }
+            })
+            
+
             // BEST MARKS USER
 
             var userBestMarksDiv = document.getElementById("userBestMarksDiv");
@@ -860,6 +1590,22 @@
 
             function closeBestMarkUserMenu() {
                 userBestMarksDiv.style.display = "none";
+                divPresentationGame.style.display = "block";
+                iconShowBestMarks.style.display = "block";
+            }
+
+            // LEVELS DISPLAY
+
+            var playByLevelDiv = document.getElementById("playByLevelDiv");
+
+            function displayLevels(){
+                playByLevelDiv.style.display = "block";
+                divPresentationGame.style.display = "none";
+                iconShowBestMarks.style.display = "none";
+            }
+
+            function closeLevelsUserMenu() {
+                playByLevelDiv.style.display = "none";
                 divPresentationGame.style.display = "block";
                 iconShowBestMarks.style.display = "block";
             }
@@ -1102,38 +1848,62 @@
                     closeBuyMenu();
                     closeUpgradeMenu();
                     lifesCounterDOC.textContent = 0;
-                    clearInterval(intervalDifficulty);
-                    clearInterval(intervalVirus);
                     clearInterval(mainMoneyInterval);
-                    clearInterval(controlBossSpawnInterval);
                     clearInterval(chronoInterval);
-
-                    for (var i = 0; i < listTimeOutsSpawnBoss.length; i++) {
-                        clearTimeout(listTimeOutsSpawnBoss[i]);
-                    }
 
                     for (var i = 0; i < 30; ++i) {
                         clearInterval(spacesIntervals[i]);
                     }
+
                     document.querySelectorAll(".enemy").forEach(function(ele){
                         ele.remove();
                     })
-                    let newCurrentDate = new Date().getTime();
-                    let timeResistedByUser = Math.round((newCurrentDate-d)/1000, 2);
-                    gameOverDiv.style.display = "contents";
-                    timeResisted.textContent = "You resisted "+timeResistedByUser+" seconds";
-                    diffGameOver.textContent = "In "+currentDiffString+" difficulty";
-                    gameOverOrNewRecord.textContent = "Game Over!";
 
-                    let currentBestMark = localStorage.getItem("bestMark"+currentDiffString);
-                    if (currentBestMark == null) {
-                        gameOverOrNewRecord.textContent = "New Record!";
-                        localStorage.setItem("bestMark"+currentDiffString, timeResistedByUser);
+                    if (playingAtLevel) {
+                        if (timerLevel != undefined) {
+                            timerLevel.pause();
+                        }
+                        
+                        for (var i = 0; i < timeOutsStagesLevel.length; ++i) {
+                            timeOutsStagesLevel[i].pause();
+                        }
+
+                        clearInterval(intervalSpawning_level);
+                        clearInterval(intervalDifficulty_level);
+
+                        let newCurrentDate = new Date().getTime();
+                        let timeResistedByUser = Math.round((newCurrentDate-d)/1000, 2);
+                        gameOverDiv.style.display = "contents";
+                        timeResisted.textContent = "You resisted "+timeResistedByUser+" seconds";
+                        diffGameOver.textContent = "In "+currentLVLName;
+                        gameOverOrNewRecord.textContent = "Game Over!";
                     }
                     else {
-                        if (timeResistedByUser > currentBestMark) {
+                        clearInterval(intervalDifficulty);
+                        clearInterval(controlBossSpawnInterval);
+                        clearInterval(intervalVirus);
+
+                        for (var i = 0; i < listTimeOutsSpawnBoss.length; i++) {
+                            clearTimeout(listTimeOutsSpawnBoss[i]);
+                        }
+
+                        let newCurrentDate = new Date().getTime();
+                        let timeResistedByUser = Math.round((newCurrentDate-d)/1000, 2);
+                        gameOverDiv.style.display = "contents";
+                        timeResisted.textContent = "You resisted "+timeResistedByUser+" seconds";
+                        diffGameOver.textContent = "In "+currentDiffString+" difficulty";
+                        gameOverOrNewRecord.textContent = "Game Over!";
+
+                        let currentBestMark = localStorage.getItem("bestMark"+currentDiffString);
+                        if (currentBestMark == null) {
                             gameOverOrNewRecord.textContent = "New Record!";
                             localStorage.setItem("bestMark"+currentDiffString, timeResistedByUser);
+                        }
+                        else {
+                            if (timeResistedByUser > currentBestMark) {
+                                gameOverOrNewRecord.textContent = "New Record!";
+                                localStorage.setItem("bestMark"+currentDiffString, timeResistedByUser);
+                            }
                         }
                     }
                 }
@@ -1497,7 +2267,7 @@
                                 else if (virus.classList.contains("enemySuperSlow")){
                                     let timeRemaining = (1-virus.getAnimations()[0].effect.getComputedTiming().progress)*parseInt(window.getComputedStyle(virus).animationDuration)*1000;
                                     virus.animate(moveEnemySlowKeyFrames, {
-                                        duration: timeRemaining*indexSlow,
+                                        duration: timeRemaining*(indexSlow-0.5),
                                     })
                                 }
                                 else if (virus.classList.contains("enemySuperFast")){
@@ -1689,11 +2459,19 @@
                                 }
                                 else {
                                     var lifesVirus = parseInt(virus.style.fontSize)/40;
-                                    if (lifesVirus > lifeSpaces[i]) {
-                                        virus.style.fontSize = parseInt(virus.style.fontSize)-(lifeSpaces[i]*10)+"px";
+                                    if (virus.dataset.lifes > lifeSpaces[i]) {
+                                        virus.dataset.lifes -= lifeSpaces[i];
+                                        lifeSpaces[i] = 0;
                                     }
                                     else {
-                                        virus.remove();
+                                        lifeSpaces[i] -= virus.dataset.lifes;
+                                        if (parseInt(virus.style.fontSize) > 40) {
+                                            virus.style.fontSize = parseInt(virus.style.fontSize)-40+"px";
+                                            virus.dataset.lifes = 5;
+                                        }
+                                        else {
+                                            virus.remove();
+                                        }
                                     }
                                     lifeSpaces[i] -= lifesVirus;
                                 }
@@ -2147,7 +2925,7 @@
 
             var lastBossSpawned = d;
 
-            function spawnVirusBasic(posTop=getRandomInt(window.innerHeight-5)+5, posLeft = window.innerWidth+40,duration=null){
+            function spawnVirusBasic(posTop=getRandomInt(window.innerHeight-5)+5, posLeft = window.innerWidth+40, duration=null){
                 var newVirus = document.createElement("div");
                 newVirus.classList.add("fa-solid");
                 newVirus.dataset.lifes = 5;
@@ -2176,7 +2954,7 @@
                 document.body.appendChild(newVirus);
             }
 
-            function spawnVirusDouble(posTop=getRandomInt(window.innerHeight-5)+5, posLeft=window.innerWidth+40,duration=null){
+            function spawnVirusDouble(posTop=getRandomInt(window.innerHeight-5)+5, posLeft=window.innerWidth+40, duration=null){
                 var newVirus = document.createElement("div");
                 newVirus.classList.add("fa-solid");
                 newVirus.dataset.lifes = 5;
@@ -2204,7 +2982,7 @@
                 document.body.appendChild(newVirus);
             }
 
-            function spawnVirusCovid(posTop=getRandomInt(window.innerHeight-5)+5, posLeft=window.innerWidth+100,duration=null){
+            function spawnVirusCovid(posTop=getRandomInt(window.innerHeight-5)+5, posLeft=window.innerWidth+100, duration=null){
                 var newVirus = document.createElement("div");
                 newVirus.classList.add("fa-solid");
                 newVirus.dataset.lifes = 5;
@@ -2233,40 +3011,112 @@
                 document.body.appendChild(newVirus);
             }
 
+
+            var pcSpawnVirusType = {
+                "boss": 0.2,
+                "diseaseH": 0.8,
+                "skull": 4,
+                "covid": 5,
+                "diseaseB": 10,
+                "double": 20,
+                "basic": 60,
+            }
+
+            var psSpawnSkullSize = {
+                1: 35,
+                2: 30,
+                3: 20,
+                4: 10,
+                5: 5
+            }
+
+            function spawnVirusByPc(basic, double, diseaseB, covid, skull, diseaseH, boss, skullSize = undefined, bossSize = undefined, timeAnimation = undefined){
+                let totalSumPc = 0;
+                let listVirusToTake = [];
+
+                if (basic) {
+                    totalSumPc += pcSpawnVirusType["basic"];
+                    listVirusToTake.push("basic");
+                }
+                if (double) {
+                    totalSumPc += pcSpawnVirusType["double"];
+                    listVirusToTake.push("double");
+                }
+                if (diseaseB) {
+                    totalSumPc += pcSpawnVirusType["diseaseB"];
+                    listVirusToTake.push("diseaseB");
+                }
+                if (covid) {
+                    totalSumPc += pcSpawnVirusType["covid"];
+                    listVirusToTake.push("covid");
+                }
+                if (skull) {
+                    totalSumPc += pcSpawnVirusType["skull"];
+                    listVirusToTake.push("skull");
+                }
+                if (diseaseH) {
+                    totalSumPc += pcSpawnVirusType["diseaseH"];
+                    listVirusToTake.push("diseaseH");
+                }
+                if (boss) {
+                    totalSumPc += pcSpawnVirusType["boss"];
+                    listVirusToTake.push("boss");
+                }
+
+                let NumSpawnNewVirus = Math.random()*totalSumPc;
+                let virusSP = false;
+                let _index = 0;
+
+                while (!virusSP) {
+                    if (NumSpawnNewVirus < pcSpawnVirusType[listVirusToTake[_index]]) {
+                        spawnCustomVirus(listVirusToTake[_index], skullSize, bossSize, timeAnimation);
+                        virusSP = true;
+                    }
+                    else {
+                        NumSpawnNewVirus -= pcSpawnVirusType[listVirusToTake[_index]];
+                        _index++;
+                    }
+                }
+
+            }
+
+
             function spawnVirus(basic, double, diseaseB, covid, skull, diseaseH, boss) {
-                if (Math.random() > 0.997 && boss) {
+                if ((Math.random() < pcSpawnVirusType["boss"]/100) && boss) {
                     let currentTimeCheckBoss = new Date().getTime();
                     if (currentTimeCheckBoss - lastBossSpawned > 120000) {
                         spawnVirusBoss(1200);
                         lastBossSpawned = new Date().getTime();
                     }
                 }
-                if (Math.random() > 0.99 && diseaseH) {
+                
+                if ((Math.random() < pcSpawnVirusType["diseaseH"]/100) && diseaseH) {
                     spawnDisease(true);
                 }
-                else if (Math.random() > 0.97 && skull) {
-                    let skullDecideSize = Math.random();
-                    if (skullDecideSize > 0.92) {
+                else if ((Math.random() < pcSpawnVirusType["skull"]/100) && skull) {
+                    if (Math.random()*100 < psSpawnSkullSize[5]) {
                         spawnSkull(5);
                     }
-                    else if(skullDecideSize > 0.75) {
+                    else if(Math.random()*100 < psSpawnSkullSize[4]) {
                         spawnSkull(4);
                     }
-                    else if(skullDecideSize > 0.4) {
+                    else if(Math.random()*100 < psSpawnSkullSize[3]) {
                         spawnSkull(3);
                     }
-                    else {
+                    else if(Math.random()*100 < psSpawnSkullSize[2]){
                         spawnSkull(2);
                     }
+                    else {
+                        spawnSkull(1);
+                    }
                 }
-                else if (Math.random() > 0.94 && covid) {
+                else if ((Math.random() < pcSpawnVirusType["covid"]/100) && covid) {
                     spawnVirusCovid();
                 }
-                else if (Math.random() > 0.91 && diseaseB) {
+                else if ((Math.random() < pcSpawnVirusType["diseaseB"]/100) && diseaseB) {
                     spawnDisease(false);
-                    typeSpawned = "diseaseB";
                 }
-                else if (Math.random() > 0.75 && double){
+                else if ((Math.random() < pcSpawnVirusType["double"]/100) && double){
                     spawnVirusDouble();
                 }
                 else if (basic){
@@ -2278,6 +3128,7 @@
             }
 
             function spawnVirusTime(){
+                console.log("SpawnVirusTime");
                 let currentTime = new Date().getTime();
                 if (currentTime - d < 60000) {
                     spawnVirus(true, false, false, false, false, false, false);
@@ -2309,6 +3160,7 @@
                 }, difficultySpawn);
             }
 
+
             function spawnVirusBoss(size){
                 var newVirus = document.createElement("div");
                 newVirus.classList.add("fa-solid");
@@ -2321,7 +3173,7 @@
                 newVirus.style.fontSize = size+"px";
                 newVirus.style.color = "#FF9F9F";
 
-                newVirus.style.top = getRandomInt(window.innerHeight/10)+window.innerHeight/2 + "px";
+                newVirus.style.top = getRandomInt(window.innerHeight-size)+0.5*size+"px";
                 newVirus.style.left =  window.innerWidth+(size/2)+"px";
 
                 newVirus.addEventListener("animationend", function(evt){
@@ -2337,15 +3189,14 @@
             }
             
             var intervalDifficulty;
-            var intervalDifficultyPaused = false;
             function createDifficultyInterval(diffChange){
-                    intervalDifficulty = setInterval(function(){
-                        if (!intervalDifficultyPaused) {
-                            clearInterval(intervalVirus);
-                            difficultySpawn*=diffChange;
-                            createIntervalSpawnVirus(difficultySpawn);
-                        }
-                    }, 10000)
+                intervalDifficulty = setInterval(function(){
+                    if (!gameStatePaused) {
+                        clearInterval(intervalVirus);
+                        difficultySpawn*=diffChange;
+                        createIntervalSpawnVirus(difficultySpawn);
+                    }
+                }, 10000)
             }
 
             document.querySelectorAll(".armourSub").forEach(function(ele, i){
@@ -2364,10 +3215,11 @@
                 })
             })
 
+
             var mainMoneyInterval;
-            function createMainMoneyInterval(){
+            function createMainMoneyInterval(amount){
                 mainMoneyInterval = setInterval(function(){
-                    currentMoney += 25;
+                    currentMoney += amount;
                     moneyCounterDOC.textContent = currentMoney;
                 }, 2000);
             }
@@ -2393,19 +3245,12 @@
             function pauseGame(){
                 if (!gameStatePaused && !endGameVar) {
 
-                    for (var i = 0; i < listTimeOutsSpawnBoss.length; i++) {
-                        listTimeOutsSpawnBoss[i].pause();
-                    }
-
                     pausedMainIconDiv.style.display = "flex";
                     timePaused = new Date().getTime();
                     closeBuyMenu();
                     closeUpgradeMenu();
                     gameStatePaused = true;
-                    intervalDifficultyPaused = true;
-                    clearInterval(intervalVirus);
                     clearInterval(mainMoneyInterval);
-                    clearInterval(controlBossSpawnInterval);
                     clearInterval(chronoInterval);
 
                     for (var i = 0; i < 30; ++i) {
@@ -2415,6 +3260,23 @@
 
                     for (var i = 0; i < listTimeOutsSpawnBoss.length; i++) {
                         clearTimeout(listTimeOutsSpawnBoss[i]);
+                    }
+
+                    if (playingAtLevel) {
+                        if (timerLevel != undefined) {
+                            timerLevel.pause();
+                        }
+
+                        for (var i = 0; i < timeOutsStagesLevel.length; ++i) {
+                            timeOutsStagesLevel[i].pause();
+                        }
+
+                        clearInterval(intervalSpawning_level);
+                        clearInterval(intervalDifficulty_level);
+                    }
+                    else {
+                        clearInterval(intervalVirus);
+                        clearInterval(controlBossSpawnInterval);
                     }
 
                     document.querySelectorAll(".enemy").forEach(function(ele){
@@ -2443,7 +3305,6 @@
                         listTimeOutsSpawnBoss[i].resume();
                     }
 
-                    spawnVirusTime();
                     pausedMainIconDiv.style.display = "none";
                     gameStatePaused = false;
 
@@ -2451,17 +3312,30 @@
 
                     d += (currentTimeReanuded-timePaused);
 
-                    createIntervalSpawnVirus(difficultySpawn);
-
-                    intervalDifficultyPaused = false;
-
-                    gameStatePaused = false;
-
-                    createMainMoneyInterval();
-
-                    controlBossSpawning();
+                    createMainMoneyInterval(mainMoneyIntervalToEarn);
 
                     startChrono();
+
+                    // level
+
+                    if (playingAtLevel) {
+                        setSpawningFunction(currentOptionsLevel);
+
+                        controlDifficultyLevel(diffChangeLevel);
+
+                        if (timerLevel != undefined) {
+                            timerLevel.resume();
+                        }
+    
+                        timeOutsStagesLevel.forEach(function(e){
+                            e.resume();
+                        })
+                    }
+                    else {
+                        controlBossSpawning();
+                        createIntervalSpawnVirus(difficultySpawn);
+                    }
+
 
                     document.querySelectorAll(".bulletType").forEach(function(ele){
                         ele.getAnimations()[0].play();
@@ -2501,6 +3375,8 @@
             
             var stratGameMainDiv = document.getElementById("divPreStartGame");
 
+            var mainMoneyIntervalToEarn = 25;
+
             // RUN THE GAME
 
             function startGame(){
@@ -2515,7 +3391,7 @@
 
                 createDifficultyInterval(eqDiffChange[currentDiffString]);
 
-                createMainMoneyInterval();
+                createMainMoneyInterval(mainMoneyIntervalToEarn);
 
                 controlBossSpawning();
 
@@ -2529,8 +3405,304 @@
                     window.addEventListener("click", reanudeGame);
                     window.addEventListener("contextmenu", reanudeGame);
                 });
+            }
+
+            // GAME LEVELS
+
+            var playingAtLevel;
+
+            function presentLevel(nameLevel, artisticName, goalTime) {
+                let presentationDiv = document.getElementById("presentationLevelDiv");
+
+                let levelName = document.getElementById("levelNum");
+
+                let timeGoalDiv = document.getElementById("levelTimeGoal");
+
+                levelName.textContent = nameLevel+": "+artisticName;
+
+                timeGoalDiv.textContent = goalTime/1000;
+
+                presentationDiv.style.display = "flex";
+
+                presentationDiv.addEventListener("animationend", function(e){
+                    e.currentTarget.style.display = "none";
+                })
 
             }
+
+            function levelCompleted(levelName, id){
+                if (!endGameVar) {
+                    endGameVar = true;
+                    closeBuyMenu();
+                    closeUpgradeMenu();
+                    clearInterval(intervalVirus);
+                    clearInterval(mainMoneyInterval);
+                    clearInterval(controlBossSpawnInterval);
+                    clearInterval(chronoInterval);
+                    clearInterval(intervalDifficulty_level);
+                    clearInterval(intervalSpawning_level);
+
+                    for (var i = 0; i < listTimeOutsSpawnBoss.length; i++) {
+                        clearTimeout(listTimeOutsSpawnBoss[i]);
+                    }
+
+                    for (var i = 0; i < 30; ++i) {
+                        clearInterval(spacesIntervals[i]);
+                    }
+                    document.querySelectorAll(".enemy").forEach(function(ele){
+                        ele.remove();
+                    })
+                    gameOverDiv.style.display = "contents";
+                    diffGameOver.style.display = "none";
+                    gameOverOrNewRecord.textContent = levelName+" Completed!";
+                    timeResisted.style.display = "none";
+
+                    if (localStorage.getItem("level"+id+"_completed") == undefined) {
+                        localStorage.setItem("level"+id+"_completed", true);
+                    }
+
+                }
+            }
+
+            function spawnCustomVirus(type, skullSize=undefined, bossSize=undefined, timeAnimation=undefined) {
+                if (type == "basic"){
+                    spawnVirusBasic(undefined, undefined, timeAnimation);
+                }
+                else if (type == "double"){
+                    spawnVirusDouble(undefined, undefined, timeAnimation);
+                }
+                else if (type == "covid"){
+                    spawnVirusCovid(undefined, undefined, timeAnimation);
+                }
+                else if (type == "diseaseB"){
+                    spawnDisease(false);
+                }
+                else if (type == "diseaseH"){
+                    spawnDisease(true);
+                }
+                else if (type == "skull"){
+                    if (skullSize != undefined) {
+
+                        let totalPCSkull = 0;
+
+                        for (var i = 0; i < skullSize.length; i++) {
+                            totalPCSkull+=psSpawnSkullSize[skullSize[i]];
+                        }
+
+                        let NumSpawnNewSkull = Math.random()*totalPCSkull;
+                        let skullSP = false;
+                        let _index = 0;
+
+                        while (!skullSP) {
+                            if (NumSpawnNewSkull < psSpawnSkullSize[skullSize[_index]]) {
+                                spawnSkull(skullSize[_index], undefined, undefined, timeAnimation);
+                                skullSP = true;
+                            }
+                            else {
+                                NumSpawnNewSkull -= psSpawnSkullSize[skullSize[_index]];
+                                _index++;
+                            }
+                        }
+
+
+                    }
+                    else {
+                        if (Math.random()*100 < psSpawnSkullSize[5]) {
+                            spawnSkull(5, undefined, undefined, timeAnimation);
+                        }
+                        else if(Math.random()*100 < psSpawnSkullSize[4]) {
+                            spawnSkull(4, undefined, undefined, timeAnimation);
+                        }
+                        else if(Math.random()*100 < psSpawnSkullSize[3]) {
+                            spawnSkull(3, undefined, undefined, timeAnimation);
+                        }
+                        else if(Math.random()*100 < psSpawnSkullSize[2]){
+                            spawnSkull(2, undefined, undefined, timeAnimation);
+                        }
+                        else{
+                            spawnSkull(1, undefined, undefined, timeAnimation);
+                        }
+                    }
+                }
+                else if (type == "boss"){
+                    if (bossSize != undefined) {
+                        spawnVirusBoss(bossSize);
+                    }
+                    else {
+                        spawnVirusBoss(1200);
+                    }
+                }
+            }
+
+            /*
+            var newLevelOptions = {
+                indexLevel
+                nameLevel
+                goalTime
+                virusTimeline
+                iniDiffSpawn
+                changeDiffSpawn
+                money
+                moneyIntervalEarned
+            }
+
+            var spawnTypeLvl = {
+                typeBasic: bool
+                typeDouble: bool
+                typeCovid: bool
+                typeDiseaseB: bool
+                typeDiseaseH: bool
+                typeSkull: bool
+                typeBoss: bool
+            }
+
+            var params = {
+                skullSize: list
+                bossSize: int
+                timeAnimation: int
+            }
+
+
+            var options = {
+                uniqueType: bool
+                typeUnique: string
+                params: type
+                diffSpawn: int (miliseconds)
+                spawn: spawnTypeLvl
+            }
+            */
+
+            var intervalSpawning_level;
+            var intervalDifficulty_level
+            var diffChangeLevel;
+
+            function controlDifficultyLevel(diffChange){
+                intervalDifficulty_level = setInterval(function(){
+                    if (!gameStatePaused) {
+                        clearInterval(intervalSpawning_level);
+                        difficultySpawn*=diffChange;
+                        setSpawningFunction(currentOptionsLevel);
+                    }
+                }, 10000)
+            }
+
+            function setSpawningFunction(options){
+                let diffSpawning;
+                if (options.diffSpawn == 0 || options.fixedSP == false){
+                    diffSpawning = difficultySpawn;
+                }
+                else {
+                    diffSpawning = options.diffSpawn;
+                }
+                console.log("Time",diffSpawning);
+                intervalSpawning_level = setInterval(function(){
+                    if (options.uniqueType){
+                        spawnCustomVirus(options.typeUnique, options.params.skullSize, options.params.bossSize, options.params.timeAnimation);
+                    }
+                    else {
+                        spawnVirusByPc(options.spawn.typeBasic, options.spawn.typeDouble, options.spawn.typeDiseaseB, options.spawn.typeCovid, options.spawn.typeSkull, options.spawn.typeDiseaseH, options.spawn.typeBoss, options.params.skullSize, options.params.bossSize, options.params.timeAnimation);
+                    }
+                }, diffSpawning)
+
+            }
+
+            var timerLevel;
+            var timeOutsStagesLevel = [];
+            var currentOptionsLevel;
+
+            /*
+
+            var newLevelOptions = {
+                indexLevel
+                nameLevel
+                goalTime
+                virusTimeline
+                iniDiffSpawn
+                changeDiffSpawn
+                money
+                moneyIntervalEarned
+            }
+
+            */
+
+            var currentLVLName;
+
+            function newLevel(newLevelOptions) {
+
+                stratGameMainDiv.style.display = "none";
+
+                playingAtLevel = true;
+
+                presentLevel(newLevelOptions.nameLevel, newLevelOptions.artisticName, newLevelOptions.goalTime);
+
+                currentLVLName = newLevelOptions.nameLevel;
+
+                if (newLevelOptions.money != null) {
+                    currentMoney = newLevelOptions.money;
+                    moneyCounterDOC.textContent = currentMoney;
+                }
+
+                mainMoneyIntervalToEarn = newLevelOptions.moneyIntervalEarned;
+
+                setTimeout(function(){
+                    // Pause the game if user left window
+                    document.addEventListener("visibilitychange", (event) => {
+                        if (document.visibilityState != "visible") {
+                            pauseGame();
+                        } 
+                        window.addEventListener("click", reanudeGame);
+                        window.addEventListener("contextmenu", reanudeGame);
+                    });
+
+                    // TO DO
+
+                    timerLevel = new Timer(function() {
+                        if (!endGameVar) {
+                            levelCompleted(newLevelOptions.nameLevel, newLevelOptions.id); // HERE LEVEL COMPLETED FUNCTION
+                        }
+                    }, newLevelOptions.goalTime);
+
+                    console.log(newLevelOptions);
+
+                    startChrono();
+                    d = new Date().getTime();
+
+                    controlDifficultyLevel(newLevelOptions.changeDiffSpawn);
+
+                    diffChangeLevel = newLevelOptions.changeDiffSpawn;
+
+                    difficultySpawn = newLevelOptions.iniDiffSpawn;
+
+                    createMainMoneyInterval(mainMoneyIntervalToEarn);
+
+                    // LEVEL STAGES AND FUNCTION SPAWNING
+                    
+                    Object.keys(newLevelOptions.virusTimeline).forEach(function(key){
+                        if (key == 0) {
+                            if (newLevelOptions.virusTimeline[key].setDiffSpawnGlobal) {
+                                difficultySpawn = newLevelOptions.virusTimeline[key].diffSpawn;
+                            }
+                            setSpawningFunction(newLevelOptions.virusTimeline[key]);
+                            currentOptionsLevel = newLevelOptions.virusTimeline[key];
+                        }
+                        else {
+                            let levelSingleTimeout = new Timer(function(){
+                                if (newLevelOptions.virusTimeline[key].setDiffSpawnGlobal) {
+                                    difficultySpawn = newLevelOptions.virusTimeline[key].diffSpawn;
+                                }
+                                currentOptionsLevel = newLevelOptions.virusTimeline[key];
+                                clearInterval(intervalSpawning_level);
+                                setSpawningFunction(newLevelOptions.virusTimeline[key]);
+                            }, (key/100)*newLevelOptions.goalTime);
+                            console.log((key/100)*newLevelOptions.goalTime);
+                            timeOutsStagesLevel.push(levelSingleTimeout);
+                        }
+                    })
+
+
+                }, 4000)
+            }
+
 
         </script>
     </body>
