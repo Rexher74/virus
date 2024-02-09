@@ -2482,13 +2482,16 @@
                                     virus.remove();
                                 }
                                 else if(virus.classList.contains("enemySuperSlow")){
-                                    if (parseInt(virus.style.fontSize) > lifeSpaces[i]*5) {
-                                        virus.style.fontSize = parseInt(virus.style.fontSize) - lifeSpaces[i]*5 + "px";
+                                    if (parseInt(virus.style.fontSize) > lifeSpaces[i]*3) {
+                                        virus.style.fontSize = parseInt(virus.style.fontSize) - lifeSpaces[i]*3 + "px";
+                                        if (parseInt(virus.style.fontSize) < 30){
+                                            virus.remove();
+                                        }
                                     }
                                     else {
                                         virus.remove();
                                     }
-                                    lifeSpaces[i] -= parseInt(virus.style.fontSize)/5;
+                                    lifeSpaces[i] -= parseInt(virus.style.fontSize)/3;
                                 }
                                 else if (virus.classList.contains("fa-skull")){
                                     if (parseInt(virus.dataset.lifes) > lifeSpaces[i]) {
