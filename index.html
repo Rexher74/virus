@@ -710,16 +710,16 @@
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-RFZM98L10H"></script>
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        
-        gtag('config', 'G-RFZM98L10H');
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-RFZM98L10H');
     </script>
     <body>
         <div id="presentationLevelDiv">
             <span id="levelNum" style="font-size: 50px;"></span>
-            <span style="font-size: 35px;">Resist <span id="levelTimeGoal"></span> seconds</span>
+            <span id="resist-time-present-level" style="font-size: 35px;">Resist <span id="levelTimeGoal"></span> seconds</span>
         </div>
         <div id="gamePausedDiv"><i class="fa-solid fa-pause" style="font-size: 80px;"></i><br><span class="basicText">Click anywhere to resume the game</span></div>
         <div id="divPreStartGame">
@@ -821,8 +821,8 @@
                         To do this, you can buy six types of structures:<br>
                         BASIC TANK ( <i class="fa-solid fa-heart"></i> 4/<i class="fa-solid fa-sack-dollar"></i> 200 ): <i>Shoots bullets one at a time.</i><br>
                         ICE TANK ( <i class="fa-solid fa-heart"></i> 3/<i class="fa-solid fa-sack-dollar"></i> 400 ): <i>Slows down viruses and harms them.</i><br>
-                        GUNNER TANK ( <i class="fa-solid fa-heart"></i> 5/<i class="fa-solid fa-sack-dollar"></i> 500 ): <i>Fires large bullets that split.</i><br>
-                        MULTI TANK ( <i class="fa-solid fa-heart"></i> 7/<i class="fa-solid fa-sack-dollar"></i> 1000 ): <i>Shoots bullets three at a time.</i><br>
+                        GUNNER TANK ( <i class="fa-solid fa-heart"></i> 6/<i class="fa-solid fa-sack-dollar"></i> 500 ): <i>Fires large bullets that split.</i><br>
+                        MULTI TANK ( <i class="fa-solid fa-heart"></i> 8/<i class="fa-solid fa-sack-dollar"></i> 1000 ): <i>Shoots bullets three at a time.</i><br>
                         GOLDMINE( <i class="fa-solid fa-heart"></i> 3/<i class="fa-solid fa-sack-dollar"></i> 400 ): <i>Gives you 25$ every 2 seconds.</i><br>
                         WALL( <i class="fa-solid fa-heart"></i> 16/<i class="fa-solid fa-sack-dollar"></i> 300 ): <i>Prevent viruses from passing.</i><br>
                         <br style="margin-top: 2em; display: inline-block; content: '';">There are also several type of viruses, each one with their own<br>
@@ -852,11 +852,10 @@
                     <span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span> 
                     Not Enough Money!
                 </div>
-                <div class="optnToBuyMiniDiv"><img id="buyBasicTank" class="imgBuyInSpace" style="width: 150px; cursor: pointer" src="https://preview.redd.it/vq62mhb27q521.png?width=281&format=png&auto=webp&s=9aaf5903544521d61590959a4aa89109c13431f3"><span class="moneyText">200$</span></div>
-                <div class="optnToBuyMiniDiv"><img id="buyIceTank"  class="imgBuyInSpace" style="width: 115px; cursor: pointer;" src="https://preview.redd.it/tjaa7j118q521.png?width=293&format=png&auto=webp&s=ad9dcc5b342d5b8f10f169d677a54c91f29424cc"><span class="moneyText">400$</span></div>
-                <div class="optnToBuyMiniDiv"><img id="buyGunnerTank" class="imgBuyInSpace" style="width: 150px; cursor: pointer;" src="https://mblogthumb-phinf.pstatic.net/20160917_195/wmsla2009_14741207470512rgqB_PNG/annilator.png?type=w800"><span class="moneyText">500$</span></div>
-                <div class="optnToBuyMiniDiv"><img id="buyMultiTank" class="imgBuyInSpace" style="width: 150px; cursor: pointer" src="https://preview.redd.it/kjgx439g5q521.png?width=293&format=png&auto=webp&s=88ef558ce60a98fe9cc0eff9f92017dd9ec6b7cf" ><span class="moneyText">1000$</span></div>
-                <!--<div class="optnToBuyMiniDiv"><img id="buyMinnerTank" style="width: 110px; cursor: pointer" src="https://static.wikia.nocookie.net/scenexeio/images/9/9e/Shrapnel-Base.png/revision/latest?cb=20220204105239" ><span class="moneyText">1500$</span></div>-->
+                <div class="optnToBuyMiniDiv"><img id="buyBasicTank" class="imgBuyInSpace" style="width: 150px; cursor: pointer" src="docs/assets/basic.png"><span class="moneyText">200$</span></div>
+                <div class="optnToBuyMiniDiv"><img id="buyIceTank"  class="imgBuyInSpace" style="width: 115px; cursor: pointer;" src="docs/assets/ice.png"><span class="moneyText">400$</span></div>
+                <div class="optnToBuyMiniDiv"><img id="buyGunnerTank" class="imgBuyInSpace" style="width: 150px; cursor: pointer;" src="docs/assets/gunner.png"><span class="moneyText">500$</span></div>
+                <div class="optnToBuyMiniDiv"><img id="buyMultiTank" class="imgBuyInSpace" style="width: 150px; cursor: pointer" src="docs/assets/multi.png" ><span class="moneyText">1000$</span></div>
                 <div class="optnToBuyMiniDiv"><img id="buyGoldmine" class="imgBuyInSpace" style="width: 100px; cursor: pointer" src="docs/assets/goldmine.png"><span class="moneyText">400$</span></div>
                 <div class="optnToBuyMiniDiv"><img id="buyWall" class="imgBuyInSpace" style="width: 100px; cursor: pointer" src="docs/assets/wall.png"><span class="moneyText">300$</span></div>
 
@@ -952,12 +951,12 @@
             ];
 
             // SRC's
-            const BASICTANK_SRC = "https://preview.redd.it/vq62mhb27q521.png?width=281&format=png&auto=webp&s=9aaf5903544521d61590959a4aa89109c13431f3";
-            const MULTITANK_SRC = "https://preview.redd.it/kjgx439g5q521.png?width=293&format=png&auto=webp&s=88ef558ce60a98fe9cc0eff9f92017dd9ec6b7cf";
+            const BASICTANK_SRC = "docs/assets/basic.png";
+            const MULTITANK_SRC = "docs/assets/multi.png";
             const GOLDMINE_SRC = "docs/assets/goldmine.png";
             const WALL_SRC = "docs/assets/wall.png";
-            const GUNNERTANK_SRC = "https://mblogthumb-phinf.pstatic.net/20160917_195/wmsla2009_14741207470512rgqB_PNG/annilator.png?type=w800";
-            const ICETANK_SRC = "https://preview.redd.it/tjaa7j118q521.png?width=293&format=png&auto=webp&s=ad9dcc5b342d5b8f10f169d677a54c91f29424cc";
+            const GUNNERTANK_SRC = "docs/assets/gunner.png";
+            const ICETANK_SRC = "docs/assets/ice.png";
             
             var instructionsMain = document.getElementById("instructionsMain");
             var arrowDownInstructions = document.getElementById("arrowDownInstructions");
@@ -982,10 +981,10 @@
 
             // LIFES
             const LIFES_BASIC_TANK = 4;
-            const LIFES_MULTI_TANK = 7;
+            const LIFES_MULTI_TANK = 8;
             const LIFES_GOLDMINE = 3;
             const LIFES_WALL = 16;
-            const LIFES_GUNNER_TANK = 5;
+            const LIFES_GUNNER_TANK = 6;
             const LIFES_ICE_TANK = 3;
 
             // DIFFICULTY SELCTORS
@@ -1119,7 +1118,7 @@
                 artisticName: "Virus Playground",
                 goalTime: 400000,
                 iniDiffSpawn: 5000,
-                changeDiffSpawn: .96,
+                changeDiffSpawn: .955,
                 money: 1500,
                 moneyIntervalEarned: 25,
                 virusTimeline: {
@@ -1200,7 +1199,7 @@
                 artisticName: "Covid Planet",
                 goalTime: 750000,
                 iniDiffSpawn: 7000,
-                changeDiffSpawn: 0.942,
+                changeDiffSpawn: 0.95,
                 money: 2000,
                 moneyIntervalEarned: 50,
                 virusTimeline: {
@@ -1484,11 +1483,11 @@
                 indexLevel: 9,
                 nameLevel: "Level 9",
                 artisticName: "Bad Guys",
-                goalTime: 700000,
+                goalTime: 600000,
                 iniDiffSpawn: 9000,
                 changeDiffSpawn: 0.985,
-                money: 3000,
-                moneyIntervalEarned: 100,
+                money: 5000,
+                moneyIntervalEarned: 125,
                 virusTimeline: {
                     0: {
                         uniqueType: true,
@@ -1778,20 +1777,20 @@
                 0: 200,
                 1: 400,
                 2: 500,
-                3: 800,
-                4: 1200,
+                3: 1000,
+                4: 1250,
                 5: 1800,
                 6: 2300
             }
 
             var upgradeMultiTank = {
                 0: 1000,
-                1: 750,
-                2: 1000,
-                3: 1300,
-                4: 1700,
+                1: 500,
+                2: 750,
+                3: 1250,
+                4: 1600,
                 5: 2700,
-                6: 4300
+                6: 4250
             }
 
             var upgradeGoldmine = {
@@ -1896,11 +1895,11 @@
             var timeUpgradeIceTank = {
                 0: 2500,
                 1: 2000,
-                2: 1650,
+                2: 1600,
                 3: 1200,
                 4: 900,
-                5: 700,
-                6: 500
+                5: 600,
+                6: 400
             }
 
             var relationUpgradeSkills = {
@@ -2134,6 +2133,12 @@
                     }
 
                     levelsSpaces[index]++;
+
+                    if (levelsSpaces[index] == 7) {
+                        let currentSRC = ele.firstChild.firstChild.getAttribute("src");
+                        let typeSRC = currentSRC.substring(0, currentSRC.indexOf('.'));
+                        space.setAttribute("src", typeSRC+"_max.png");
+                    }
 
                     /*if (type != 4) {
                         document.getElementsByClassName("armourSub")[index].firstChild.children[1].textContent = levelsSpaces[index];
@@ -3557,46 +3562,61 @@
 
             function startGame(){
 
-                d = new Date().getTime();
+                presentLevel(currentDiffString, undefined, "Resist as much as you can", true)
 
                 stratGameMainDiv.style.display = "none";
 
-                difficultySpawn = eqDiffIni[currentDiffString];
+                setTimeout(function(){
+                    d = new Date().getTime();
 
-                createIntervalSpawnVirus(difficultySpawn);
+                    difficultySpawn = eqDiffIni[currentDiffString];
 
-                createDifficultyInterval(eqDiffChange[currentDiffString]);
+                    createIntervalSpawnVirus(difficultySpawn);
 
-                createMainMoneyInterval(mainMoneyIntervalToEarn);
+                    createDifficultyInterval(eqDiffChange[currentDiffString]);
 
-                controlBossSpawning();
+                    createMainMoneyInterval(mainMoneyIntervalToEarn);
 
-                startChrono();
+                    controlBossSpawning();
 
-                // Pause the game if user left window
-                document.addEventListener("visibilitychange", (event) => {
-                    if (document.visibilityState != "visible") {
-                        pauseGame();
-                    } 
-                    window.addEventListener("click", reanudeGame);
-                    window.addEventListener("contextmenu", reanudeGame);
-                });
+                    startChrono();
+
+                    // Pause the game if user left window
+                    document.addEventListener("visibilitychange", (event) => {
+                        if (document.visibilityState != "visible") {
+                            pauseGame();
+                        } 
+                        window.addEventListener("click", reanudeGame);
+                        window.addEventListener("contextmenu", reanudeGame);
+                    });
+                }, 4000)
             }
 
             // GAME LEVELS
 
             var playingAtLevel;
 
-            function presentLevel(nameLevel, artisticName, goalTime) {
+            function presentLevel(nameLevel, artisticName, goalTime, diff) {
                 let presentationDiv = document.getElementById("presentationLevelDiv");
 
                 let levelName = document.getElementById("levelNum");
 
                 let timeGoalDiv = document.getElementById("levelTimeGoal");
 
-                levelName.textContent = nameLevel+": "+artisticName;
+                if (diff) {
 
-                timeGoalDiv.textContent = goalTime/1000;
+                    document.getElementById("resist-time-present-level").textContent = goalTime;
+
+                    levelName.textContent = nameLevel + " Difficulty";
+                }
+
+                else {
+
+                    levelName.textContent = nameLevel+": "+artisticName;
+
+                    timeGoalDiv.textContent = goalTime/1000;
+                }
+                
 
                 presentationDiv.style.display = "flex";
 
@@ -3811,7 +3831,7 @@
 
                 playingAtLevel = true;
 
-                presentLevel(newLevelOptions.nameLevel, newLevelOptions.artisticName, newLevelOptions.goalTime);
+                presentLevel(newLevelOptions.nameLevel, newLevelOptions.artisticName, newLevelOptions.goalTime, false);
 
                 currentLVLName = newLevelOptions.nameLevel;
 
