@@ -2114,6 +2114,12 @@
                     currentMoney -= price;
                     moneyCounterDOC.textContent = currentMoney;
 
+                    if (levelsSpaces[index] == 6) {
+                        let currentSRC = ele.target.getAttribute("src");
+                        let typeSRC = currentSRC.substring(0, currentSRC.indexOf('.'));
+                        ele.target.setAttribute("src", typeSRC+"_max.png");
+                    }
+
                     clearInterval(spacesIntervals[index]);
 
                     if (type == 1) {
@@ -2133,12 +2139,6 @@
                     }
 
                     levelsSpaces[index]++;
-
-                    if (levelsSpaces[index] == 7) {
-                        let currentSRC = ele.target.getAttribute("src");
-                        let typeSRC = currentSRC.substring(0, currentSRC.indexOf('.'));
-                        ele.target.setAttribute("src", typeSRC+"_max.png");
-                    }
 
                     /*if (type != 4) {
                         document.getElementsByClassName("armourSub")[index].firstChild.children[1].textContent = levelsSpaces[index];
