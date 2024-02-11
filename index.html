@@ -1350,7 +1350,7 @@
                 indexLevel: 6,
                 nameLevel: "Level 6",
                 artisticName: "Beat The Boss",
-                goalTime: 500000,
+                goalTime: 50000,
                 iniDiffSpawn: 5000,
                 changeDiffSpawn: 0.97,
                 money: 1500,
@@ -1373,7 +1373,7 @@
                             bossSize: 3000,
                             timeAnimation: undefined,
                         },
-                        diffSpawn: 4000,
+                        diffSpawn: 400,
                         fixedSP: true,
                         setDiffSpawnGlobal: false,
                         spawn: undefinedSpawnType
@@ -2114,12 +2114,6 @@
                     currentMoney -= price;
                     moneyCounterDOC.textContent = currentMoney;
 
-                    if (levelsSpaces[index] == 6 && type != 6) {
-                        let currentSRC = ele.target.getAttribute("src");
-                        let typeSRC = currentSRC.substring(0, currentSRC.indexOf('.'));
-                        ele.target.setAttribute("src", typeSRC+"_max.png");
-                    }
-
                     clearInterval(spacesIntervals[index]);
 
                     if (type == 1) {
@@ -2139,6 +2133,7 @@
                     }
 
                     levelsSpaces[index]++;
+
 
                     /*if (type != 4) {
                         document.getElementsByClassName("armourSub")[index].firstChild.children[1].textContent = levelsSpaces[index];
@@ -2169,7 +2164,6 @@
                 selectedSpace.style.background = "#DBDBDB";
 
                 document.addEventListener("click", closeBuyMenuClick);
-
             }
 
             function colision(eleA, eleB) {
@@ -2685,6 +2679,7 @@
                 if (spacesToBuy[selectedIndex] != 1) {
                     if (currentMoney >= 200) {
                         if (numBuilt[1] < limitToBulid[1]) {
+                            closeBuyMenu();
                             if (spacesToBuy[selectedIndex] != 0) {
                                 numBuilt[spacesToBuy[selectedIndex]]--;
                                 let toRefund = 0;
@@ -2738,6 +2733,7 @@
                 if (spacesToBuy[selectedIndex] != 2){
                     if (currentMoney >= 1000) {
                         if (numBuilt[2] < limitToBulid[2]) {
+                            closeBuyMenu();
                             if (spacesToBuy[selectedIndex] != 0) {
                                 numBuilt[spacesToBuy[selectedIndex]]--;
                                 var toRefund = 0;
@@ -2790,6 +2786,7 @@
                 if (spacesToBuy[selectedIndex] != 5){
                     if (currentMoney >= 500) {
                         if (numBuilt[5] < limitToBulid[5]) {
+                            closeBuyMenu();
                             if (spacesToBuy[selectedIndex] != 0) {
                                 numBuilt[spacesToBuy[selectedIndex]]--;
                                 var toRefund = 0;
@@ -2842,6 +2839,7 @@
                 if (spacesToBuy[selectedIndex] != 6){
                     if (currentMoney >= 400) {
                         if (numBuilt[6] < limitToBulid[6]) {
+                            closeBuyMenu();
                             if (spacesToBuy[selectedIndex] != 0) {
                                 numBuilt[spacesToBuy[selectedIndex]]--;
                                 var toRefund = 0;
@@ -2894,6 +2892,7 @@
                 if (spacesToBuy[selectedIndex] != 3){
                     if (currentMoney >= 400) {
                         if (numBuilt[3] < limitToBulid[3]){
+                            closeBuyMenu();
                             if (spacesToBuy[selectedIndex] != 0) {
                                 numBuilt[spacesToBuy[selectedIndex]]--;
                                 var toRefund = 0;
@@ -2948,6 +2947,7 @@
                 if (spacesToBuy[selectedIndex] != 4){
                     if (currentMoney >= 300) {
                         if (numBuilt[4] < limitToBulid[4]) {
+                            closeBuyMenu();
                             if (spacesToBuy[selectedIndex] != 0) {
                                 numBuilt[spacesToBuy[selectedIndex]]--;
                                 var toRefund = 0;
@@ -3354,7 +3354,12 @@
                     newVirus.style.animationDuration = animationTime+"s";
                 }
 
-                newVirus.style.top = getRandomInt(window.innerHeight-size)+0.5*size+"px";
+                if (size < window.innerHeight) {
+                    newVirus.style.top = getRandomInt(window.innerHeight-size)+0.5*size+"px";
+                }
+                else {
+                    newVirus.style.top = window.innerHeight/2+"px";
+                }
                 newVirus.style.left =  window.innerWidth+(size/2)+"px";
 
                 newVirus.addEventListener("animationend", function(evt){
