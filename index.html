@@ -2667,7 +2667,6 @@
                 currentMoney += toRefund*0.4;
                 moneyCounterDOC.textContent = currentMoney;
 
-                numBuilt[spacesToBuy[selectedIndex]]--;
                 clearInterval(spacesIntervals[selectedIndex]);
                 numBuilt[spacesToBuy[selectedIndex]]--;
                 spacesToBuy[selectedIndex] = 0;
@@ -3086,7 +3085,7 @@
                     newVirus.classList.add("fa-solid");
                     newVirus.classList.add("fa-disease");
                     newVirus.classList.add("enemySuperFast");
-                    newVirus.classList.add("fa-4x");
+                    newVirus.style.fontSize = 7.5+"vh";
                     newVirus.dataset.lifes = 7;
                     newVirus.dataset.slowed = "false";
                     newVirus.classList.add("enemy");
@@ -3114,7 +3113,7 @@
                 newVirus.dataset.lifes = 5;
                 newVirus.dataset.slowed = "false";
                 newVirus.classList.add("fa-virus");
-                newVirus.classList.add("fa-4x");
+                newVirus.style.fontSize = 7.5+"vh";
                 newVirus.classList.add("enemyBasic");
                 newVirus.style.left = posLeft+"px";
 
@@ -3144,7 +3143,7 @@
                 newVirus.dataset.slowed = "false";
 
                 newVirus.classList.add("fa-viruses");
-                newVirus.classList.add("fa-4x");
+                newVirus.style.fontSize = 7.5+"vh";
                 newVirus.classList.add("enemyBasic");
                 newVirus.style.left = posLeft+"px";
                 if(duration != null) {
