@@ -2114,7 +2114,7 @@
                     currentMoney -= price;
                     moneyCounterDOC.textContent = currentMoney;
 
-                    if (levelsSpaces[index] == 6 && spacesToBuy[index] != 3 && spacesToBuy[index] != 4) {
+                    if (levelsSpaces[index] == 6 && spacesToBuy[index] != 3 && spacesToBuy[index] != 4 && spacesToBuy[index] != 6) {
                         let currentSRC = ele.target.getAttribute("src");
                         let typeSRC = currentSRC.substring(0, currentSRC.indexOf('.'));
                         ele.target.setAttribute("src", typeSRC+"_max.png");
