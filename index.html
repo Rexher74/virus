@@ -869,15 +869,6 @@
 
         </style>
     </head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RFZM98L10H"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-    
-      gtag('config', 'G-RFZM98L10H');
-    </script>
     <body>
         <div id="presentationLevelDiv">
             <span id="levelNum" style="font-size: 50px;"></span>
@@ -3729,8 +3720,10 @@
                             lastControlBossSpawn = actualTimeBoss;
                             for(var i = 10000; i <= bossSpawnCount*10000; i+=10000) {
                                 let newTimeOut = new Timer(function() {
-                                    spawnVirusBoss(1200);
-                                    listTimeOutsSpawnBoss.shift();
+                                    if (!endGameVar) {
+                                        spawnVirusBoss(1200);
+                                        listTimeOutsSpawnBoss.shift();
+                                    }
                                 }, 10000+i);
                                 listTimeOutsSpawnBoss.push(newTimeOut);
                             }
@@ -3983,21 +3976,21 @@
 
 
             var pcSpawnVirusType = {
-                "boss": 0.2,
-                "diseaseH": 0.8,
+                "boss": 0.025,
+                "diseaseH": 0.975,
                 "skull": 1,
                 "covid": 5,
-                "diseaseB": 10,
+                "diseaseB": 15,
                 "double": 23,
-                "basic": 60,
+                "basic": 55,
             }
 
             var psSpawnSkullSize = {
-                1: 37.5,
-                2: 32.5,
+                1: 40,
+                2: 32,
                 3: 20,
-                4: 7.5,
-                5: 2.5
+                4: 6,
+                5: 2
             }
 
             function spawnVirusByPc(basic, double, diseaseB, covid, skull, diseaseH, boss, skullSize = undefined, bossSize = undefined, timeAnimation = undefined){
