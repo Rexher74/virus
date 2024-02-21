@@ -4532,7 +4532,7 @@
                 }
 
                 if (size < armourSpaceDiv.getBoundingClientRect().height) {
-                    newVirus.style.top = getRandomInt(armourSpaceDiv.getBoundingClientRect().height-newBossFontSizeVH*window.innerHeight)+0.5*(newBossFontSizeVH/100)*window.innerHeight+"px";
+                    newVirus.style.top = getRandomInt(armourSpaceDiv.getBoundingClientRect().height-(newBossFontSizeVH/100)*window.innerHeight)+0.5*(newBossFontSizeVH/100)*window.innerHeight+"px";
                 }
                 else {
                     newVirus.style.top = armourSpaceDiv.getBoundingClientRect().height/2+"px";
@@ -4545,6 +4545,8 @@
                 });
 
                 document.body.appendChild(newVirus);
+                console.log("left",newVirus.style.left);
+                console.log("top",newVirus.style.top)
             }
 
             var minAsymptote = 0.75;
