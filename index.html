@@ -837,6 +837,12 @@
             .margin-left-dataUser{
                 margin-left: 20px;
             }
+
+            #alertNotEnoughMoneyUpgrade{
+                flex-direction: row-reverse;
+                align-items: center;
+                justify-content: space-around;
+            }
             
             #resist-time-present-level{
                 font-size: 35px;
@@ -1000,6 +1006,10 @@
                 .imgBuyInSpace{
                     height: 80%;
                 }
+                #alertNotEnoughMoneyUpgrade{
+                    font-size: 12px;
+                    padding: 4px 7px;
+                }
             }
 
             @media screen and (max-height: 730px) {
@@ -1118,6 +1128,10 @@
                 }
                 #levelGoalTimeToAchieve{
                     font-size: 15px;
+                }
+                #alertNotEnoughMoneyUpgrade{
+                    font-size: 10px;
+                    padding: 2px 5px;
                 }
             }
 
@@ -2910,11 +2924,11 @@
                 else {
                     if (levelsSpaces[index] < 6) {
                         alertNoMoneyUpgrade.innerHTML = `<span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span>Not Enough Money!`
-                        alertNoMoneyUpgrade.style.display = "block";
+                        alertNoMoneyUpgrade.style.display = "flex";
                     }
                     else {
                         alertNoMoneyUpgrade.innerHTML = `<span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span>Not Enough Elixir!`
-                        alertNoMoneyUpgrade.style.display = "block";
+                        alertNoMoneyUpgrade.style.display = "flex";
                     }
                 }
             }
@@ -3087,22 +3101,24 @@
                 
                 document.querySelectorAll(".armourSub").forEach(function(e, i){
                     e.addEventListener("click", function(){
-                        if (selectedIndex != i) {
-                            if (lastClickedSpace != undefined) {
-                                lastClickedSpace.style.backgroundColor = "transparent";
-                            }
-                            let eleSelected = e;
-                            eleSelected.style.background = "#DEDEDE";
-                            lastClickedSpace = eleSelected;
-                            selectedIndex = i;
-                            selectedSpace = eleSelected;
-                        }
-                        else {
+                        if (lastClickedSpace != undefined) {
                             lastClickedSpace.style.backgroundColor = "transparent";
-                            lastClickedSpace = undefined;
                         }
-                        
+                        let eleSelected = e;
+                        eleSelected.style.background = "#DEDEDE";
+                        lastClickedSpace = eleSelected;
+                        selectedIndex = i;
+                        selectedSpace = eleSelected;
                     })
+                })
+
+                window.addEventListener("mousedown", function handleClick(e){
+                    if (!e.target.classList.contains("armourSub") && !e.target.classList.contains("gradientLifesSpace") && !e.target.classList.contains("imgBuyInSpace")) {
+                        if (lastClickedSpace != undefined) {
+                            lastClickedSpace.style.backgroundColor = "transparent";
+                        }
+                        lastClickedSpace = undefined;
+                    }
                 })
 
 
