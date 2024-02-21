@@ -681,7 +681,26 @@
                 pointer-events: none;
             }
 
-            #notSmatphoneYet{
+            #smartphoneFullScreen{
+                top: 0;
+                left: 0;
+                position: absolute;
+                width: 100vw;
+                height: 100vh;
+                justify-content: center;
+                flex-direction: column;
+                font-family: "Raleway", sans-serif;
+                font-size: 24px;
+                padding: 10%;
+                box-sizing: border-box;
+                z-index: 10000;
+                background-color: #d2fdff;
+                font-weight: 500;
+                line-height: 150%;
+                display: none;
+            }
+
+            #smartphoneRotate{
                 top: 0;
                 left: 0;
                 position: absolute;
@@ -812,6 +831,10 @@
 
             #levelNum{
                 font-size: 50px;
+            }
+
+            #mainContainerFullScreenMode::backdrop {
+                background-color: rgba(255,255,255,0);
             }
 
             @keyframes fadeIn {
@@ -1075,244 +1098,243 @@
 
         </style>
     </head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RFZM98L10H"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-    
-      gtag('config', 'G-RFZM98L10H');
-    </script>
     <body>
-        <div id="presentationLevelDiv">
-            <span id="levelNum"></span>
-            <span id="resist-time-present-level">Resist <span id="levelTimeGoal"></span> seconds</span>
-        </div>
-        <div id="gamePausedDiv"><i class="fa-solid fa-pause" style="font-size: 80px;"></i><br><span class="basicText">Click anywhere to resume the game</span></div>
-        <div id="divPreStartGame">
-            <i id="leaderBoardUserBestMarksIcon" class="fa-solid fa-ranking-star leaderboardUser" onclick="showBestMarksUser()"></i>
-
-            <div id="userBestMarksDiv">
-                <i id="xMark_userBestMarks" class="fa-solid fa-circle-xmark xMark_top_right" onclick="closeBestMarkUserMenu()"></i>
-                <div class="titleUserBestMarks">Best Marks</div>
-                <div class="difficultylevelBestMarks"><span style="font-weight: 700; font-style: italic;">Elementary: </span><span id="bestMarkElementary"></span></div>
-                <div class="difficultylevelBestMarks"><span style="font-weight: 700; font-style: italic;">Easy: </span><span id="bestMarkEasy"></span></div>
-                <div class="difficultylevelBestMarks"><span style="font-weight: 700; font-style: italic;">Normal: </span><span id="bestMarkNormal"></span></div>
-                <div class="difficultylevelBestMarks"><span style="font-weight: 700; font-style: italic;">Hard: </span><span id="bestMarkHard"></span></div>
-                <div class="difficultylevelBestMarks"><span style="font-weight: 700; font-style: italic;">Impossible: </span><span id="bestMarkImpossible"></span></div>
+        <div id="mainContainerFullScreenMode" style="display: contents">
+            <div id="presentationLevelDiv">
+                <span id="levelNum"></span>
+                <span id="resist-time-present-level">Resist <span id="levelTimeGoal"></span> seconds</span>
             </div>
+            <div id="gamePausedDiv"><i class="fa-solid fa-pause" style="font-size: 80px;"></i><br><span class="basicText">Click anywhere to resume the game</span></div>
+            <div id="divPreStartGame">
+                <i id="leaderBoardUserBestMarksIcon" class="fa-solid fa-ranking-star leaderboardUser" onclick="showBestMarksUser()"></i>
 
-            <div id="playByLevelDiv">
-                <i id="xMark_playByLevel" class="fa-solid fa-circle-xmark xMark_top_right" onclick="closeLevelsUserMenu()"></i>
-                <div class="titleUserBestMarks">Choose Level</div>
-                <div id="box-levels">
-                    <div class="newLevelToShowUser"></div>
-                    <div class="newInfoDataLevel">
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div class="buttonOpenLevel">Play</div>
+                <div id="userBestMarksDiv">
+                    <i id="xMark_userBestMarks" class="fa-solid fa-circle-xmark xMark_top_right" onclick="closeBestMarkUserMenu()"></i>
+                    <div class="titleUserBestMarks">Best Marks</div>
+                    <div class="difficultylevelBestMarks"><span style="font-weight: 700; font-style: italic;">Elementary: </span><span id="bestMarkElementary"></span></div>
+                    <div class="difficultylevelBestMarks"><span style="font-weight: 700; font-style: italic;">Easy: </span><span id="bestMarkEasy"></span></div>
+                    <div class="difficultylevelBestMarks"><span style="font-weight: 700; font-style: italic;">Normal: </span><span id="bestMarkNormal"></span></div>
+                    <div class="difficultylevelBestMarks"><span style="font-weight: 700; font-style: italic;">Hard: </span><span id="bestMarkHard"></span></div>
+                    <div class="difficultylevelBestMarks"><span style="font-weight: 700; font-style: italic;">Impossible: </span><span id="bestMarkImpossible"></span></div>
+                </div>
+
+                <div id="playByLevelDiv">
+                    <i id="xMark_playByLevel" class="fa-solid fa-circle-xmark xMark_top_right" onclick="closeLevelsUserMenu()"></i>
+                    <div class="titleUserBestMarks">Choose Level</div>
+                    <div id="box-levels">
+                        <div class="newLevelToShowUser"></div>
+                        <div class="newInfoDataLevel">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div class="buttonOpenLevel">Play</div>
+                        </div>
+                        <div class="newLevelToShowUser"></div>
+                        <div class="newInfoDataLevel">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div class="buttonOpenLevel">Play</div>
+                        </div>
+                        <div class="newLevelToShowUser"></div>
+                        <div class="newInfoDataLevel">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div class="buttonOpenLevel">Play</div>
+                        </div>
+                        <div class="newLevelToShowUser"></div>
+                        <div class="newInfoDataLevel">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div class="buttonOpenLevel">Play</div>
+                        </div>
+                        <div class="newLevelToShowUser"></div>
+                        <div class="newInfoDataLevel">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div class="buttonOpenLevel">Play</div>
+                        </div>
+                        <div class="newLevelToShowUser"></div>
+                        <div class="newInfoDataLevel">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div class="buttonOpenLevel">Play</div>
+                        </div>
+                        <div class="newLevelToShowUser"></div>
+                        <div class="newInfoDataLevel">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div class="buttonOpenLevel">Play</div>
+                        </div>
+                        <div class="newLevelToShowUser"></div>
+                        <div class="newInfoDataLevel">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div class="buttonOpenLevel">Play</div>
+                        </div>
+                        <div class="newLevelToShowUser"></div>
+                        <div class="newInfoDataLevel">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div class="buttonOpenLevel">Play</div>
+                        </div>
+                        <div class="newLevelToShowUser"></div>
+                        <div class="newInfoDataLevel">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div class="buttonOpenLevel">Play</div>
+                        </div>
                     </div>
-                    <div class="newLevelToShowUser"></div>
-                    <div class="newInfoDataLevel">
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div class="buttonOpenLevel">Play</div>
-                    </div>
-                    <div class="newLevelToShowUser"></div>
-                    <div class="newInfoDataLevel">
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div class="buttonOpenLevel">Play</div>
-                    </div>
-                    <div class="newLevelToShowUser"></div>
-                    <div class="newInfoDataLevel">
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div class="buttonOpenLevel">Play</div>
-                    </div>
-                    <div class="newLevelToShowUser"></div>
-                    <div class="newInfoDataLevel">
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div class="buttonOpenLevel">Play</div>
-                    </div>
-                    <div class="newLevelToShowUser"></div>
-                    <div class="newInfoDataLevel">
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div class="buttonOpenLevel">Play</div>
-                    </div>
-                    <div class="newLevelToShowUser"></div>
-                    <div class="newInfoDataLevel">
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div class="buttonOpenLevel">Play</div>
-                    </div>
-                    <div class="newLevelToShowUser"></div>
-                    <div class="newInfoDataLevel">
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div class="buttonOpenLevel">Play</div>
-                    </div>
-                    <div class="newLevelToShowUser"></div>
-                    <div class="newInfoDataLevel">
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div class="buttonOpenLevel">Play</div>
-                    </div>
-                    <div class="newLevelToShowUser"></div>
-                    <div class="newInfoDataLevel">
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div class="buttonOpenLevel">Play</div>
+                </div>
+
+                <div id="divPresentationGame">
+                    <div id="mainTitleStartGame"><i class="fa-solid fa-virus"></i> Virutz <i class="fa-solid fa-virus"></i></i></div>
+                    <div id="instructionsSetStartGame">
+                        <span id="instructionsHeader">How to Play <i id="arrowDownInstructions" style="cursor: pointer; font-size: 20px;" class="fa-solid fa-chevron-down" onclick="toggleInstructions()"></i></span>
+                        <div id="instructionsMain" style="display: none">
+                            <strong>Objective:</strong> eliminate viruses and resist as long as possible.<br>
+                            To do this, you can buy six types of structures:<br>
+                            BASIC TANK ( <i class="fa-solid fa-heart"></i> 2/<i class="fa-solid fa-sack-dollar"></i> 200 ): <i>Shoots bullets one at a time.</i><br>
+                            ICE TANK ( <i class="fa-solid fa-heart"></i> 1/<i class="fa-solid fa-sack-dollar"></i> 400 ): <i>Slows down viruses and harms them.</i><br>
+                            GUNNER TANK ( <i class="fa-solid fa-heart"></i> 3/<i class="fa-solid fa-sack-dollar"></i> 500 ): <i>Fires large bullets that split.</i><br>
+                            MULTI TANK ( <i class="fa-solid fa-heart"></i> 4/<i class="fa-solid fa-sack-dollar"></i> 1000 ): <i>Shoots bullets three at a time.</i><br>
+                            ELIXIR MINE( <i class="fa-solid fa-heart"></i> 1/<i class="fa-solid fa-sack-dollar"></i> 600 ): <i>Gives you 10 elixir every 6 seconds.</i><br>
+                            GOLDMINE( <i class="fa-solid fa-heart"></i> 2/<i class="fa-solid fa-sack-dollar"></i> 400 ): <i>Gives you 25$ every 2 seconds.</i><br>
+                            WALL( <i class="fa-solid fa-heart"></i> 6/<i class="fa-solid fa-sack-dollar"></i> 300 ): <i>Prevent viruses from passing.</i><br>
+
+                            <br style="margin-top: 2em; display: inline-block; content: '';">You can also use spells to defeat viruses, there are 4 types:<br>
+                            FIRE BOMB( 500 <i class="fa-solid fa-droplet"></i> ): <i>Spawns fire on the floor.</i><br>
+                            WINTER STORM ( 700 <i class="fa-solid fa-droplet"></i> ): <i>Slows all enemies.</i><br>
+                            FREEZING ICE ( 400 <i class="fa-solid fa-droplet"></i> ): <i>Freezes enemies for 10 seconds.</i><br>
+                            EXTRA BULLET ( 200 <i class="fa-solid fa-droplet"></i> ): <i>Throws packs of bullet.</i><br>
+
+                            <br style="margin-top: 2em; display: inline-block; content: '';">There are also several type of viruses, each one with their own<br>
+                            lives, damage, and speed. Play games to discover them!<br>
+
+                            <br style="margin-top: 2em; display: inline-block; content: '';">Remember, you earn an extra $25 every 2 seconds and can<br>
+                            upgrade structures by clicking on them, with a maximum level of 7.<br>Also remember you can pause the game by leaving this window.<br>
+                        </div>
+                        <div id="playByLevelOptionDiv" onclick="displayLevels()">Play by Level</div>
+                        <div id="selectDifficultyDiv">
+                            <div id="elementaryDifficultyDiv" class="optionDifficulty" style="background-color:rgb(0 191 198); border-top-left-radius: 10px; border-bottom-left-radius: 10px;">Elementary</div>
+                            <div id="easyDifficultyDiv" class="optionDifficulty" style="background-color:rgb(122, 191, 47)">Easy</div>
+                            <div id="normalDifficultyDiv" class="optionDifficulty difficultySelectedOptn" style="background-color:rgb(236, 200, 55)">Normal</div>
+                            <div id="hardDifficultyDiv" class="optionDifficulty" style="background-color:rgb(246, 127, 127)">Hard</div>
+                            <div id="impossibleDifficultyDiv" class="optionDifficulty" style="background-color:rgb(170, 0, 0); color: white; border-top-right-radius: 10px; border-bottom-right-radius: 10px;">Impossible</div>
+                        </div>
+                        <div id="buttonPlayStartGame" onclick="startGame()">PLAY</div>
                     </div>
                 </div>
             </div>
-
-            <div id="divPresentationGame">
-                <div id="mainTitleStartGame"><i class="fa-solid fa-virus"></i> Virutz <i class="fa-solid fa-virus"></i></i></div>
-                <div id="instructionsSetStartGame">
-                    <span id="instructionsHeader">How to Play <i id="arrowDownInstructions" style="cursor: pointer; font-size: 20px;" class="fa-solid fa-chevron-down" onclick="toggleInstructions()"></i></span>
-                    <div id="instructionsMain" style="display: none">
-                        <strong>Objective:</strong> eliminate viruses and resist as long as possible.<br>
-                        To do this, you can buy six types of structures:<br>
-                        BASIC TANK ( <i class="fa-solid fa-heart"></i> 2/<i class="fa-solid fa-sack-dollar"></i> 200 ): <i>Shoots bullets one at a time.</i><br>
-                        ICE TANK ( <i class="fa-solid fa-heart"></i> 1/<i class="fa-solid fa-sack-dollar"></i> 400 ): <i>Slows down viruses and harms them.</i><br>
-                        GUNNER TANK ( <i class="fa-solid fa-heart"></i> 3/<i class="fa-solid fa-sack-dollar"></i> 500 ): <i>Fires large bullets that split.</i><br>
-                        MULTI TANK ( <i class="fa-solid fa-heart"></i> 4/<i class="fa-solid fa-sack-dollar"></i> 1000 ): <i>Shoots bullets three at a time.</i><br>
-                        ELIXIR MINE( <i class="fa-solid fa-heart"></i> 1/<i class="fa-solid fa-sack-dollar"></i> 600 ): <i>Gives you 10 elixir every 6 seconds.</i><br>
-                        GOLDMINE( <i class="fa-solid fa-heart"></i> 2/<i class="fa-solid fa-sack-dollar"></i> 400 ): <i>Gives you 25$ every 2 seconds.</i><br>
-                        WALL( <i class="fa-solid fa-heart"></i> 6/<i class="fa-solid fa-sack-dollar"></i> 300 ): <i>Prevent viruses from passing.</i><br>
-
-                        <br style="margin-top: 2em; display: inline-block; content: '';">You can also use spells to defeat viruses, there are 4 types:<br>
-                        FIRE BOMB( 500 <i class="fa-solid fa-droplet"></i> ): <i>Spawns fire on the floor.</i><br>
-                        WINTER STORM ( 700 <i class="fa-solid fa-droplet"></i> ): <i>Slows all enemies.</i><br>
-                        FREEZING ICE ( 400 <i class="fa-solid fa-droplet"></i> ): <i>Freezes enemies for 10 seconds.</i><br>
-                        EXTRA BULLET ( 200 <i class="fa-solid fa-droplet"></i> ): <i>Throws packs of bullet.</i><br>
-
-                        <br style="margin-top: 2em; display: inline-block; content: '';">There are also several type of viruses, each one with their own<br>
-                        lives, damage, and speed. Play games to discover them!<br>
-
-                        <br style="margin-top: 2em; display: inline-block; content: '';">Remember, you earn an extra $25 every 2 seconds and can<br>
-                        upgrade structures by clicking on them, with a maximum level of 7.<br>Also remember you can pause the game by leaving this window.<br>
+            <!--<div id="selectBulid" class="mainMenuOperations">
+                <div id="divOptions" class="divOptionsMainMenu">
+                    <i id="xmark_close_buy" class="fa-solid fa-xmark fa-2x" style="position:absolute; top: 20px; right: 20px;color:rgb(132, 132, 132); cursor: pointer;"></i>
+                
+                    TO BUY
+                    <div id="alertNotEnoughMoney" class="alertRed">
+                        <span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span> 
+                        Not Enough Money!
                     </div>
-                    <div id="playByLevelOptionDiv" onclick="displayLevels()">Play by Level</div>
-                    <div id="selectDifficultyDiv">
-                        <div id="elementaryDifficultyDiv" class="optionDifficulty" style="background-color:rgb(0 191 198); border-top-left-radius: 10px; border-bottom-left-radius: 10px;">Elementary</div>
-                        <div id="easyDifficultyDiv" class="optionDifficulty" style="background-color:rgb(122, 191, 47)">Easy</div>
-                        <div id="normalDifficultyDiv" class="optionDifficulty difficultySelectedOptn" style="background-color:rgb(236, 200, 55)">Normal</div>
-                        <div id="hardDifficultyDiv" class="optionDifficulty" style="background-color:rgb(246, 127, 127)">Hard</div>
-                        <div id="impossibleDifficultyDiv" class="optionDifficulty" style="background-color:rgb(170, 0, 0); color: white; border-top-right-radius: 10px; border-bottom-right-radius: 10px;">Impossible</div>
+                    <div class="optnToBuyMiniDiv"><img id="buyBasicTank" class="imgBuyInSpace" style="width: 150px; cursor: pointer" src="https://preview.redd.it/vq62mhb27q521.png?width=281&format=png&auto=webp&s=9aaf5903544521d61590959a4aa89109c13431f3"><span class="moneyText">200$</span></div>
+                    <div class="optnToBuyMiniDiv"><img id="buyIceTank"  class="imgBuyInSpace" style="width: 115px; cursor: pointer;" src="https://preview.redd.it/tjaa7j118q521.png?width=293&format=png&auto=webp&s=ad9dcc5b342d5b8f10f169d677a54c91f29424cc"><span class="moneyText">400$</span></div>
+                    <div class="optnToBuyMiniDiv"><img id="buyGunnerTank" class="imgBuyInSpace" style="width: 150px; cursor: pointer;" src="https://mblogthumb-phinf.pstatic.net/20160917_195/wmsla2009_14741207470512rgqB_PNG/annilator.png?type=w800"><span class="moneyText">500$</span></div>
+                    <div class="optnToBuyMiniDiv"><img id="buyMultiTank" class="imgBuyInSpace" style="width: 150px; cursor: pointer" src="https://preview.redd.it/kjgx439g5q521.png?width=293&format=png&auto=webp&s=88ef558ce60a98fe9cc0eff9f92017dd9ec6b7cf" ><span class="moneyText">1000$</span></div>
+                    <div class="optnToBuyMiniDiv"><img id="buyGoldmine" class="imgBuyInSpace" style="width: 100px; cursor: pointer" src="https://cdn-icons-png.freepik.com/512/9110/9110092.png"><span class="moneyText">400$</span></div>
+                    <div class="optnToBuyMiniDiv"><img id="buyWall" class="imgBuyInSpace" style="width: 100px; cursor: pointer" src="https://cdn-icons-png.flaticon.com/512/8568/8568552.png"><span class="moneyText">300$</span></div>
+
+                </div>
+            </div>-->
+            <div id="selectUpgrade" class="mainMenuOperations">
+                <div id="divOptionsUpgrade" class="divOptionsMainMenu">
+                    <i id="xmark_close_buy_upgrade" class="fa-solid fa-xmark fa-2x" style="position:absolute; top: 20px; right: 20px;color:rgb(132, 132, 132); cursor: pointer;"></i>
+                
+                    <!--TO UPGRADE-->
+                    <div id="alertNotEnoughMoneyUpgrade" class="alertRed">
+                        <span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span> 
+                        Not Enough Money!
                     </div>
-                    <div id="buttonPlayStartGame" onclick="startGame()">PLAY</div>
+                    
+                    <div class="title-text">LEVEL <span id="currentLevelArmour"></span></div>
+                    <div id="buttonUpgrade">UPGRADE <span id="price_to_upgrade"></span></div><span id="sellButtonUpgrade" onclick="sellSpaceUser()" title="You will be refund a 40% of what you spent in building and upgrading this structure" >Sell</span>
+
                 </div>
             </div>
-        </div>
-        <!--<div id="selectBulid" class="mainMenuOperations">
-            <div id="divOptions" class="divOptionsMainMenu">
-                <i id="xmark_close_buy" class="fa-solid fa-xmark fa-2x" style="position:absolute; top: 20px; right: 20px;color:rgb(132, 132, 132); cursor: pointer;"></i>
-            
-                TO BUY
+            <div class="dataPlayer"><i class="fa-solid fa-sack-dollar" style="color: rgb(205, 205, 0)"></i><span id="moneyCounter" style="color: rgb(205, 205, 0); margin-left: 5px;"></span><i class="fa-solid fa-droplet margin-left-dataUser" style="color:rgb(190, 69, 255);"></i><span id="elixirCounter" style="color:rgb(190, 69, 255); margin-left: 5px;"></span><i class="fa-solid fa-heart margin-left-dataUser" style="color: red"></i><span id="lifesCounter" style="color:red; margin-left: 5px;"></span></div>
+            <div id="mainChronoDiv"><span id="mainChrono">0.0</span><span id="levelGoalTimeToAchieve"></span></div>
+            <div id="mainAlertNoBuyDiv">
                 <div id="alertNotEnoughMoney" class="alertRed">
                     <span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span> 
                     Not Enough Money!
                 </div>
-                <div class="optnToBuyMiniDiv"><img id="buyBasicTank" class="imgBuyInSpace" style="width: 150px; cursor: pointer" src="https://preview.redd.it/vq62mhb27q521.png?width=281&format=png&auto=webp&s=9aaf5903544521d61590959a4aa89109c13431f3"><span class="moneyText">200$</span></div>
-                <div class="optnToBuyMiniDiv"><img id="buyIceTank"  class="imgBuyInSpace" style="width: 115px; cursor: pointer;" src="https://preview.redd.it/tjaa7j118q521.png?width=293&format=png&auto=webp&s=ad9dcc5b342d5b8f10f169d677a54c91f29424cc"><span class="moneyText">400$</span></div>
-                <div class="optnToBuyMiniDiv"><img id="buyGunnerTank" class="imgBuyInSpace" style="width: 150px; cursor: pointer;" src="https://mblogthumb-phinf.pstatic.net/20160917_195/wmsla2009_14741207470512rgqB_PNG/annilator.png?type=w800"><span class="moneyText">500$</span></div>
-                <div class="optnToBuyMiniDiv"><img id="buyMultiTank" class="imgBuyInSpace" style="width: 150px; cursor: pointer" src="https://preview.redd.it/kjgx439g5q521.png?width=293&format=png&auto=webp&s=88ef558ce60a98fe9cc0eff9f92017dd9ec6b7cf" ><span class="moneyText">1000$</span></div>
-                <div class="optnToBuyMiniDiv"><img id="buyGoldmine" class="imgBuyInSpace" style="width: 100px; cursor: pointer" src="https://cdn-icons-png.freepik.com/512/9110/9110092.png"><span class="moneyText">400$</span></div>
-                <div class="optnToBuyMiniDiv"><img id="buyWall" class="imgBuyInSpace" style="width: 100px; cursor: pointer" src="https://cdn-icons-png.flaticon.com/512/8568/8568552.png"><span class="moneyText">300$</span></div>
-
             </div>
-        </div>-->
-        <div id="selectUpgrade" class="mainMenuOperations">
-            <div id="divOptionsUpgrade" class="divOptionsMainMenu">
-                <i id="xmark_close_buy_upgrade" class="fa-solid fa-xmark fa-2x" style="position:absolute; top: 20px; right: 20px;color:rgb(132, 132, 132); cursor: pointer;"></i>
-            
-                <!--TO UPGRADE-->
-                <div id="alertNotEnoughMoneyUpgrade" class="alertRed">
-                    <span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span> 
-                    Not Enough Money!
+            <div id="gameOverDiv">
+                <div id="gameOverSubDiv">
+                    <span class="closeGameOverDiv" onclick="this.parentElement.parentElement.style.display='none';">&times;</span> 
+                    <span id="gameOverOrNewRecordSpan">Game Over!</span><span id="timeResistedGameOver" style="margin-top: 25px; margin-bottom: 25px;"></span><span id="difficultyModeGameOver"></span>
                 </div>
-                
-                <div class="title-text">LEVEL <span id="currentLevelArmour"></span></div>
-                <div id="buttonUpgrade">UPGRADE <span id="price_to_upgrade"></span></div><span id="sellButtonUpgrade" onclick="sellSpaceUser()" title="You will be refund a 40% of what you spent in building and upgrading this structure" >Sell</span>
-
             </div>
-        </div>
-        <div class="dataPlayer"><i class="fa-solid fa-sack-dollar" style="color: rgb(205, 205, 0)"></i><span id="moneyCounter" style="color: rgb(205, 205, 0); margin-left: 5px;"></span><i class="fa-solid fa-droplet margin-left-dataUser" style="color:rgb(190, 69, 255);"></i><span id="elixirCounter" style="color:rgb(190, 69, 255); margin-left: 5px;"></span><i class="fa-solid fa-heart margin-left-dataUser" style="color: red"></i><span id="lifesCounter" style="color:red; margin-left: 5px;"></span></div>
-        <div id="mainChronoDiv"><span id="mainChrono">0.0</span><span id="levelGoalTimeToAchieve"></span></div>
-        <div id="mainAlertNoBuyDiv">
-            <div id="alertNotEnoughMoney" class="alertRed">
-                <span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span> 
-                Not Enough Money!
+            <div id="armourSpace">
+                <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
+                <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
+                <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
+                <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
+                <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
+                <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
+                <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
+                <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
+                <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
+                <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
+                <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
+                <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
+                <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
+                <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
+                <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
+                <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
+                <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
+                <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
+                <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
+                <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
+                <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
+                <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
+                <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
+                <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
+                <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
+                <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
+                <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
+                <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
+                <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
+                <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
             </div>
-        </div>
-        <div id="gameOverDiv">
-            <div id="gameOverSubDiv">
-                <span class="closeGameOverDiv" onclick="this.parentElement.parentElement.style.display='none';">&times;</span> 
-                <span id="gameOverOrNewRecordSpan">Game Over!</span><span id="timeResistedGameOver" style="margin-top: 25px; margin-bottom: 25px;"></span><span id="difficultyModeGameOver"></span>
+            <div id="menuOperationsUser">
+                <div id="purchaseStructureMO">
+                    <div class="optnToBuyMiniDiv"><img id="buyBasicTank" draggable="true" class="imgBuyInSpace" style="cursor: pointer" src="https://preview.redd.it/vq62mhb27q521.png?width=281&format=png&auto=webp&s=9aaf5903544521d61590959a4aa89109c13431f3"><span class="moneyText">200$</span></div>
+                    <div class="optnToBuyMiniDiv"><img id="buyIceTank" draggable="true" class="imgBuyInSpace" style="cursor: pointer;" src="https://preview.redd.it/tjaa7j118q521.png?width=293&format=png&auto=webp&s=ad9dcc5b342d5b8f10f169d677a54c91f29424cc"><span class="moneyText">400$</span></div>
+                    <div class="optnToBuyMiniDiv"><img id="buyGunnerTank" class="imgBuyInSpace" style="cursor: pointer;" src="https://mblogthumb-phinf.pstatic.net/20160917_195/wmsla2009_14741207470512rgqB_PNG/annilator.png?type=w800"><span class="moneyText">500$</span></div>
+                    <div class="optnToBuyMiniDiv"><img id="buyMultiTank" class="imgBuyInSpace" style="cursor: pointer" src="https://preview.redd.it/kjgx439g5q521.png?width=293&format=png&auto=webp&s=88ef558ce60a98fe9cc0eff9f92017dd9ec6b7cf" ><span class="moneyText">1000$</span></div>
+                    <div class="optnToBuyMiniDiv"><img id="buyElixirmine" class="imgBuyInSpace" style="cursor: pointer" src="https://cdn-icons-png.freepik.com/512/8046/8046073.png"><span class="moneyText">600$</span></div>
+                    <div class="optnToBuyMiniDiv"><img id="buyGoldmine" class="imgBuyInSpace" style="cursor: pointer" src="https://cdn-icons-png.freepik.com/512/9110/9110092.png"><span class="moneyText">400$</span></div>
+                    <div class="optnToBuyMiniDiv"><img id="buyWall" class="imgBuyInSpace" style="cursor: pointer" src="https://cdn-icons-png.flaticon.com/512/8568/8568552.png"><span class="moneyText">300$</span></div>
+                </div>
+                <div id="menuSpellsUser">
+                    <div class="optnToBuyMiniDiv"><img id="buyFireSpell" draggable="true" class="imgBuyInSpace" style="cursor: pointer" src="https://cdn-icons-png.flaticon.com/512/8722/8722283.png"><span class="elixirText">500 <i class="fa-solid fa-droplet" style="color: rgb(190, 69, 255)"></i></span></div>
+                    <div class="optnToBuyMiniDiv"><img id="buySlowSpell" draggable="true" class="imgBuyInSpace" style="cursor: pointer;" src="https://cdn1.iconfinder.com/data/icons/winter-123/512/blizzard-snow-weather-wind-cold-512.png"><span class="elixirText">700 <i class="fa-solid fa-droplet" style="color: rgb(190, 69, 255)"></i></span></div>
+                    <div class="optnToBuyMiniDiv"><img id="buyIceSpell" class="imgBuyInSpace" style="cursor: pointer;" src="https://static-00.iconduck.com/assets.00/ice-icon-1929x2048-4ikhj9nt.png"><span class="elixirText">400 <i class="fa-solid fa-droplet" style="color: rgb(190, 69, 255)"></i></span></div>
+                    <div class="optnToBuyMiniDiv"><img id="buyBulletSpell" class="imgBuyInSpace" style="cursor: pointer;" src="https://cdn-icons-png.flaticon.com/512/3549/3549003.png"><span class="elixirText">200 <i class="fa-solid fa-droplet" style="color: rgb(190, 69, 255)"></i></span></div>
+                </div>
             </div>
-        </div>
-        <div id="armourSpace">
-            <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
-            <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
-            <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
-            <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
-            <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
-            <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
-            <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
-            <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
-            <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
-            <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
-            <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
-            <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
-            <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
-            <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
-            <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
-            <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
-            <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
-            <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
-            <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
-            <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
-            <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
-            <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
-            <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
-            <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
-            <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
-            <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
-            <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
-            <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
-            <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
-            <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
-        </div>
-        <div id="menuOperationsUser">
-            <div id="purchaseStructureMO">
-                <div class="optnToBuyMiniDiv"><img id="buyBasicTank" draggable="true" class="imgBuyInSpace" style="cursor: pointer" src="https://preview.redd.it/vq62mhb27q521.png?width=281&format=png&auto=webp&s=9aaf5903544521d61590959a4aa89109c13431f3"><span class="moneyText">200$</span></div>
-                <div class="optnToBuyMiniDiv"><img id="buyIceTank" draggable="true" class="imgBuyInSpace" style="cursor: pointer;" src="https://preview.redd.it/tjaa7j118q521.png?width=293&format=png&auto=webp&s=ad9dcc5b342d5b8f10f169d677a54c91f29424cc"><span class="moneyText">400$</span></div>
-                <div class="optnToBuyMiniDiv"><img id="buyGunnerTank" class="imgBuyInSpace" style="cursor: pointer;" src="https://mblogthumb-phinf.pstatic.net/20160917_195/wmsla2009_14741207470512rgqB_PNG/annilator.png?type=w800"><span class="moneyText">500$</span></div>
-                <div class="optnToBuyMiniDiv"><img id="buyMultiTank" class="imgBuyInSpace" style="cursor: pointer" src="https://preview.redd.it/kjgx439g5q521.png?width=293&format=png&auto=webp&s=88ef558ce60a98fe9cc0eff9f92017dd9ec6b7cf" ><span class="moneyText">1000$</span></div>
-                <div class="optnToBuyMiniDiv"><img id="buyElixirmine" class="imgBuyInSpace" style="cursor: pointer" src="https://cdn-icons-png.freepik.com/512/8046/8046073.png"><span class="moneyText">600$</span></div>
-                <div class="optnToBuyMiniDiv"><img id="buyGoldmine" class="imgBuyInSpace" style="cursor: pointer" src="https://cdn-icons-png.freepik.com/512/9110/9110092.png"><span class="moneyText">400$</span></div>
-                <div class="optnToBuyMiniDiv"><img id="buyWall" class="imgBuyInSpace" style="cursor: pointer" src="https://cdn-icons-png.flaticon.com/512/8568/8568552.png"><span class="moneyText">300$</span></div>
+            <div id="smartphoneRotate">
+                <div style="font-size: 35px; margin: 10px auto;">Rotate Screen <i class="fa-solid fa-rotate"></i></div>
             </div>
-            <div id="menuSpellsUser">
-                <div class="optnToBuyMiniDiv"><img id="buyFireSpell" draggable="true" class="imgBuyInSpace" style="cursor: pointer" src="https://cdn-icons-png.flaticon.com/512/8722/8722283.png"><span class="elixirText">500 <i class="fa-solid fa-droplet" style="color: rgb(190, 69, 255)"></i></span></div>
-                <div class="optnToBuyMiniDiv"><img id="buySlowSpell" draggable="true" class="imgBuyInSpace" style="cursor: pointer;" src="https://cdn1.iconfinder.com/data/icons/winter-123/512/blizzard-snow-weather-wind-cold-512.png"><span class="elixirText">700 <i class="fa-solid fa-droplet" style="color: rgb(190, 69, 255)"></i></span></div>
-                <div class="optnToBuyMiniDiv"><img id="buyIceSpell" class="imgBuyInSpace" style="cursor: pointer;" src="https://static-00.iconduck.com/assets.00/ice-icon-1929x2048-4ikhj9nt.png"><span class="elixirText">400 <i class="fa-solid fa-droplet" style="color: rgb(190, 69, 255)"></i></span></div>
-                <div class="optnToBuyMiniDiv"><img id="buyBulletSpell" class="imgBuyInSpace" style="cursor: pointer;" src="https://cdn-icons-png.flaticon.com/512/3549/3549003.png"><span class="elixirText">200 <i class="fa-solid fa-droplet" style="color: rgb(190, 69, 255)"></i></span></div>
+            <div id="smartphoneFullScreen">
+                <div style="font-size: 35px; margin: 10px auto;">Click to open Full Screen <i class="fa-solid fa-maximize"></i></div>
             </div>
         </div>
         <script src="https://kit.fontawesome.com/8378f11a1e.js" crossorigin="anonymous"></script>
@@ -2343,6 +2365,19 @@
                 }
             })
 
+            // FULL SCREEN AND MOBILE SCREEN ROTATION FOR SMARTPHONES
+
+            var elem = document.getElementById("mainContainerFullScreenMode");
+            function openFullscreen() {
+                if (elem.requestFullscreen) {
+                    elem.requestFullscreen();
+                } else if (elem.webkitRequestFullscreen) { /* Safari */
+                    elem.webkitRequestFullscreen();
+                } else if (elem.msRequestFullscreen) { /* IE11 */
+                    elem.msRequestFullscreen();
+                }
+            }
+
 
             // TO BUY SELECTIONS
             var basicTank = document.getElementById("buyBasicTank");
@@ -2584,6 +2619,31 @@
                 armourSpaceDiv.style.width = parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[0]).getPropertyValue('width'))*5+41+"px";
             }
 
+            function isSmartphone() {
+                return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            }
+
+            var smartphoneRotate = document.getElementById("smartphoneRotate");
+            var smartphoneFullScreen = document.getElementById("smartphoneFullScreen");
+
+            screen.orientation.addEventListener("change", function(e) {
+                if(screen.availHeight < screen.availWidth){
+                    openFullscreen();
+                    smartphoneRotate.style.display = "none";
+                    smartphoneFullScreen.style.display = "flex";
+                    smartphoneFullScreen.addEventListener("click", function(){
+                        openFullscreen();
+                    })
+                }
+            });
+
+            if(screen.availHeight > screen.availWidth){
+                smartphoneRotate.style.display = "flex";
+            }
+
+            else {
+                openFullscreen();
+            }
 
             window.addEventListener("resize", setUpUserView);
 
