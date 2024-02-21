@@ -3067,14 +3067,20 @@
                 
                 document.querySelectorAll(".armourSub").forEach(function(e, i){
                     e.addEventListener("click", function(){
-                        if (lastClickedSpace != undefined) {
-                            lastClickedSpace.style.backgroundColor = "transparent";
+                        if (selectedIndex != i) {
+                            if (lastClickedSpace != undefined) {
+                                lastClickedSpace.style.backgroundColor = "transparent";
+                            }
+                            let eleSelected = e;
+                            eleSelected.style.background = "#DEDEDE";
+                            lastClickedSpace = eleSelected;
+                            selectedIndex = i;
+                            selectedSpace = eleSelected;
                         }
-                        let eleSelected = e;
-                        eleSelected.style.background = "#DEDEDE";
-                        lastClickedSpace = eleSelected;
-                        selectedIndex = i;
-                        selectedSpace = eleSelected;
+                        else {
+                            lastClickedSpace.style.backgroundColor = "transparent";
+                            lastClickedSpace = undefined;
+                        }
                     })
                 })
 
@@ -3095,13 +3101,6 @@
                         alertNoMoney.style.display = "flex";
                     }
                 };
-
-                window.addEventListener('click', function(e){
-                    if (!e.target.classList.contains('gradientLifesSpace') && !e.target.classList.contains('imgBuyInSpace') && lastClickedSpace != undefined) {
-                        lastClickedSpace.style.backgroundColor = "transparent";
-                        lastClickedSpace = undefined;
-                    } 
-                })
             }
 
 
