@@ -3523,7 +3523,6 @@
                                 if (virus.dataset.lifes == 1) {
                                     if (parseInt(virus.dataset.sizeLifes) > 30) {
                                         virus.dataset.sizeLifes = parseInt(virus.dataset.sizeLifes) - 5;
-                                        console.log(parseFloat(virus.style.fontSize));
                                         virus.style.fontSize = parseFloat(virus.style.fontSize)-0.5+"vh";
                                         virus.dataset.lifes = 6;
                                     }
@@ -3621,16 +3620,16 @@
                                     virus.remove();
                                 }
                                 else if(virus.classList.contains("enemySuperSlow")){
-                                    if (parseInt(virus.style.fontSize) > lifeSpaces[i]*3) {
-                                        virus.style.fontSize = parseInt(virus.style.fontSize) - lifeSpaces[i]*3 + "px";
-                                        if (parseInt(virus.style.fontSize) < 30){
-                                            virus.remove();
-                                        }
+                                    if (parseInt(virus.dataset.sizeLifes)-lifeSpaces[i]*5 > 30) {
+                                        virus.dataset.sizeLifes = parseInt(virus.dataset.sizeLifes) - 5*lifeSpaces[i];
+                                        virus.style.fontSize = parseFloat(virus.style.fontSize)-0.5*lifeSpaces[i]+"vh";
+                                        virus.dataset.lifes = 6;
+                                        lifeSpaces[i] = 0;
                                     }
                                     else {
+                                        lifeSpaces[i] -= parseInt(virus.dataset.sizeLifes)/5;
                                         virus.remove();
                                     }
-                                    lifeSpaces[i] -= parseInt(virus.style.fontSize)/3;
                                 }
                                 else if (virus.classList.contains("fa-skull")){
                                     if (parseInt(virus.dataset.lifes) > lifeSpaces[i]) {
