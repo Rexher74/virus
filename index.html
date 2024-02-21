@@ -7,6 +7,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
         <title>Virutz</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <style>
             html{
                 margin: 0;
@@ -982,9 +983,9 @@
 
                         <br style="margin-top: 2em; display: inline-block; content: '';">You can also use spells to defeat viruses, there are 4 types:<br>
                         FIRE BOMB( 500 <i class="fa-solid fa-droplet"></i> ): <i>Spawns fire on the floor.</i><br>
-                        WINTER STORM ( 800 <i class="fa-solid fa-droplet"></i> ): <i>Slows all enemies.</i><br>
+                        WINTER STORM ( 700 <i class="fa-solid fa-droplet"></i> ): <i>Slows all enemies.</i><br>
                         FREEZING ICE ( 400 <i class="fa-solid fa-droplet"></i> ): <i>Freezes enemies for 10 seconds.</i><br>
-                        EXTRA BULLET ( 175 <i class="fa-solid fa-droplet"></i> ): <i>Throws packs of bullet.</i><br>
+                        EXTRA BULLET ( 200 <i class="fa-solid fa-droplet"></i> ): <i>Throws packs of bullet.</i><br>
 
                         <br style="margin-top: 2em; display: inline-block; content: '';">There are also several type of viruses, each one with their own<br>
                         lives, damage, and speed. Play games to discover them!<br>
@@ -1095,9 +1096,9 @@
             </div>
             <div id="menuSpellsUser">
                 <div class="optnToBuyMiniDiv"><img id="buyFireSpell" draggable="true" class="imgBuyInSpace" style="cursor: pointer" src="https://cdn-icons-png.flaticon.com/512/8722/8722283.png"><span class="elixirText">500 <i class="fa-solid fa-droplet" style="color: rgb(190, 69, 255)"></i></span></div>
-                <div class="optnToBuyMiniDiv"><img id="buySlowSpell" draggable="true" class="imgBuyInSpace" style="cursor: pointer;" src="https://cdn1.iconfinder.com/data/icons/winter-123/512/blizzard-snow-weather-wind-cold-512.png"><span class="elixirText">800 <i class="fa-solid fa-droplet" style="color: rgb(190, 69, 255)"></i></span></div>
+                <div class="optnToBuyMiniDiv"><img id="buySlowSpell" draggable="true" class="imgBuyInSpace" style="cursor: pointer;" src="https://cdn1.iconfinder.com/data/icons/winter-123/512/blizzard-snow-weather-wind-cold-512.png"><span class="elixirText">700 <i class="fa-solid fa-droplet" style="color: rgb(190, 69, 255)"></i></span></div>
                 <div class="optnToBuyMiniDiv"><img id="buyIceSpell" class="imgBuyInSpace" style="cursor: pointer;" src="https://static-00.iconduck.com/assets.00/ice-icon-1929x2048-4ikhj9nt.png"><span class="elixirText">400 <i class="fa-solid fa-droplet" style="color: rgb(190, 69, 255)"></i></span></div>
-                <div class="optnToBuyMiniDiv"><img id="buyBulletSpell" class="imgBuyInSpace" style="cursor: pointer;" src="https://cdn-icons-png.flaticon.com/512/3549/3549003.png"><span class="elixirText">175 <i class="fa-solid fa-droplet" style="color: rgb(190, 69, 255)"></i></span></div>
+                <div class="optnToBuyMiniDiv"><img id="buyBulletSpell" class="imgBuyInSpace" style="cursor: pointer;" src="https://cdn-icons-png.flaticon.com/512/3549/3549003.png"><span class="elixirText">200 <i class="fa-solid fa-droplet" style="color: rgb(190, 69, 255)"></i></span></div>
             </div>
         </div>
         <div id="notSmatphoneYet">
@@ -1682,11 +1683,11 @@
                 indexLevel: 9,
                 nameLevel: "Level 9",
                 artisticName: "Bad Guys",
-                goalTime: 550000,
+                goalTime: 600000,
                 iniDiffSpawn: 9000,
                 changeDiffSpawn: 800,
-                money: 5000,
-                moneyIntervalEarned: 125,
+                money: 7000,
+                moneyIntervalEarned: 150,
                 asymptLevel: 1,
                 virusTimeline: {
                     0: {
@@ -1695,7 +1696,7 @@
                         params: {
                             skullSize: undefined,
                             bossSize: 500,
-                            timeAnimation: 150,
+                            timeAnimation: 200,
                         },
                         diffSpawn: 0,
                         fixedSP: false,
@@ -1960,8 +1961,8 @@
             }
 
             bulletSpell.addEventListener("click", function(){
-                if (currentElixir >= 175) {
-                    currentElixir -= 175;
+                if (currentElixir >= 200) {
+                    currentElixir -= 200;
                     elixirCounterDOC.textContent = currentElixir;
                     createBulletSpell();
                 }
@@ -2098,8 +2099,8 @@
             }
 
             slowSpell.addEventListener("click", function(){
-                if (currentElixir >= 800) {
-                    currentElixir -= 800;
+                if (currentElixir >= 700) {
+                    currentElixir -= 700;
                     elixirCounterDOC.textContent = currentElixir;
                     setTimeout(slowAll, 600);
                 }
@@ -3329,6 +3330,12 @@
                 for (var i = 0; i < levelsSpaces[selectedIndex]; ++i){
                     toRefund += realtionUpgrade[spacesToBuy[selectedIndex]][i];
                 }
+                if (levelsSpaces[selectedIndex] == 7) {
+                    toRefund -= realtionUpgrade[spacesToBuy[selectedIndex]][6];
+                    currentElixir += realtionUpgrade[spacesToBuy[selectedIndex]][6]*0.4;
+                    elixirCounterDOC.textContent = currentElixir;
+                    console.log(toRefund);
+                }
                 currentMoney += toRefund*0.4;
                 moneyCounterDOC.textContent = currentMoney;
 
@@ -3751,16 +3758,16 @@
                 let animationsVirus = oldSkull.getAnimations();
                 animationsVirus.forEach(function(animation) {
                     animation.cancel();
-                }); 
+                });
 
                 oldSkull.remove();
 
-                spawnSkull(size-1, posLeftOldSkull, posTopNewSkull1, timeNewAnimation);
-                spawnSkull(size-1, posLeftOldSkull, posTopNewSkull2, timeNewAnimation);
+                spawnSkull(size-1, posLeftOldSkull, posTopNewSkull1, timeNewAnimation, true);
+                spawnSkull(size-1, posLeftOldSkull, posTopNewSkull2, timeNewAnimation, true);
                 //getRandomInt(window.innerHeight-3*(Math.pow(2, size-1)*40))+1.5*Math.pow(2, size-1)*40
             }
 
-            function spawnSkull(size, posLeft=Math.pow(2, size-1)*20+window.innerWidth, posTop=getRandomInt(armourSpaceDiv.getBoundingClientRect().height-(Math.pow(2, size-1)*40))+0.5*Math.pow(2, size-1)*40, timeAnimation=70000){
+            function spawnSkull(size, posLeft=Math.pow(2, size-1)*20+window.innerWidth, posTop=getRandomInt(armourSpaceDiv.getBoundingClientRect().height-(Math.pow(2, size-1)*40))+0.5*Math.pow(2, size-1)*40, timeAnimation=70000, divided = false){
                 var newSkull = document.createElement("div");
                 newSkull.classList.add("enemy");
                 newSkull.classList.add("fa-solid");
@@ -3790,6 +3797,11 @@
                     e.effect.target.remove();
                     endGame();
                 });
+
+                if (allFrozen && divided) {
+                    animation.pause();
+                    newSkull.dataset.frozen = "true";
+                }
             }
 
             function spawnDisease(horde=false, pos=null) {
