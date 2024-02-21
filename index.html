@@ -2632,6 +2632,7 @@
                     smartphoneRotate.style.display = "none";
                     smartphoneFullScreen.style.display = "flex";
                     smartphoneFullScreen.addEventListener("click", function(){
+                        smartphoneFullScreen.style.display = "none";
                         openFullscreen();
                     })
                 }
@@ -2639,10 +2640,6 @@
 
             if(screen.availHeight > screen.availWidth){
                 smartphoneRotate.style.display = "flex";
-            }
-
-            else {
-                openFullscreen();
             }
 
             window.addEventListener("resize", setUpUserView);
