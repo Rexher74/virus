@@ -2363,7 +2363,7 @@
                     setTimeout(function(){
                         let newSnowFlake = document.createElement("div");
                         newSnowFlake.style.left = +"px";
-                        newSnowFlake.style.top = getRandomInt(gameZoneHeight-window.screen.height*0.15)+"px";
+                        newSnowFlake.style.top = getRandomInt(gameZoneHeight-window.innerHeight*0.15)+"px";
                         newSnowFlake.classList.add("snowFlakeAnimation", "fa-solid", "fa-snowflake");
                         newSnowFlake.addEventListener("animationend", function(e){
                             e.currentTarget.remove();
@@ -3165,7 +3165,7 @@
                     newBullet = document.createElement("div");
                     newBullet.classList.add("bulletType");
                     newBullet.classList.add(classToUse);
-                    let sizeNewBullet = 0.05*window.screen.height;
+                    let sizeNewBullet = 0.05*window.innerHeight;
                     newBullet.style.left = listSpacesQuery[index].getBoundingClientRect().left+parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[index]).getPropertyValue('width'))+"px";
                     newBullet.style.top = listSpacesQuery[index].getBoundingClientRect().top+parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[index]).getPropertyValue('width'))/2+"px";
                     
@@ -3217,7 +3217,7 @@
             function createIntervalMultiTank(index, timing, max){
                 if (max) {
                     spacesIntervals[index] = setInterval(function(){
-                        let sizeNewBullet = 0.0355*window.screen.height;
+                        let sizeNewBullet = 0.0355*window.innerHeight;
                         for (var i = 0; i < 4*sizeNewBullet; i+=sizeNewBullet){
                             newBullet = document.createElement("div");
                             newBullet.classList.add("bulletType");
@@ -3253,7 +3253,7 @@
                 }
                 else {
                     spacesIntervals[index] = setInterval(function(){
-                        let sizeNewBullet = 0.05*window.screen.height;
+                        let sizeNewBullet = 0.05*window.innerHeight;
                         for (var i = -sizeNewBullet; i < 2*sizeNewBullet; i+=sizeNewBullet){
                             newBullet = document.createElement("div");
                             newBullet.classList.add("bulletType");
@@ -3294,7 +3294,7 @@
                     newBullet = document.createElement("div");
                     newBullet.classList.add("bulletType");
                     newBullet.classList.add("bigBulletStyle");
-                    let sizeNewBullet = 0.13*window.screen.height;
+                    let sizeNewBullet = 0.13*window.innerHeight;
                     newBullet.dataset.max = max;
                     newBullet.style.left = listSpacesQuery[index].getBoundingClientRect().left+parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[index]).getPropertyValue('width'))+"px";
                     newBullet.style.top = listSpacesQuery[index].getBoundingClientRect().top+parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[index]).getPropertyValue('width'))/2+"px";
@@ -3331,7 +3331,7 @@
                     newBullet = document.createElement("div");
                     newBullet.classList.add("bulletType");
                     newBullet.classList.add("iceBulletStyle");
-                    let sizeNewBullet = 0.095*window.screen.height;
+                    let sizeNewBullet = 0.095*window.innerHeight;
                     newBullet.dataset.max = max;
                     newBullet.style.left = listSpacesQuery[index].getBoundingClientRect().left+parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[index]).getPropertyValue('width'))+"px";
                     newBullet.style.top = listSpacesQuery[index].getBoundingClientRect().top+parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[index]).getPropertyValue('width'))/2+"px";
@@ -3414,22 +3414,22 @@
                             }
                             else if (bullet.classList.contains("bigBulletStyle")) {
                                 if (bullet.dataset.max == "true") {
-                                    if (bullet.getBoundingClientRect().width > window.screen.height*0.09) {
-                                        bullet.style.width = window.screen.height*0.09+"px";
-                                        bullet.style.height = window.screen.height*0.09+"px";
+                                    if (bullet.getBoundingClientRect().width > window.innerHeight*0.09) {
+                                        bullet.style.width = window.innerHeight*0.09+"px";
+                                        bullet.style.height = window.innerHeight*0.09+"px";
                                     }
-                                    else if (bullet.getBoundingClientRect().width > window.screen.height*0.05) {
-                                        bullet.style.width = window.screen.height*0.05+"px";
-                                        bullet.style.height = window.screen.height*0.05+"px";
+                                    else if (bullet.getBoundingClientRect().width > window.innerHeight*0.05) {
+                                        bullet.style.width = window.innerHeight*0.05+"px";
+                                        bullet.style.height = window.innerHeight*0.05+"px";
                                     }
                                     else {
                                         bullet.remove();
                                     }
                                 }
                                 else {
-                                    if (bullet.getBoundingClientRect().width > window.screen.height*0.05) {
-                                        bullet.style.width = window.screen.height*0.05+"px";
-                                        bullet.style.height = window.screen.height*0.05+"px";
+                                    if (bullet.getBoundingClientRect().width > window.innerHeight*0.05) {
+                                        bullet.style.width = window.innerHeight*0.05+"px";
+                                        bullet.style.height = window.innerHeight*0.05+"px";
                                     }
                                     else {
                                         bullet.remove();
@@ -3582,7 +3582,7 @@
                                 if (virus.dataset.lifes == 1) {
                                     if (parseInt(virus.dataset.covidSize) > 1) {
                                         let fontSizeCovid = parseInt(virus.style.fontSize);
-                                        virus.style.fontSize = fontSizeCovid-window.screen.height*0.03+"px";
+                                        virus.style.fontSize = fontSizeCovid-window.innerHeight*0.03+"px";
                                         virus.dataset.lifes = 8;
                                         virus.dataset.covidSize = parseInt(virus.dataset.covidSize)-1;
                                     }
@@ -3655,7 +3655,7 @@
                                     let lifesVirus = parseInt(virus.dataset.covidSize);
                                     if (lifesVirus > lifeSpaces[i]) {
                                         lifeSpaces[i] = 0;
-                                        virus.style.fontSize = (parseInt(virus.style.fontSize)-(window.screen.height*0.03))+"px";
+                                        virus.style.fontSize = (parseInt(virus.style.fontSize)-(window.innerHeight*0.03))+"px";
                                         virus.dataset.lifes = 8;
                                         virus.dataset.covidSize = lifesVirus-1;
                                     }
@@ -4135,7 +4135,7 @@
                 //getRandomInt(window.innerHeight-3*(Math.pow(2, size-1)*40))+1.5*Math.pow(2, size-1)*40
             }
 
-            function spawnSkull(size, posLeft=Math.pow(2, size-1)*window.screen.height*0.02+window.screen.width, posTop=getRandomInt(armourSpaceDiv.getBoundingClientRect().height-(Math.pow(2, size-1)*window.screen.height*0.04))+0.5*Math.pow(2, size-1)*window.screen.height*0.04, timeAnimation=70000, divided = false){
+            function spawnSkull(size, posLeft=Math.pow(2, size-1)*window.innerHeight*0.02+window.screen.width, posTop=getRandomInt(armourSpaceDiv.getBoundingClientRect().height-(Math.pow(2, size-1)*wwindow.innerHeight*0.04))+0.5*Math.pow(2, size-1)*window.innerHeight*0.04, timeAnimation=70000, divided = false){
                 var newSkull = document.createElement("div");
                 newSkull.classList.add("enemy");
                 newSkull.classList.add("fa-solid");
@@ -4150,7 +4150,7 @@
                 })
 
                 newSkull.style.position = "absolute";
-                let sizeSkull = Math.pow(2, size-1)*window.screen.height*0.04;
+                let sizeSkull = Math.pow(2, size-1)*window.innerHeight*0.04;
                 newSkull.style.fontSize = sizeSkull+"px";
                 newSkull.style.left = posLeft+"px"
                 newSkull.style.top = posTop+"px";
@@ -4185,7 +4185,7 @@
                     newVirus.classList.add("fa-disease");
                     newVirus.classList.add("enemySuperFast");
                     let widthVHNewVirus = 6;
-                    let virusSizeTotal = window.screen.height*widthVHNewVirus/100;
+                    let virusSizeTotal = window.innerHeight*widthVHNewVirus/100;
                     newVirus.style.fontSize = widthVHNewVirus+"vh";
 
                     newVirus.dataset.lifes = 15;
@@ -4222,7 +4222,7 @@
                 newVirus.dataset.slowed = "false";
                 newVirus.classList.add("fa-virus");
                 let widthVHNewVirus = 6;
-                let virusSizeTotal = window.screen.height*widthVHNewVirus/100;
+                let virusSizeTotal = window.innerHeight*widthVHNewVirus/100;
                 newVirus.style.fontSize = widthVHNewVirus+"vh";
                 newVirus.classList.add("enemyBasic");
                 newVirus.style.left = posLeft+"px";
@@ -4270,7 +4270,7 @@
 
                 newVirus.classList.add("fa-viruses");
                 let widthVHNewVirus = 6;
-                let virusSizeTotal = window.screen.height*widthVHNewVirus/100;
+                let virusSizeTotal = window.innerHeight*widthVHNewVirus/100;
                 newVirus.style.fontSize = widthVHNewVirus+"vh";
                 newVirus.classList.add("enemyBasic");
                 newVirus.style.left = posLeft+"px";
@@ -4311,13 +4311,13 @@
                 var newVirus = document.createElement("div");
                 newVirus.classList.add("fa-solid");
                 newVirus.dataset.lifes = 8;
-                newVirus.dataset.minSize = window.screen.height*0.05;
+                newVirus.dataset.minSize = window.innerHeight*0.05;
                 newVirus.dataset.covidSize = 5;
                 newVirus.dataset.slowed = "false";
 
                 newVirus.classList.add("fa-virus-covid");
                 newVirus.classList.add("enemySlow");
-                newVirus.style.fontSize = window.screen.height*0.17+"px";
+                newVirus.style.fontSize = window.innerHeight*0.17+"px";
                 newVirus.style.left = posLeft+"px";
 
                 newVirus.classList.add("enemy");
@@ -4532,12 +4532,12 @@
                 }
 
                 if (size < armourSpaceDiv.getBoundingClientRect().height) {
-                    newVirus.style.top = getRandomInt(armourSpaceDiv.getBoundingClientRect().height-newBossFontSizeVH*window.screen.height)+0.5*(newBossFontSizeVH/100)*window.screen.height+"px";
+                    newVirus.style.top = getRandomInt(armourSpaceDiv.getBoundingClientRect().height-newBossFontSizeVH*window.innerHeight)+0.5*(newBossFontSizeVH/100)*window.innerHeight+"px";
                 }
                 else {
                     newVirus.style.top = armourSpaceDiv.getBoundingClientRect().height/2+"px";
                 }
-                newVirus.style.left =  window.screen.width+((newBossFontSizeVH/100)*window.screen.height/2)+"px";
+                newVirus.style.left =  window.screen.width+(newBossFontSizeVH*window.innerHeight/200)+"px";
 
                 newVirus.addEventListener("animationend", function(evt){
                     endGame();
