@@ -798,6 +798,10 @@
                 font-size: 16px;
                 transform: translate(-50%, -50%);
                 width: 180px;
+                display: none;
+                flex-direction: row-reverse;
+                align-items: center;
+                justify-content: space-around;
             }
 
             .snowFlakeAnimation{
@@ -978,9 +982,17 @@
                 #xmark_close_buy_upgrade{
                     font-size: 1.5em;
                 }
+                #alertNotEnoughMoney{
+                    font-size: 13px;
+                    padding: 6.5px;
+                }
             }
 
             @media screen and (max-height: 730px) {
+                #alertNotEnoughMoney{
+                    font-size: 11px;
+                    padding: 5px;
+                }
                 #divOptionsUpgrade{
                     width: 300px;
                     height: 200px;
@@ -2197,7 +2209,7 @@
                 }
                 else {
                     alertNoMoney.innerHTML = `<span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span>Not Enough Elixir!`
-                    alertNoMoney.style.display = "block";
+                    alertNoMoney.style.display = "flex";
                 }
             })
 
@@ -2253,7 +2265,7 @@
                 }
                 else {
                     alertNoMoney.innerHTML = `<span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span>Not Enough Elixir!`
-                    alertNoMoney.style.display = "block";
+                    alertNoMoney.style.display = "flex";
                 }
             })
 
@@ -2335,7 +2347,7 @@
                 }
                 else {
                     alertNoMoney.innerHTML = `<span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span>Not Enough Elixir!`
-                    alertNoMoney.style.display = "block";
+                    alertNoMoney.style.display = "flex";
                 }
             })
 
@@ -2361,7 +2373,7 @@
                 }
                 else {
                     alertNoMoney.innerHTML = `<span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span>Not Enough Elixir!`
-                    alertNoMoney.style.display = "block";
+                    alertNoMoney.style.display = "flex";
                 }
             })
 
@@ -2628,7 +2640,6 @@
 
             screen.orientation.addEventListener("change", function(e) {
                 if(screen.availHeight < screen.availWidth){
-                    openFullscreen();
                     smartphoneRotate.style.display = "none";
                     smartphoneFullScreen.style.display = "flex";
                     smartphoneFullScreen.addEventListener("click", function(){
@@ -3011,173 +3022,63 @@
                 };
             }
 
+            var lastClickedSpace = undefined;
+
             if (mobileAndTabletCheck()) {
-                basicTank.addEventListener('touchstart', function(e){
-                    eventDraggStructureTouch(e, basicTank, createNewBasicTank)
+                basicTank.addEventListener('click', function(e){
+                    createNewStructureSmarthoneView(e, createNewBasicTank)
                 });
-    
-                multiTank.addEventListener('touchstart', function(e){
-                    eventDraggStructureTouch(e, multiTank, createNewMultiTank)
+                multiTank.addEventListener('click', function(e){
+                    createNewStructureSmarthoneView(e, createNewMultiTank)
                 });
-                goldmine.addEventListener('touchstart', function(e){
-                    eventDraggStructureTouch(e, goldmine, createNewGoldmine)
+                goldmine.addEventListener('click', function(e){
+                    createNewStructureSmarthoneView(e, createNewGoldmine)
                 });
-                wall.addEventListener('touchstart', function(e){
-                    eventDraggStructureTouch(e, wall, createNewWall)
+                wall.addEventListener('click', function(e){
+                    createNewStructureSmarthoneView(e, createNewWall)
                 });
-                gunnerTank.addEventListener('touchstart', function(e){
-                    eventDraggStructureTouch(e, gunnerTank, createNewGunnerTank)
+                gunnerTank.addEventListener('click', function(e){
+                    createNewStructureSmarthoneView(e, createNewGunnerTank)
                 });
-                iceTank.addEventListener('touchstart', function(e){
-                    eventDraggStructureTouch(e, iceTank, createNewIceTank)
+                iceTank.addEventListener('click', function(e){
+                    createNewStructureSmarthoneView(e, createNewIceTank)
                 });
-                elixirmine.addEventListener('touchstart', function(e){
-                    eventDraggStructureTouch(e, elixirmine, createNewElixirMine)
+                elixirmine.addEventListener('click', function(e){
+                    createNewStructureSmarthoneView(e, createNewElixirMine)
                 })
                 
+                document.querySelectorAll(".armourSub").forEach(function(e, i){
+                    e.addEventListener("click", function(){
+                        if (lastClickedSpace != undefined) {
+                            lastClickedSpace.style.backgroundColor = "transparent";
+                        }
+                        let eleSelected = e;
+                        eleSelected.style.background = "#DEDEDE";
+                        lastClickedSpace = eleSelected;
+                        selectedIndex = i;
+                        selectedSpace = eleSelected;
+                    })
+                })
+
+
                 // Agrega evento de inicio de arrastre al elemento
-                function eventDraggStructureTouch(event, structure, functionStructure) {    
+                function createNewStructureSmarthoneView(event, functionStructure) {    
                     if (gameStatePaused) {
                         reanudeGame();
                     }
-    
-                    const rect = structure.getBoundingClientRect();
-                
-                    const clone = createClone(structure);
-    
-                    clone.style.width = rect.width+"px";
-                    clone.style.height = rect.height+"px";
-    
-                    clone.style.left = `${event.clientX-clone.getBoundingClientRect().width/2}px`;
-                    clone.style.top = `${event.clientY-clone.getBoundingClientRect().height/2}px`;
-                
-                    // Agrega clase de arrastrando al elemento original
-                    clone.classList.add('dragging');
-                
-                    // Función para actualizar la posición de la copia mientras se arrastra
-                    function updatePositionDrag(event) {
-                        let touchLocation = event.targetTouches[0];
-                        clone.style.left = touchLocation.pageX-clone.getBoundingClientRect().width/2 + 'px';
-                        clone.style.top = touchLocation.pageY-clone.getBoundingClientRect().height/2 + 'px';
-                        /*clone.style.left = `${event.clientX-clone.getBoundingClientRect().width/2}px`;
-                        clone.style.top = `${event.clientY-clone.getBoundingClientRect().height/2}px`;*/
+
+                    if (lastClickedSpace != undefined) {
+                        functionStructure();
+                        lastClickedSpace.style.backgroundColor = "transparent";
+                        lastClickedSpace = undefined;
                     }
-                
-                    // Agrega evento de arrastre mientras se mantiene presionado el botón del mouse
-                    function dragTouch(event) {
-                        updatePositionDrag(event);
-                        const index = getIndexOverlappingElement(clone);
-                        if (index !== -1) {
-                            lastDraggedSpace.style.backgroundColor = "transparent";
-                            let eleDragged = listSpacesQuery[index];
-                            eleDragged.style.background = "#DEDEDE";
-                            lastDraggedSpace = eleDragged;
-                        }
+                    else {
+                        alertNoMoney.innerHTML = `<span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span>Choose a space to build!`
+                        alertNoMoney.style.display = "flex";
                     }
-                
-                    // Agrega evento de soltar para limpiar los manejadores de eventos y eliminar la copia
-                    function releaseTouch(e) {
-                        document.removeEventListener('touchmove', dragTouch);
-                        document.removeEventListener('touchend', releaseTouch);
-                        multiTank.classList.remove('dragging');
-                        const index = getIndexOverlappingElement(clone);
-                        lastDraggedSpace.style.backgroundColor = "white";
-                        if (index !== -1) {
-                            selectedIndex = index;
-                            selectedSpace = document.querySelectorAll(".armourSub")[index];
-                            functionStructure();
-                        }
-                        clone.remove();
-                    }
-                
-                    // Agrega manejadores de eventos de arrastre y soltar
-                    document.addEventListener('touchmove', dragTouch);
-                    document.addEventListener('touchend', releaseTouch);
                 };
             }
 
-            /*basicTank.addEventListener('mousedown', function(e){
-                eventDraggStructure(e, basicTank, createNewBasicTank)
-            });
-
-            multiTank.addEventListener('mousedown', function(e){
-                eventDraggStructure(e, multiTank, createNewMultiTank)
-            });
-            goldmine.addEventListener('mousedown', function(e){
-                eventDraggStructure(e, goldmine, createNewGoldmine)
-            });
-            wall.addEventListener('mousedown', function(e){
-                eventDraggStructure(e, wall, createNewWall)
-            });
-            gunnerTank.addEventListener('mousedown', function(e){
-                eventDraggStructure(e, gunnerTank, createNewGunnerTank)
-            });
-            iceTank.addEventListener('mousedown', function(e){
-                eventDraggStructure(e, iceTank, createNewIceTank)
-            });
-            elixirmine.addEventListener('mousedown', function(e){
-                eventDraggStructure(e, elixirmine, createNewElixirMine)
-            })
-            
-            // Agrega evento de inicio de arrastre al elemento
-            function eventDraggStructure (event, structure, functionStructure) {
-                event.preventDefault();
-
-                if (gameStatePaused) {
-                    reanudeGame();
-                }
-
-                const rect = structure.getBoundingClientRect();
-            
-                const clone = createClone(structure);
-
-                clone.style.width = rect.width+"px";
-                clone.style.height = rect.height+"px";
-
-                clone.style.left = `${event.clientX-clone.getBoundingClientRect().width/2}px`;
-                clone.style.top = `${event.clientY-clone.getBoundingClientRect().height/2}px`;
-            
-                // Agrega clase de arrastrando al elemento original
-                clone.classList.add('dragging');
-            
-                // Función para actualizar la posición de la copia mientras se arrastra
-                function updatePosition(event) {
-                    clone.style.left = `${event.clientX-clone.getBoundingClientRect().width/2}px`;
-                    clone.style.top = `${event.clientY-clone.getBoundingClientRect().height/2}px`;
-                }
-            
-                // Agrega evento de arrastre mientras se mantiene presionado el botón del mouse
-                function drag(event) {
-                    event.preventDefault();
-                    updatePosition(event);
-                    const index = getIndexOverlappingElement(clone);
-                    if (index !== -1) {
-                        lastDraggedSpace.style.backgroundColor = "transparent";
-                        let eleDragged = listSpacesQuery[index];
-                        eleDragged.style.background = "#DEDEDE";
-                        lastDraggedSpace = eleDragged;
-                    }
-                }
-            
-                // Agrega evento de soltar para limpiar los manejadores de eventos y eliminar la copia
-                function release(e) {
-                    document.removeEventListener('mousemove', drag);
-                    document.removeEventListener('mouseup', release);
-                    multiTank.classList.remove('dragging');
-                    const index = getIndexOverlappingElement(clone);
-                    lastDraggedSpace.style.backgroundColor = "white";
-                    if (index !== -1) {
-                        selectedIndex = index;
-                        selectedSpace = document.querySelectorAll(".armourSub")[index];
-                        functionStructure();
-                    }
-                    clone.remove();
-                }
-            
-                // Agrega manejadores de eventos de arrastre y soltar
-                document.addEventListener('mousemove', drag);
-                document.addEventListener('mouseup', release);
-            };*/
 
             function colision(eleA, eleB) {
                 var rectA = eleA.getBoundingClientRect();
@@ -3190,27 +3091,6 @@
                   rectA.bottom > rectB.top
                 );
             }
-
-            /*function freezeAll(time) {
-                var freezeDivAnimation = document.createElement("div");
-                freezeDivAnimation.classList.add("divFreezeAllAnimation");
-                document.body.appendChild(freezeDivAnimation);
-
-                freezeDivAnimation.addEventListener("animationend", function(e){
-                    e.currentTarget.remove();
-                })
-                setTimeout(function(){
-                    document.querySelectorAll(".enemy").forEach(function(ele){
-                        ele.style.animationPlayState = "paused";
-                    })
-                }, 350)
-
-                setTimeout(function(){
-                    document.querySelectorAll(".enemy").forEach(function(ele){
-                        ele.style.animationPlayState = "running";
-                    })
-                }, time+350)
-            }*/
 
             function createIntervalBasicTank(index, timing, max){
                 let classToUse;
@@ -3818,17 +3698,17 @@
                         }
                         else {
                             alertNoMoney.innerHTML = `<span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span>Maximum structure limit reached!`
-                            alertNoMoney.style.display = "block";
+                            alertNoMoney.style.display = "flex";
                         }
                     }
                     else {
                         alertNoMoney.innerHTML = `<span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span>Not Enough Money!`
-                        alertNoMoney.style.display = "block";
+                        alertNoMoney.style.display = "flex";
                     }
                 }
                 else {
                     alertNoMoney.innerHTML = `<span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span>You already have this structure built here!`
-                    alertNoMoney.style.display = "block";
+                    alertNoMoney.style.display = "flex";
                 }
             }
 
@@ -3870,17 +3750,17 @@
                         }
                         else {
                             alertNoMoney.innerHTML = `<span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span>Maximum structure limit reached!`
-                            alertNoMoney.style.display = "block";
+                            alertNoMoney.style.display = "flex";
                         }
                     }
                     else {
                         alertNoMoney.innerHTML = `<span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span>Not Enough Money!`
-                        alertNoMoney.style.display = "block";
+                        alertNoMoney.style.display = "flex";
                     }
                 }
                 else {
                     alertNoMoney.innerHTML = `<span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span>You already have this structure built here!`
-                    alertNoMoney.style.display = "block";
+                    alertNoMoney.style.display = "flex";
                 }
             }
 
@@ -3922,17 +3802,17 @@
                         }
                         else {
                             alertNoMoney.innerHTML = `<span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span>Maximum structure limit reached!`
-                            alertNoMoney.style.display = "block";
+                            alertNoMoney.style.display = "flex";
                         }
                     }
                     else {
                         alertNoMoney.innerHTML = `<span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span>Not Enough Money!`
-                        alertNoMoney.style.display = "block";
+                        alertNoMoney.style.display = "flex";
                     }
                 }
                 else {
                     alertNoMoney.innerHTML = `<span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span>You already have this structure built here!`
-                    alertNoMoney.style.display = "block";
+                    alertNoMoney.style.display = "flex";
                 }
             }
 
@@ -3974,17 +3854,17 @@
                         }
                         else {
                             alertNoMoney.innerHTML = `<span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span>Maximum structure limit reached!`
-                            alertNoMoney.style.display = "block";
+                            alertNoMoney.style.display = "flex";
                         }
                     }
                     else {
                         alertNoMoney.innerHTML = `<span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span>Not Enough Money!`
-                        alertNoMoney.style.display = "block";
+                        alertNoMoney.style.display = "flex";
                     }
                 }
                 else {
                     alertNoMoney.innerHTML = `<span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span>You already have this structure built here!`
-                    alertNoMoney.style.display = "block";
+                    alertNoMoney.style.display = "flex";
                 }
             }
 
@@ -4028,17 +3908,17 @@
                         }
                         else {
                             alertNoMoney.innerHTML = `<span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span>Maximum structure limit reached!`
-                            alertNoMoney.style.display = "block";
+                            alertNoMoney.style.display = "flex";
                         }
                     }
                     else {
                         alertNoMoney.innerHTML = `<span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span>Not Enough Money!`
-                        alertNoMoney.style.display = "block";
+                        alertNoMoney.style.display = "flex";
                     }
                 }
                 else {
                     alertNoMoney.innerHTML = `<span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span>You already have this structure built here!`
-                    alertNoMoney.style.display = "block";
+                    alertNoMoney.style.display = "flex";
                 }
             }
 
@@ -4082,17 +3962,17 @@
                         }
                         else {
                             alertNoMoney.innerHTML = `<span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span>Maximum structure limit reached!`
-                            alertNoMoney.style.display = "block";
+                            alertNoMoney.style.display = "flex";
                         }
                     }
                     else {
                         alertNoMoney.innerHTML = `<span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span>Not Enough Money!`
-                        alertNoMoney.style.display = "block";
+                        alertNoMoney.style.display = "flex";
                     }
                 }
                 else {
                     alertNoMoney.innerHTML = `<span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span>You already have this structure built here!`
-                    alertNoMoney.style.display = "block";
+                    alertNoMoney.style.display = "flex";
                 }
             }
 
@@ -4127,17 +4007,17 @@
                         }
                         else {
                             alertNoMoney.innerHTML = `<span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span>Maximum structure limit reached!`
-                            alertNoMoney.style.display = "block";
+                            alertNoMoney.style.display = "flex";
                         }
                     }
                     else {
                         alertNoMoney.innerHTML = `<span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span>Not Enough Money!`
-                        alertNoMoney.style.display = "block";
+                        alertNoMoney.style.display = "flex";
                     }
                 }
                 else {
                     alertNoMoney.innerHTML = `<span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span>You already have this structure built here!`
-                    alertNoMoney.style.display = "block";
+                    alertNoMoney.style.display = "flex";
                 }
             }
 
