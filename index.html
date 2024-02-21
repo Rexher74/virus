@@ -693,7 +693,7 @@
                 font-size: 24px;
                 padding: 10%;
                 box-sizing: border-box;
-                z-index: 10000000;
+                z-index: 100000;
                 background-color: #d2fdff;
                 font-weight: 500;
                 line-height: 150%;
@@ -712,7 +712,7 @@
                 font-size: 24px;
                 padding: 10%;
                 box-sizing: border-box;
-                z-index: 10000;
+                z-index: 100000;
                 background-color: #d2fdff;
                 font-weight: 500;
                 line-height: 150%;
@@ -1110,6 +1110,15 @@
 
         </style>
     </head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RFZM98L10H"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-RFZM98L10H');
+    </script>
     <body>
         <div id="mainContainerFullScreenMode" style="display: contents">
             <div id="presentationLevelDiv">
@@ -1346,7 +1355,7 @@
                 <div style="font-size: 35px; margin: 10px auto;">Rotate Screen <i class="fa-solid fa-rotate"></i></div>
             </div>
             <div id="smartphoneFullScreen">
-                <div style="font-size: 35px; margin: 10px auto;">Click to open Full Screen <i class="fa-solid fa-maximize"></i></div>
+                <div style="font-size: 35px; margin: 10px auto;">Click anywhere to open the game <i class="fa-solid fa-maximize"></i></div>
             </div>
         </div>
         <script src="https://kit.fontawesome.com/8378f11a1e.js" crossorigin="anonymous"></script>
@@ -2640,6 +2649,7 @@
 
             screen.orientation.addEventListener("change", function(e) {
                 if(screen.availHeight < screen.availWidth){
+                    openFullscreen();
                     smartphoneRotate.style.display = "none";
                     smartphoneFullScreen.style.display = "flex";
                     smartphoneFullScreen.addEventListener("click", function(){
