@@ -364,13 +364,11 @@
             #mainChronoDiv{
                 font-family: "Raleway", sans-serif;
                 font-size: 25px;
-                position: absolute;
-                left: 50%;
-                transform: translateX(-50%);
                 text-align: center;
                 font-weight: 800;
-                bottom: 1.5vh;
                 z-index: 10000;
+                display: inline-flex;
+                justify-content: center;
             }
 
             #mainAlertNoBuyDiv{
@@ -741,8 +739,8 @@
             }
 
             #purchaseStructureMO{
-                max-width: 45vw;
-                width: 60%;
+                max-width: 80vw;
+                width: 100%;
                 height: 100%;
                 overflow-x: auto;
                 overflow-y: none;
@@ -856,6 +854,48 @@
                 background-color: rgba(255,255,255,0);
             }
 
+            #chronoAndSettingsGame{
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                justify-content: space-evenly;
+            }
+
+            .buttonSettingsOptions{
+                color: white;
+                padding: 4px;
+                font-family: "Raleway", sans-serif;
+                font-size: 16px;
+                background: rgb(54, 83, 133);;
+                border-radius: 5px;
+                font-weight: 600;
+                transition: background .2s, padding .2s;
+                cursor: pointer;
+                text-align: center;
+            }
+
+            .buttonSettingsOptions:hover{
+                background: rgb(19, 48, 96);;
+                padding: 6px;
+            }
+
+            .divRightMenuOperations{
+                height: inherit;
+                width: inherit;
+                display: flex;
+                justify-content: flex-end;
+                width: 35%;
+            }
+
+            .divLeftMenuOperations{
+                height: inherit;
+                width: inherit;
+                display: flex;
+                justify-content: flex-start;
+                width: 65%;
+            }
+
             @keyframes fadeIn {
                 from {
                     opacity: 0;
@@ -924,7 +964,7 @@
                     min-width: 75px;
                 }
                 #mainChrono{
-                    font-size: 20px;
+                    font-size: 18px;
                 }
                 #levelNum{
                     font-size: 35px;
@@ -978,7 +1018,7 @@
                     font-size: 18px;
                 }
                 #levelGoalTimeToAchieve{
-                    font-size: 20px;
+                    font-size: 18px;
                 }
                 #instructionsHeader{
                     font-size: 18px;
@@ -1009,6 +1049,13 @@
                 #alertNotEnoughMoneyUpgrade{
                     font-size: 12px;
                     padding: 4px 7px;
+                }
+                .buttonSettingsOptions{
+                    padding: 2px;
+                    font-size: 12px;
+                }
+                .buttonSettingsOptions:hover{
+                    padding: 3px;
                 }
             }
 
@@ -1115,7 +1162,7 @@
                     margin-top: 1.2%;
                 }
                 #mainChrono{
-                    font-size: 15px;
+                    font-size: 13px;
                 }
                 #levelNum{
                     font-size: 30px;
@@ -1127,11 +1174,18 @@
                     padding: 15px;
                 }
                 #levelGoalTimeToAchieve{
-                    font-size: 15px;
+                    font-size: 13px;
                 }
                 #alertNotEnoughMoneyUpgrade{
                     font-size: 10px;
                     padding: 2px 5px;
+                }
+                .buttonSettingsOptions{
+                    padding: 1px;
+                    font-size: 9px;
+                }
+                .buttonSettingsOptions:hover{
+                    padding: 2px;
                 }
             }
 
@@ -1151,7 +1205,7 @@
             <span id="levelNum"></span>
             <span id="resist-time-present-level">Resist <span id="levelTimeGoal"></span> seconds</span>
         </div>
-        <div id="gamePausedDiv"><i class="fa-solid fa-pause" style="font-size: 80px;"></i><br><span class="basicText">Click anywhere to resume the game</span></div>
+        <div id="gamePausedDiv"><i class="fa-solid fa-play" style="font-size: 80px;"></i><br><span class="basicText">Click anywhere to resume the game</span></div>
         <div id="divPreStartGame">
             <i id="leaderBoardUserBestMarksIcon" class="fa-solid fa-ranking-star leaderboardUser" onclick="showBestMarksUser()"></i>
 
@@ -1315,7 +1369,6 @@
             </div>
         </div>
         <div class="dataPlayer"><i class="fa-solid fa-sack-dollar" style="color: rgb(205, 205, 0)"></i><span id="moneyCounter" style="color: rgb(205, 205, 0); margin-left: 5px;"></span><i class="fa-solid fa-droplet margin-left-dataUser" style="color:rgb(190, 69, 255);"></i><span id="elixirCounter" style="color:rgb(190, 69, 255); margin-left: 5px;"></span><i class="fa-solid fa-heart margin-left-dataUser" style="color: red"></i><span id="lifesCounter" style="color:red; margin-left: 5px;"></span></div>
-        <div id="mainChronoDiv"><span id="mainChrono">0.0</span><span id="levelGoalTimeToAchieve"></span></div>
         <div id="mainAlertNoBuyDiv">
             <div id="alertNotEnoughMoney" class="alertRed">
                 <span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span> 
@@ -1361,27 +1414,37 @@
             <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
         </div>
         <div id="menuOperationsUser">
-            <div id="purchaseStructureMO">
-                <div class="optnToBuyMiniDiv"><img id="buyBasicTank" draggable="true" class="imgBuyInSpace" style="cursor: pointer" src="https://preview.redd.it/vq62mhb27q521.png?width=281&format=png&auto=webp&s=9aaf5903544521d61590959a4aa89109c13431f3"><span class="moneyText">200$</span></div>
-                <div class="optnToBuyMiniDiv"><img id="buyIceTank" draggable="true" class="imgBuyInSpace" style="cursor: pointer;" src="https://preview.redd.it/tjaa7j118q521.png?width=293&format=png&auto=webp&s=ad9dcc5b342d5b8f10f169d677a54c91f29424cc"><span class="moneyText">400$</span></div>
-                <div class="optnToBuyMiniDiv"><img id="buyGunnerTank" class="imgBuyInSpace" style="cursor: pointer;" src="https://mblogthumb-phinf.pstatic.net/20160917_195/wmsla2009_14741207470512rgqB_PNG/annilator.png?type=w800"><span class="moneyText">500$</span></div>
-                <div class="optnToBuyMiniDiv"><img id="buyMultiTank" class="imgBuyInSpace" style="cursor: pointer" src="https://preview.redd.it/kjgx439g5q521.png?width=293&format=png&auto=webp&s=88ef558ce60a98fe9cc0eff9f92017dd9ec6b7cf" ><span class="moneyText">1000$</span></div>
-                <div class="optnToBuyMiniDiv"><img id="buyElixirmine" class="imgBuyInSpace" style="cursor: pointer" src="https://cdn-icons-png.freepik.com/512/8046/8046073.png"><span class="moneyText">600$</span></div>
-                <div class="optnToBuyMiniDiv"><img id="buyGoldmine" class="imgBuyInSpace" style="cursor: pointer" src="https://cdn-icons-png.freepik.com/512/9110/9110092.png"><span class="moneyText">400$</span></div>
-                <div class="optnToBuyMiniDiv"><img id="buyWall" class="imgBuyInSpace" style="cursor: pointer" src="https://cdn-icons-png.flaticon.com/512/8568/8568552.png"><span class="moneyText">300$</span></div>
+            <div class="divLeftMenuOperations">
+                <div id="purchaseStructureMO">
+                    <div class="optnToBuyMiniDiv"><img id="buyBasicTank" draggable="true" class="imgBuyInSpace" style="cursor: pointer" src="https://preview.redd.it/vq62mhb27q521.png?width=281&format=png&auto=webp&s=9aaf5903544521d61590959a4aa89109c13431f3"><span class="moneyText">200$</span></div>
+                    <div class="optnToBuyMiniDiv"><img id="buyIceTank" draggable="true" class="imgBuyInSpace" style="cursor: pointer;" src="https://preview.redd.it/tjaa7j118q521.png?width=293&format=png&auto=webp&s=ad9dcc5b342d5b8f10f169d677a54c91f29424cc"><span class="moneyText">400$</span></div>
+                    <div class="optnToBuyMiniDiv"><img id="buyGunnerTank" class="imgBuyInSpace" style="cursor: pointer;" src="https://mblogthumb-phinf.pstatic.net/20160917_195/wmsla2009_14741207470512rgqB_PNG/annilator.png?type=w800"><span class="moneyText">500$</span></div>
+                    <div class="optnToBuyMiniDiv"><img id="buyMultiTank" class="imgBuyInSpace" style="cursor: pointer" src="https://preview.redd.it/kjgx439g5q521.png?width=293&format=png&auto=webp&s=88ef558ce60a98fe9cc0eff9f92017dd9ec6b7cf" ><span class="moneyText">1000$</span></div>
+                    <div class="optnToBuyMiniDiv"><img id="buyElixirmine" class="imgBuyInSpace" style="cursor: pointer" src="https://cdn-icons-png.freepik.com/512/8046/8046073.png"><span class="moneyText">600$</span></div>
+                    <div class="optnToBuyMiniDiv"><img id="buyGoldmine" class="imgBuyInSpace" style="cursor: pointer" src="https://cdn-icons-png.freepik.com/512/9110/9110092.png"><span class="moneyText">400$</span></div>
+                    <div class="optnToBuyMiniDiv"><img id="buyWall" class="imgBuyInSpace" style="cursor: pointer" src="https://cdn-icons-png.flaticon.com/512/8568/8568552.png"><span class="moneyText">300$</span></div>
+                    <div class="optnToBuyMiniDiv"><img id="buyCactus" class="imgBuyInSpace" style="cursor: pointer; margin-left: 5px;" src="https://cdn-icons-png.flaticon.com/512/3895/3895080.png"><span class="moneyText">1500$</span></div>
+                </div>
             </div>
-            <div id="menuSpellsUser">
-                <div class="optnToBuyMiniDiv"><img id="buyFireSpell" draggable="true" class="imgBuyInSpace" style="cursor: pointer" src="https://cdn-icons-png.flaticon.com/512/8722/8722283.png"><span class="elixirText">500 <i class="fa-solid fa-droplet" style="color: rgb(190, 69, 255)"></i></span></div>
-                <div class="optnToBuyMiniDiv"><img id="buySlowSpell" draggable="true" class="imgBuyInSpace" style="cursor: pointer;" src="https://cdn1.iconfinder.com/data/icons/winter-123/512/blizzard-snow-weather-wind-cold-512.png"><span class="elixirText">700 <i class="fa-solid fa-droplet" style="color: rgb(190, 69, 255)"></i></span></div>
-                <div class="optnToBuyMiniDiv"><img id="buyIceSpell" class="imgBuyInSpace" style="cursor: pointer;" src="https://static-00.iconduck.com/assets.00/ice-icon-1929x2048-4ikhj9nt.png"><span class="elixirText">400 <i class="fa-solid fa-droplet" style="color: rgb(190, 69, 255)"></i></span></div>
-                <div class="optnToBuyMiniDiv"><img id="buyBulletSpell" class="imgBuyInSpace" style="cursor: pointer;" src="https://cdn-icons-png.flaticon.com/512/3549/3549003.png"><span class="elixirText">200 <i class="fa-solid fa-droplet" style="color: rgb(190, 69, 255)"></i></span></div>
+            <div class="divRightMenuOperations">
+                <div id="menuSpellsUser">
+                    <div class="optnToBuyMiniDiv"><img id="buyFireSpell" draggable="true" class="imgBuyInSpace" style="cursor: pointer" src="https://cdn-icons-png.flaticon.com/512/8722/8722283.png"><span class="elixirText">500 <i class="fa-solid fa-droplet" style="color: rgb(190, 69, 255)"></i></span></div>
+                    <div class="optnToBuyMiniDiv"><img id="buySlowSpell" draggable="true" class="imgBuyInSpace" style="cursor: pointer;" src="https://cdn1.iconfinder.com/data/icons/winter-123/512/blizzard-snow-weather-wind-cold-512.png"><span class="elixirText">700 <i class="fa-solid fa-droplet" style="color: rgb(190, 69, 255)"></i></span></div>
+                    <div class="optnToBuyMiniDiv"><img id="buyIceSpell" class="imgBuyInSpace" style="cursor: pointer;" src="https://static-00.iconduck.com/assets.00/ice-icon-1929x2048-4ikhj9nt.png"><span class="elixirText">400 <i class="fa-solid fa-droplet" style="color: rgb(190, 69, 255)"></i></span></div>
+                    <div class="optnToBuyMiniDiv"><img id="buyBulletSpell" class="imgBuyInSpace" style="cursor: pointer;" src="https://cdn-icons-png.flaticon.com/512/3549/3549003.png"><span class="elixirText">200 <i class="fa-solid fa-droplet" style="color: rgb(190, 69, 255)"></i></span></div>
+                </div>
+                <div id="chronoAndSettingsGame">
+                    <div id="mainChronoDiv"><span id="mainChrono">0.0</span><span id="levelGoalTimeToAchieve"></span></div>
+                    <div id="buttonPauseGameSettings" class="buttonSettingsOptions" onclick="pauseGame()">Pause <i class="fa-solid fa-pause"></i></div>
+                    <div id="buttonQuitGameSettings" class="buttonSettingsOptions" onclick="reloadPage()">Quit <i class="fa-solid fa-delete-left"></i></div>
+                </div>
             </div>
         </div>
         <div id="smartphoneRotate">
-            <div style="font-size: 35px; margin: 10px auto;">Rotate Screen <i class="fa-solid fa-rotate"></i></div>
+            <div style="font-size: 35px; margin: 10px auto; text-align: center;">Rotate Screen <i class="fa-solid fa-rotate"></i></div>
         </div>
         <div id="smartphoneFullScreen">
-            <div style="font-size: 35px; margin: 10px auto;">Tap to open full screen mode <i class="fa-solid fa-maximize"></i></div>
+            <div style="font-size: 35px; margin: 10px auto; text-align: center;">Tap to open full screen mode <i class="fa-solid fa-maximize"></i></div>
         </div>
         <script src="https://kit.fontawesome.com/8378f11a1e.js" crossorigin="anonymous"></script>
         <script>
@@ -1416,6 +1479,7 @@
             const GUNNERTANK_SRC = "https://mblogthumb-phinf.pstatic.net/20160917_195/wmsla2009_14741207470512rgqB_PNG/annilator.png?type=w800";
             const ICETANK_SRC = "https://preview.redd.it/tjaa7j118q521.png?width=293&format=png&auto=webp&s=ad9dcc5b342d5b8f10f169d677a54c91f29424cc";
             const ELIXIRMINE_SRC = "https://cdn-icons-png.freepik.com/512/8046/8046073.png";
+            const CACTUS_SRC = "https://cdn-icons-png.flaticon.com/512/3895/3895080.png";
             
             var instructionsMain = document.getElementById("instructionsMain");
             var arrowDownInstructions = document.getElementById("arrowDownInstructions");
@@ -1444,6 +1508,7 @@
             const LIFES_GUNNER_TANK = 3;
             const LIFES_ICE_TANK = 1;
             const LIFES_ELIXIRMINE  = 1;
+            const LIFES_CACTUS = 20;
 
             // DIFFICULTY SELCTORS
             var elementaryDiff = document.getElementById("elementaryDifficultyDiv");
@@ -2433,6 +2498,7 @@
             var gunnerTank = document.getElementById("buyGunnerTank");
             var iceTank = document.getElementById("buyIceTank");
             var elixirmine = document.getElementById("buyElixirmine");
+            var cactus = document.getElementById("buyCactus")
 
             var spacesToBuy = new Array(30).fill(0);
             var spacesIntervals = new Array(30);
@@ -2446,7 +2512,8 @@
                 4: 0,
                 5: 0,
                 6: 0,
-                7: 0
+                7: 0,
+                8: 0
             }
 
             var limitToBulid = {
@@ -2456,7 +2523,8 @@
                 4: 12,
                 5: 12,
                 6: 12,
-                7: 4
+                7: 4,
+                8: 4
             }
 
             var realtionLifes = {
@@ -2467,7 +2535,8 @@
                 4: LIFES_WALL,
                 5: LIFES_GUNNER_TANK,
                 6: LIFES_ICE_TANK,
-                7: LIFES_ELIXIRMINE
+                7: LIFES_ELIXIRMINE,
+                8: LIFES_CACTUS
             }
 
             // UPGRADE PRICES
@@ -2541,6 +2610,16 @@
                 6: 650, // ELIXIR
             }
 
+            var upgradeCactus= {
+                0: 1500,
+                1: 800,
+                2: 1000,
+                3: 1300,
+                4: 1750,
+                5: 2300,
+                6: 500, // ELIXIR
+            }
+
             var realtionUpgrade = {
                 1: upgradeBasicTank,
                 2: upgradeMultiTank,
@@ -2548,7 +2627,8 @@
                 4: upgradeWall,
                 5: upgradeGunnerTank,
                 6: upgradeIceTank,
-                7: upgradeElixirmine
+                7: upgradeElixirmine,
+                8: upgradeCactus
             }
 
             var timeUpgradeBasicTank = {
@@ -2622,6 +2702,17 @@
                 7: 2000
             }
 
+            var timeUpgradeCactus = {
+                0: 10000,
+                1: 9000,
+                2: 8100,
+                3: 7250,
+                4: 6400,
+                5: 5600,
+                6: 5000, // ELIXIR
+            }
+
+
             var relationUpgradeSkills = {
                 1: timeUpgradeBasicTank,
                 2: timeUpgradeMultiTank,
@@ -2629,7 +2720,8 @@
                 4: lifeUpgradeWall,
                 5: timeUpgradeGunnerTank,
                 6: timeUpgradeIceTank,
-                7: timeUpgradeElixirmine
+                7: timeUpgradeElixirmine,
+                8: timeUpgradeCactus
             }
 
             var priceToUpgradeSpan = document.getElementById("price_to_upgrade");
@@ -2663,6 +2755,10 @@
                     e.style.visibility = "visible";
                 })
                 armourSpaceDiv.style.width = parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[0]).getPropertyValue('width'))*5+41+"px";
+            }
+
+            function reloadPage(){
+                location.reload();
             }
 
             var smartphoneRotate = document.getElementById("smartphoneRotate");
@@ -2894,26 +2990,9 @@
 
                     clearInterval(spacesIntervals[index]);
 
-                    if (type == 1) {
-                        createIntervalBasicTank(index, relationUpgradeSkills[spacesToBuy[index]][levelsSpaces[index]], maxLvl);
-                    }
-                    else if (type == 2) {
-                        createIntervalMultiTank(index, relationUpgradeSkills[spacesToBuy[index]][levelsSpaces[index]], maxLvl);
-                    }
-                    else if (type == 3) {
-                        createIntervalGoldmine(index, relationUpgradeSkills[spacesToBuy[index]][levelsSpaces[index]], maxLvl);
-                    }
-                    else if (type == 5) {
-                        createIntervalGunnerTank(index, relationUpgradeSkills[spacesToBuy[index]][levelsSpaces[index]], maxLvl);
-                    }
-                    else if (type == 6) {
-                        createIntervalIceTank(index, relationUpgradeSkills[spacesToBuy[index]][levelsSpaces[index]], maxLvl);
-                    }
-                    else if (type == 7) {
-                        createIntervalElixirmine(index, relationUpgradeSkills[spacesToBuy[index]][levelsSpaces[index]], maxLvl);
-                    }
-
                     levelsSpaces[index]++;
+
+                    createIntervalByType(type, index);
 
 
                     /*if (type != 4) {
@@ -2930,6 +3009,31 @@
                         alertNoMoneyUpgrade.innerHTML = `<span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span>Not Enough Elixir!`
                         alertNoMoneyUpgrade.style.display = "flex";
                     }
+                }
+            }
+
+            function createIntervalByType(type, index) {
+                let maxLvl = levelsSpaces[index] == 7;
+                if (type == 1) {
+                    createIntervalBasicTank(index, relationUpgradeSkills[spacesToBuy[index]][levelsSpaces[index]], maxLvl);
+                }
+                else if (type == 2) {
+                    createIntervalMultiTank(index, relationUpgradeSkills[spacesToBuy[index]][levelsSpaces[index]], maxLvl);
+                }
+                else if (type == 3) {
+                    createIntervalGoldmine(index, relationUpgradeSkills[spacesToBuy[index]][levelsSpaces[index]], maxLvl);
+                }
+                else if (type == 5) {
+                    createIntervalGunnerTank(index, relationUpgradeSkills[spacesToBuy[index]][levelsSpaces[index]], maxLvl);
+                }
+                else if (type == 6) {
+                    createIntervalIceTank(index, relationUpgradeSkills[spacesToBuy[index]][levelsSpaces[index]], maxLvl);
+                }
+                else if (type == 7) {
+                    createIntervalElixirmine(index, relationUpgradeSkills[spacesToBuy[index]][levelsSpaces[index]], maxLvl);
+                }
+                else if (type == 8) {
+                    createIntervalCactus(index, relationUpgradeSkills[spacesToBuy[index]][levelsSpaces[index]], maxLvl);
                 }
             }
 
@@ -3011,6 +3115,9 @@
                 });
                 elixirmine.addEventListener('mousedown', function(e){
                     eventDraggStructure(e, elixirmine, createNewElixirMine)
+                })
+                cactus.addEventListener('mousedown', function(e){
+                    eventDraggStructure(e, cactus, createNewCactus)
                 })
                 
                 // Agrega evento de inicio de arrastre al elemento
@@ -3097,6 +3204,9 @@
                 });
                 elixirmine.addEventListener('click', function(e){
                     createNewStructureSmarthoneView(e, createNewElixirMine)
+                })
+                cactus.addEventListener('click', function(e){
+                    createNewStructureSmarthoneView(e, createNewCactus)
                 })
                 
                 document.querySelectorAll(".armourSub").forEach(function(e, i){
@@ -3363,17 +3473,31 @@
                 }, timing)
             }
 
-            function createIntervalGoldmine(index, timing, max){
+            function createIntervalGoldmine(index, timing){
                 spacesIntervals[index] = setInterval(function() {
                     currentMoney += 25;
                     moneyCounterDOC.textContent = currentMoney;
                 }, timing)
             }
 
-            function createIntervalElixirmine(index, timing, max){
+            function createIntervalElixirmine(index, timing){
                 spacesIntervals[index] = setInterval(function() {
                     currentElixir += 10;
                     elixirCounterDOC.textContent = currentElixir;
+                }, timing)
+            }
+
+            function createIntervalCactus(index, timing){
+                spacesIntervals[index] = setInterval(function() {
+                    if (lifeSpaces[index] < realtionLifes[spacesToBuy[index]]) {
+                        lifeSpaces[index]+=1;
+                    }
+                    let pc_CurrentLifeCactus = (lifeSpaces[index]/realtionLifes[spacesToBuy[index]])*100;
+                    let actualGradientCactus = window.getComputedStyle(listSpacesQuery[index].firstChild).backgroundImage;
+
+                    let newGradientCactus = actualGradientCactus.replace(/rgba\(111, 111, 111, 0.1\) \d+(\.\d+)?%?, rgba\(0, 0, 0, 0\) \d+(\.\d+)?%?/,`rgba(111, 111, 111, 0.1) ${pc_CurrentLifeCactus}%, rgba(0, 0, 0, 0) ${pc_CurrentLifeCactus}%`);
+
+                    listSpacesQuery[index].firstChild.style.backgroundImage = newGradientCactus;
                 }, timing)
             }
 
@@ -4036,6 +4160,60 @@
                 }
             }
 
+            function createNewCactus(){
+                if (spacesToBuy[selectedIndex] != 8){
+                    if (currentMoney >= 1500) {
+                        if (numBuilt[8] < limitToBulid[8]){
+                            if (spacesToBuy[selectedIndex] != 0) {
+                                numBuilt[spacesToBuy[selectedIndex]]--;
+                                var toRefund = 0;
+                                for (var i = 0; i < levelsSpaces[selectedIndex]; ++i){
+                                    toRefund += realtionUpgrade[spacesToBuy[selectedIndex]][i];
+                                }
+                                currentMoney += toRefund*0.4;
+                                moneyCounterDOC.textContent = currentMoney;
+                            }
+                            numBuilt[8]++;
+                            selectedSpace.firstChild.textContent = "";
+                            var newEle = document.createElement("img");
+                            newEle.setAttribute("src", CACTUS_SRC);
+                            newEle.classList.add("structureOwned");
+                            selectedSpace.firstChild.appendChild(newEle);
+                            selectedSpace.firstChild.style.background = 'linear-gradient(to right, rgba(111, 111, 111, 0.1) 100%, rgba(0, 0, 0, 0) 100%)';
+                            lifeSpaces[selectedIndex] = LIFES_CACTUS;
+                            levelsSpaces[selectedIndex] = 1;
+                            currentMoney -= 1500;
+                            moneyCounterDOC.textContent = currentMoney;
+        
+                            spacesToBuy[selectedIndex] = 8;
+    
+                            clearInterval(spacesIntervals[selectedIndex]);
+    
+                            createIntervalCactus(selectedIndex, relationUpgradeSkills[8][0]);
+                            
+                            // SHOW LEVEL
+                            /*let newLevelTag = document.createElement("div");
+                            newLevelTag.classList.add("levelArmourTag");
+                            newLevelTag.classList.add("levelTagDown");
+                            newLevelTag.textContent = 1;
+                            selectedSpace.firstChild.appendChild(newLevelTag);*/
+                        }
+                        else {
+                            alertNoMoney.innerHTML = `<span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span>Maximum structure limit reached!`
+                            alertNoMoney.style.display = "flex";
+                        }
+                    }
+                    else {
+                        alertNoMoney.innerHTML = `<span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span>Not Enough Money!`
+                        alertNoMoney.style.display = "flex";
+                    }
+                }
+                else {
+                    alertNoMoney.innerHTML = `<span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span>You already have this structure built here!`
+                    alertNoMoney.style.display = "flex";
+                }
+            }
+
             function createNewWall(){
                 if (spacesToBuy[selectedIndex] != 4){
                     if (currentMoney >= 300) {
@@ -4614,61 +4792,61 @@
 
             var pausedMainIconDiv = document.getElementById("gamePausedDiv");
 
-            function pauseGame(){
-                if (!gameStatePaused && !endGameVar) {
-
-                    pausedMainIconDiv.style.display = "flex";
-                    timePaused = new Date().getTime();
-                    closeUpgradeMenu();
-                    gameStatePaused = true;
-                    clearInterval(mainMoneyInterval);
-                    clearInterval(chronoInterval);
-
-                    for (var i = 0; i < 30; ++i) {
-                        clearInterval(spacesIntervals[i]);
-                        clearInterval(spacesIntervals[i]);
-                    }
-
-                    for (var i = 0; i < listTimeOutsSpawnBoss.length; i++) {
-                        clearTimeout(listTimeOutsSpawnBoss[i]);
-                    }
-
-                    if (playingAtLevel) {
-                        if (timerLevel != undefined) {
-                            timerLevel.pause();
+            function pauseGame(e){
+                if (new Date().getTime() - absoluteD > 5000) {
+                    if (!gameStatePaused && !endGameVar) {
+                        pausedMainIconDiv.style.display = "flex";
+                        timePaused = new Date().getTime();
+                        closeUpgradeMenu();
+                        gameStatePaused = true;
+                        clearInterval(mainMoneyInterval);
+                        clearInterval(chronoInterval);
+    
+                        for (var i = 0; i < 30; ++i) {
+                            clearInterval(spacesIntervals[i]);
+                            clearInterval(spacesIntervals[i]);
                         }
-
-                        for (var i = 0; i < timeOutsStagesLevel.length; ++i) {
-                            timeOutsStagesLevel[i].pause();
+    
+                        for (var i = 0; i < listTimeOutsSpawnBoss.length; i++) {
+                            clearTimeout(listTimeOutsSpawnBoss[i]);
                         }
-
-                        intervalDifficultyLevel.pause();
-                    }
-                    else {
-                        intervalDifficulty.pause();
-                        clearInterval(controlBossSpawnInterval);
-                    }
-
-                    document.querySelectorAll(".enemy").forEach(function(ele){
-                        let animationsVirus = ele.getAnimations();
-                        if (animationsVirus.length == 1) {
-                            animationsVirus[0].pause();
+    
+                        if (playingAtLevel) {
+                            if (timerLevel != undefined) {
+                                timerLevel.pause();
+                            }
+    
+                            for (var i = 0; i < timeOutsStagesLevel.length; ++i) {
+                                timeOutsStagesLevel[i].pause();
+                            }
+    
+                            intervalDifficultyLevel.pause();
                         }
                         else {
-                            animationsVirus[0].pause();
-                            animationsVirus[1].pause();
+                            intervalDifficulty.pause();
+                            clearInterval(controlBossSpawnInterval);
                         }
-                    });
-
-                    document.querySelectorAll(".bulletType").forEach(function(ele){
-                        ele.getAnimations()[0].pause();
-                    });
+    
+                        document.querySelectorAll(".enemy").forEach(function(ele){
+                            let animationsVirus = ele.getAnimations();
+                            if (animationsVirus.length == 1) {
+                                animationsVirus[0].pause();
+                            }
+                            else {
+                                animationsVirus[0].pause();
+                                animationsVirus[1].pause();
+                            }
+                        });
+    
+                        document.querySelectorAll(".bulletType").forEach(function(ele){
+                            ele.getAnimations()[0].pause();
+                        });
+                        window.addEventListener("mousedown", reanudeGame);
+                    }
                 }
-            }   
-
+            } 
             function reanudeGame(){
-                window.removeEventListener("click", reanudeGame);
-                window.removeEventListener("contextmenu", reanudeGame);
+                window.removeEventListener("mousedown", reanudeGame);
                 if (gameStatePaused && !endGameVar) {
 
                     for (var i = 0; i < listTimeOutsSpawnBoss.length; i++) {
@@ -4720,20 +4898,8 @@
                     });
 
                     for (var i = 0; i < 30; ++i) {
-                        if (spacesToBuy[i] == 1) {
-                            createIntervalBasicTank(i, timeUpgradeBasicTank[levelsSpaces[i]-1]);
-                        }
-                        else if (spacesToBuy[i] == 2) {
-                            createIntervalMultiTank(i, timeUpgradeMultiTank[levelsSpaces[i]-1]);
-                        }
-                        else if (spacesToBuy[i] == 3) {
-                            createIntervalGoldmine(i, timeUpgradeGoldmine[levelsSpaces[i]-1]);
-                        }
-                        else if (spacesToBuy[i] == 5) {
-                            createIntervalGunnerTank(i, timeUpgradeGunnerTank[levelsSpaces[i]-1]);
-                        }
-                        else if (spacesToBuy[i] == 6) {
-                            createIntervalIceTank(i, timeUpgradeIceTank[levelsSpaces[i]-1]);
+                        if (spacesToBuy[i] != 0) {
+                            createIntervalByType(spacesToBuy[i], i);
                         }
                     }
                 }
@@ -4774,8 +4940,7 @@
                         if (document.visibilityState != "visible") {
                             pauseGame();
                         } 
-                        window.addEventListener("click", reanudeGame);
-                        window.addEventListener("contextmenu", reanudeGame);
+                        window.addEventListener("mousedown", reanudeGame);
                     });
                 }, 4000)
             }
@@ -5066,8 +5231,6 @@
                         if (document.visibilityState != "visible") {
                             pauseGame();
                         } 
-                        window.addEventListener("click", reanudeGame);
-                        window.addEventListener("contextmenu", reanudeGame);
                     });
 
                     // TO DO
