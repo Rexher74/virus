@@ -864,7 +864,7 @@
 
             .buttonSettingsOptions{
                 color: white;
-                padding: 4px;
+                padding: 4px 15px;
                 font-family: "Raleway", sans-serif;
                 font-size: 16px;
                 background: rgb(54, 83, 133);;
@@ -877,7 +877,7 @@
 
             .buttonSettingsOptions:hover{
                 background: rgb(19, 48, 96);;
-                padding: 6px;
+                padding: 6px 17px;
             }
 
             .divRightMenuOperations{
@@ -1051,11 +1051,11 @@
                     padding: 4px 7px;
                 }
                 .buttonSettingsOptions{
-                    padding: 2px;
+                    padding: 2px 12px;
                     font-size: 12px;
                 }
                 .buttonSettingsOptions:hover{
-                    padding: 3px;
+                    padding: 3px 14px;
                 }
             }
 
@@ -1181,16 +1181,25 @@
                     padding: 2px 5px;
                 }
                 .buttonSettingsOptions{
-                    padding: 1px;
+                    padding: 1px 8px;
                     font-size: 9px;
                 }
                 .buttonSettingsOptions:hover{
-                    padding: 2px;
+                    padding: 2px 12px;
                 }
             }
 
         </style>
     </head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RFZM98L10H"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-RFZM98L10H');
+    </script>
     <body>
         <div id="presentationLevelDiv">
             <span id="levelNum"></span>
@@ -1416,7 +1425,7 @@
                     <div class="optnToBuyMiniDiv"><img id="buyElixirmine" class="imgBuyInSpace" style="cursor: pointer" src="https://cdn-icons-png.freepik.com/512/8046/8046073.png"><span class="moneyText">600$</span></div>
                     <div class="optnToBuyMiniDiv"><img id="buyGoldmine" class="imgBuyInSpace" style="cursor: pointer" src="https://cdn-icons-png.freepik.com/512/9110/9110092.png"><span class="moneyText">400$</span></div>
                     <div class="optnToBuyMiniDiv"><img id="buyWall" class="imgBuyInSpace" style="cursor: pointer" src="https://cdn-icons-png.flaticon.com/512/8568/8568552.png"><span class="moneyText">300$</span></div>
-                    <div class="optnToBuyMiniDiv"><img id="buyCactus" class="imgBuyInSpace" style="cursor: pointer; margin-left: 5px;" src="https://cdn-icons-png.flaticon.com/512/3895/3895080.png"><span class="moneyText">1500$</span></div>
+                    <div class="optnToBuyMiniDiv"><img id="buyCactus" class="imgBuyInSpace" style="cursor: pointer; margin-left: 5px;" src="https://cdn-icons-png.flaticon.com/512/3895/3895080.png"><span class="moneyText">1200$</span></div>
                 </div>
             </div>
             <div class="divRightMenuOperations">
@@ -1987,8 +1996,8 @@
                 goalTime: 650000,
                 iniDiffSpawn: 9000,
                 changeDiffSpawn: 70, 
-                money: 2500,
-                moneyIntervalEarned: 100,
+                money: 3000,
+                moneyIntervalEarned: 50,
                 asymptLevel: 0.3,
                 virusTimeline: {
                     0: {
@@ -2601,13 +2610,13 @@
             }
 
             var upgradeCactus= {
-                0: 1500,
-                1: 800,
-                2: 1100,
-                3: 1500,
-                4: 1900,
-                5: 2500,
-                6: 750, // ELIXIR
+                0: 1200,
+                1: 700,
+                2: 1000,
+                3: 1350,
+                4: 1750,
+                5: 2400,
+                6: 600, // ELIXIR
             }
 
             var realtionUpgrade = {
@@ -2830,6 +2839,7 @@
                     })
 
                     if (playingAtLevel) {
+                        intervalDifficultyLevel.pause();
                         if (timerLevel != undefined) {
                             timerLevel.pause();
                         }
@@ -2837,9 +2847,6 @@
                         for (var i = 0; i < timeOutsStagesLevel.length; ++i) {
                             timeOutsStagesLevel[i].pause();
                         }
-
-                        clearInterval(intervalSpawning_level);
-                        clearInterval(intervalDifficulty_level);
 
                         let newCurrentDate = new Date().getTime();
                         let timeResistedByUser = Math.round((newCurrentDate-d)/1000, 2);
