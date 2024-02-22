@@ -1310,7 +1310,7 @@
                         ELIXIR MINE( <i class="fa-solid fa-heart"></i> 1/<i class="fa-solid fa-sack-dollar"></i> 600 ): <i>Gives you 10 elixir every 6 seconds.</i><br>
                         GOLDMINE( <i class="fa-solid fa-heart"></i> 2/<i class="fa-solid fa-sack-dollar"></i> 400 ): <i>Gives you 25$ every 2 seconds.</i><br>
                         WALL( <i class="fa-solid fa-heart"></i> 6/<i class="fa-solid fa-sack-dollar"></i> 300 ): <i>Prevent viruses from passing.</i><br>
-                        CACTUS( <i class="fa-solid fa-heart"></i> 15/<i class="fa-solid fa-sack-dollar"></i> 1500 ): <i>Regenerate life every 15 seconds..</i><br>
+                        CACTUS( <i class="fa-solid fa-heart"></i> 15/<i class="fa-solid fa-sack-dollar"></i> 1200 ): <i>Regenerate life every 15 seconds..</i><br>
 
 
                         <br style="margin-top: 2em; display: inline-block; content: '';">You can also use spells to defeat viruses, there are 4 types:<br>
@@ -4154,7 +4154,7 @@
 
             function createNewCactus(){
                 if (spacesToBuy[selectedIndex] != 8){
-                    if (currentMoney >= 1500) {
+                    if (currentMoney >= 1200) {
                         if (numBuilt[8] < limitToBulid[8]){
                             if (spacesToBuy[selectedIndex] != 0) {
                                 numBuilt[spacesToBuy[selectedIndex]]--;
@@ -4174,7 +4174,7 @@
                             selectedSpace.firstChild.style.background = 'linear-gradient(to right, rgba(111, 111, 111, 0.1) 100%, rgba(0, 0, 0, 0) 100%)';
                             lifeSpaces[selectedIndex] = LIFES_CACTUS;
                             levelsSpaces[selectedIndex] = 1;
-                            currentMoney -= 1500;
+                            currentMoney -= 1200;
                             moneyCounterDOC.textContent = currentMoney;
         
                             spacesToBuy[selectedIndex] = 8;
