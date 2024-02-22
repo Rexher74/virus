@@ -1191,15 +1191,6 @@
 
         </style>
     </head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RFZM98L10H"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-    
-      gtag('config', 'G-RFZM98L10H');
-    </script>
     <body>
         <div id="presentationLevelDiv">
             <span id="levelNum"></span>
@@ -1310,6 +1301,8 @@
                         ELIXIR MINE( <i class="fa-solid fa-heart"></i> 1/<i class="fa-solid fa-sack-dollar"></i> 600 ): <i>Gives you 10 elixir every 6 seconds.</i><br>
                         GOLDMINE( <i class="fa-solid fa-heart"></i> 2/<i class="fa-solid fa-sack-dollar"></i> 400 ): <i>Gives you 25$ every 2 seconds.</i><br>
                         WALL( <i class="fa-solid fa-heart"></i> 6/<i class="fa-solid fa-sack-dollar"></i> 300 ): <i>Prevent viruses from passing.</i><br>
+                        CACTUS( <i class="fa-solid fa-heart"></i> 15/<i class="fa-solid fa-sack-dollar"></i> 1500 ): <i>Regenerate life every 15 seconds..</i><br>
+
 
                         <br style="margin-top: 2em; display: inline-block; content: '';">You can also use spells to defeat viruses, there are 4 types:<br>
                         FIRE BOMB( 500 <i class="fa-solid fa-droplet"></i> ): <i>Spawns fire on the floor.</i><br>
@@ -2408,9 +2401,6 @@
                         else {
                             let timeRemaining = (1-virus.getAnimations()[0].effect.getComputedTiming().progress)*parseInt(window.getComputedStyle(virus).animationDuration)*1000;
                             virus.style.animation = `${window.getComputedStyle(virus).animationName} ${window.getComputedStyle(virus).animationDuration} linear paused, moveEnemy ${timeRemaining*indexSlow/1000}s linear`
-                            console.log(timeRemaining);
-                            console.log(`${window.getComputedStyle(virus).animationName} ${window.getComputedStyle(virus).animationDuration} linear paused, moveEnemy ${timeRemaining*indexSlow/1000}s linear`)
-                            console.log(virus.getAnimations())
                         }
 
                         virus.dataset.slowed = "true";
@@ -2912,11 +2902,7 @@
     
                     selectedSpace = space.currentTarget;
                     selectedIndex = i;
-    
-                    console.log(relationUpgradeSkills[spacesToBuy[i]]);
-                    console.log(spacesToBuy[i]);
-                    console.log(relationUpgradeSkills);
-                    console.log(i);
+
                     currentLevelArmour.textContent = levelsSpaces[i]+" ("+(relationUpgradeSkills[spacesToBuy[i]][levelsSpaces[i]-1])/1000+"s)";
     
                     priceToUpgradeSpan = document.getElementById("price_to_upgrade");
@@ -3015,25 +3001,25 @@
             function createIntervalByType(type, index) {
                 let maxLvl = levelsSpaces[index] == 7;
                 if (type == 1) {
-                    createIntervalBasicTank(index, relationUpgradeSkills[spacesToBuy[index]][levelsSpaces[index]], maxLvl);
+                    createIntervalBasicTank(index, relationUpgradeSkills[spacesToBuy[index]][levelsSpaces[index]-1], maxLvl);
                 }
                 else if (type == 2) {
-                    createIntervalMultiTank(index, relationUpgradeSkills[spacesToBuy[index]][levelsSpaces[index]], maxLvl);
+                    createIntervalMultiTank(index, relationUpgradeSkills[spacesToBuy[index]][levelsSpaces[index]-1], maxLvl);
                 }
                 else if (type == 3) {
-                    createIntervalGoldmine(index, relationUpgradeSkills[spacesToBuy[index]][levelsSpaces[index]], maxLvl);
+                    createIntervalGoldmine(index, relationUpgradeSkills[spacesToBuy[index]][levelsSpaces[index]-1], maxLvl);
                 }
                 else if (type == 5) {
-                    createIntervalGunnerTank(index, relationUpgradeSkills[spacesToBuy[index]][levelsSpaces[index]], maxLvl);
+                    createIntervalGunnerTank(index, relationUpgradeSkills[spacesToBuy[index]][levelsSpaces[index]-1], maxLvl);
                 }
                 else if (type == 6) {
-                    createIntervalIceTank(index, relationUpgradeSkills[spacesToBuy[index]][levelsSpaces[index]], maxLvl);
+                    createIntervalIceTank(index, relationUpgradeSkills[spacesToBuy[index]][levelsSpaces[index]-1], maxLvl);
                 }
                 else if (type == 7) {
-                    createIntervalElixirmine(index, relationUpgradeSkills[spacesToBuy[index]][levelsSpaces[index]], maxLvl);
+                    createIntervalElixirmine(index, relationUpgradeSkills[spacesToBuy[index]][levelsSpaces[index]-1], maxLvl);
                 }
                 else if (type == 8) {
-                    createIntervalCactus(index, relationUpgradeSkills[spacesToBuy[index]][levelsSpaces[index]], maxLvl);
+                    createIntervalCactus(index, relationUpgradeSkills[spacesToBuy[index]][levelsSpaces[index]-1], maxLvl);
                 }
             }
 
@@ -3825,7 +3811,6 @@
                     toRefund -= realtionUpgrade[spacesToBuy[selectedIndex]][6];
                     currentElixir += realtionUpgrade[spacesToBuy[selectedIndex]][6]*0.4;
                     elixirCounterDOC.textContent = currentElixir;
-                    console.log(toRefund);
                 }
                 currentMoney += toRefund*0.4;
                 moneyCounterDOC.textContent = currentMoney;
@@ -4722,8 +4707,6 @@
                 });
 
                 document.body.appendChild(newVirus);
-                console.log("left",newVirus.style.left);
-                console.log("top",newVirus.style.top)
             }
 
             var minAsymptote = 0.75;
