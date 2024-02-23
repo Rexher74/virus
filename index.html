@@ -229,6 +229,15 @@
                 transform: translate(-50%, -50%);
             }
 
+            .spikeBulletStyle{
+                position: absolute;
+                border-radius: 100%;
+                background-color: rgba(136, 255, 118, 0.8);
+                width: 9.5vh;
+                height: 9.5vh;
+                transform: translate(-50%, -50%);
+            }
+
             .iceBulletStyle{
                 position: absolute;
                 border-radius: 100%;
@@ -379,7 +388,7 @@
                 transform: translateX(-50%);
                 text-align: center;
                 font-weight: 800;
-                bottom: 10vh;
+                top: 5vh;
                 z-index: 10000;
             }
 
@@ -802,10 +811,17 @@
             }
 
             #alertNotEnoughMoney{
+                position: absolute;
                 font-size: 16px;
                 transform: translate(-50%, -50%);
                 width: 180px;
                 display: none;
+                flex-direction: row-reverse;
+                align-items: center;
+                justify-content: space-around;
+            }
+
+            #alertNotEnoughMoneyUpgrade{
                 flex-direction: row-reverse;
                 align-items: center;
                 justify-content: space-around;
@@ -834,12 +850,6 @@
 
             .margin-left-dataUser{
                 margin-left: 20px;
-            }
-
-            #alertNotEnoughMoneyUpgrade{
-                flex-direction: row-reverse;
-                align-items: center;
-                justify-content: space-around;
             }
             
             #resist-time-present-level{
@@ -894,6 +904,16 @@
                 display: flex;
                 justify-content: flex-start;
                 width: 65%;
+            }
+
+            .spikeBullet {
+                width: 2.5vh;
+                height: 2.5vh; /* Mismo valor que el ancho para hacer un triángulo equilátero */
+                position: absolute;
+                overflow: hidden;
+                position: absolute;
+                border-radius: 100%;
+                background-color: rgba(136, 255, 118, 0.8);
             }
 
             @keyframes fadeIn {
@@ -1041,7 +1061,7 @@
                 }
                 #alertNotEnoughMoney{
                     font-size: 13px;
-                    padding: 6.5px;
+                    padding: 4px;
                 }
                 .imgBuyInSpace{
                     height: 80%;
@@ -1062,7 +1082,7 @@
             @media screen and (max-height: 730px) {
                 #alertNotEnoughMoney{
                     font-size: 11px;
-                    padding: 5px;
+                    padding: 2px;
                 }
                 #divOptionsUpgrade{
                     width: 300px;
@@ -1307,7 +1327,8 @@
                         ICE TANK ( <i class="fa-solid fa-heart"></i> 1/<i class="fa-solid fa-sack-dollar"></i> 400 ): <i>Slows down viruses and harms them.</i><br>
                         GUNNER TANK ( <i class="fa-solid fa-heart"></i> 3/<i class="fa-solid fa-sack-dollar"></i> 500 ): <i>Fires large bullets that split.</i><br>
                         MULTI TANK ( <i class="fa-solid fa-heart"></i> 4/<i class="fa-solid fa-sack-dollar"></i> 1000 ): <i>Shoots bullets three at a time.</i><br>
-                        ELIXIR MINE( <i class="fa-solid fa-heart"></i> 1/<i class="fa-solid fa-sack-dollar"></i> 600 ): <i>Gives you 10 elixir every 6 seconds.</i><br>
+                        SPIKE TANK( <i class="fa-solid fa-heart"></i> 3/<i class="fa-solid fa-sack-dollar"></i> 2000 ): <i>Throws bullets that divides into 8.</i><br>
+                        LIXIR MINE( <i class="fa-solid fa-heart"></i> 1/<i class="fa-solid fa-sack-dollar"></i> 600 ): <i>Gives you 10 elixir every 6 seconds.</i><br>
                         GOLDMINE( <i class="fa-solid fa-heart"></i> 2/<i class="fa-solid fa-sack-dollar"></i> 400 ): <i>Gives you 25$ every 2 seconds.</i><br>
                         WALL( <i class="fa-solid fa-heart"></i> 6/<i class="fa-solid fa-sack-dollar"></i> 300 ): <i>Prevent viruses from passing.</i><br>
                         CACTUS( <i class="fa-solid fa-heart"></i> 15/<i class="fa-solid fa-sack-dollar"></i> 1200 ): <i>Regenerate life every 15 seconds..</i><br>
@@ -1422,6 +1443,7 @@
                     <div class="optnToBuyMiniDiv"><img id="buyIceTank" draggable="true" class="imgBuyInSpace" style="cursor: pointer;" src="https://preview.redd.it/tjaa7j118q521.png?width=293&format=png&auto=webp&s=ad9dcc5b342d5b8f10f169d677a54c91f29424cc"><span class="moneyText">400$</span></div>
                     <div class="optnToBuyMiniDiv"><img id="buyGunnerTank" class="imgBuyInSpace" style="cursor: pointer;" src="https://mblogthumb-phinf.pstatic.net/20160917_195/wmsla2009_14741207470512rgqB_PNG/annilator.png?type=w800"><span class="moneyText">500$</span></div>
                     <div class="optnToBuyMiniDiv"><img id="buyMultiTank" class="imgBuyInSpace" style="cursor: pointer" src="https://preview.redd.it/kjgx439g5q521.png?width=293&format=png&auto=webp&s=88ef558ce60a98fe9cc0eff9f92017dd9ec6b7cf" ><span class="moneyText">1000$</span></div>
+                    <div class="optnToBuyMiniDiv"><img id="buySpikeTank" class="imgBuyInSpace" style="cursor: pointer" src="https://preview.redd.it/r59l36csai191.png?width=218&format=png&auto=webp&s=b2ba2f3df0c4047e8161e08e16df50b4cd4c06d0" ><span class="moneyText">2000$</span></div>
                     <div class="optnToBuyMiniDiv"><img id="buyElixirmine" class="imgBuyInSpace" style="cursor: pointer" src="https://cdn-icons-png.freepik.com/512/8046/8046073.png"><span class="moneyText">600$</span></div>
                     <div class="optnToBuyMiniDiv"><img id="buyGoldmine" class="imgBuyInSpace" style="cursor: pointer" src="https://cdn-icons-png.freepik.com/512/9110/9110092.png"><span class="moneyText">400$</span></div>
                     <div class="optnToBuyMiniDiv"><img id="buyWall" class="imgBuyInSpace" style="cursor: pointer" src="https://cdn-icons-png.flaticon.com/512/8568/8568552.png"><span class="moneyText">300$</span></div>
@@ -1482,6 +1504,7 @@
             const ICETANK_SRC = "https://preview.redd.it/tjaa7j118q521.png?width=293&format=png&auto=webp&s=ad9dcc5b342d5b8f10f169d677a54c91f29424cc";
             const ELIXIRMINE_SRC = "https://cdn-icons-png.freepik.com/512/8046/8046073.png";
             const CACTUS_SRC = "https://cdn-icons-png.flaticon.com/512/3895/3895080.png";
+            const SPIKETANK_SRC = "https://preview.redd.it/r59l36csai191.png?width=218&format=png&auto=webp&s=b2ba2f3df0c4047e8161e08e16df50b4cd4c06d0";
             
             var instructionsMain = document.getElementById("instructionsMain");
             var arrowDownInstructions = document.getElementById("arrowDownInstructions");
@@ -1511,6 +1534,7 @@
             const LIFES_ICE_TANK = 1;
             const LIFES_ELIXIRMINE  = 1;
             const LIFES_CACTUS = 20;
+            const LIFES_SPIKE_TANK = 3;
 
             // DIFFICULTY SELCTORS
             var elementaryDiff = document.getElementById("elementaryDifficultyDiv");
@@ -2497,7 +2521,8 @@
             var gunnerTank = document.getElementById("buyGunnerTank");
             var iceTank = document.getElementById("buyIceTank");
             var elixirmine = document.getElementById("buyElixirmine");
-            var cactus = document.getElementById("buyCactus")
+            var cactus = document.getElementById("buyCactus");
+            var spikeTank = document.getElementById("buySpikeTank");
 
             var spacesToBuy = new Array(30).fill(0);
             var spacesIntervals = new Array(30);
@@ -2512,7 +2537,8 @@
                 5: 0,
                 6: 0,
                 7: 0,
-                8: 0
+                8: 0,
+                9: 0
             }
 
             var limitToBulid = {
@@ -2523,7 +2549,8 @@
                 5: 12,
                 6: 12,
                 7: 4,
-                8: 4
+                8: 4,
+                9: 10
             }
 
             var realtionLifes = {
@@ -2535,7 +2562,8 @@
                 5: LIFES_GUNNER_TANK,
                 6: LIFES_ICE_TANK,
                 7: LIFES_ELIXIRMINE,
-                8: LIFES_CACTUS
+                8: LIFES_CACTUS,
+                9: LIFES_SPIKE_TANK
             }
 
             // UPGRADE PRICES
@@ -2619,6 +2647,16 @@
                 6: 600, // ELIXIR
             }
 
+            var upgradeSpikeTank= {
+                0: 2000,
+                1: 750,
+                2: 1000,
+                3: 1400,
+                4: 1750,
+                5: 2400,
+                6: 1000, // ELIXIR
+            }
+
             var realtionUpgrade = {
                 1: upgradeBasicTank,
                 2: upgradeMultiTank,
@@ -2627,7 +2665,8 @@
                 5: upgradeGunnerTank,
                 6: upgradeIceTank,
                 7: upgradeElixirmine,
-                8: upgradeCactus
+                8: upgradeCactus,
+                9: upgradeSpikeTank
             }
 
             var timeUpgradeBasicTank = {
@@ -2711,6 +2750,16 @@
                 6: 10000,
             }
 
+            var timeUpgradeSpikeTank = {
+                0: 3000,
+                1: 2600,
+                2: 2300,
+                3: 2000,
+                4: 1700,
+                5: 1500,
+                6: 1000,
+            }
+
 
             var relationUpgradeSkills = {
                 1: timeUpgradeBasicTank,
@@ -2720,7 +2769,8 @@
                 5: timeUpgradeGunnerTank,
                 6: timeUpgradeIceTank,
                 7: timeUpgradeElixirmine,
-                8: timeUpgradeCactus
+                8: timeUpgradeCactus,
+                9: timeUpgradeSpikeTank
             }
 
             var priceToUpgradeSpan = document.getElementById("price_to_upgrade");
@@ -3028,6 +3078,9 @@
                 else if (type == 8) {
                     createIntervalCactus(index, relationUpgradeSkills[spacesToBuy[index]][levelsSpaces[index]-1], maxLvl);
                 }
+                else if (type == 9) {
+                    createIntervalSpikeTank(index, relationUpgradeSkills[spacesToBuy[index]][levelsSpaces[index]-1], maxLvl);
+                }
             }
 
             /*basicTank.addEventListener("click", createNewBasicTank);
@@ -3111,6 +3164,9 @@
                 })
                 cactus.addEventListener('mousedown', function(e){
                     eventDraggStructure(e, cactus, createNewCactus)
+                })
+                spikeTank.addEventListener('mousedown', function(e){
+                    eventDraggStructure(e, spikeTank, createNewSpikeTank)
                 })
                 
                 // Agrega evento de inicio de arrastre al elemento
@@ -3200,6 +3256,9 @@
                 })
                 cactus.addEventListener('click', function(e){
                     createNewStructureSmarthoneView(e, createNewCactus)
+                })
+                spikeTank.addEventListener('click', function(e){
+                    createNewStructureSmarthoneView(e, createNewSpikeTank)
                 })
                 
                 document.querySelectorAll(".armourSub").forEach(function(e, i){
@@ -3392,6 +3451,42 @@
                 }
             }
 
+            function createIntervalSpikeTank(index, timing, max){
+                spacesIntervals[index] = setInterval(function(){
+                    newBullet = document.createElement("div");
+                    newBullet.classList.add("bulletType");
+                    newBullet.classList.add("spikeBulletStyle");
+                    let sizeNewBullet = 0.095*window.innerHeight;
+                    newBullet.style.left = listSpacesQuery[index].getBoundingClientRect().left+parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[index]).getPropertyValue('width'))+"px";
+                    newBullet.style.top = listSpacesQuery[index].getBoundingClientRect().top+parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[index]).getPropertyValue('width'))/2+"px";
+
+                    
+                    if (index%5 == 0) {
+                        newBullet.classList.add("bulletMoveL1");
+                    }
+                    else if (index%5 == 1) {
+                        newBullet.classList.add("bulletMoveL2");
+                    }
+                    else if (index%5 == 2) {
+                        newBullet.classList.add("bulletMoveL3");
+                    }
+                    else if (index%5 == 3) {
+                        newBullet.classList.add("bulletMoveL4");
+                    }
+                    else if (index%5 == 4) {
+                        newBullet.classList.add("bulletMoveL5");
+                    }
+
+                    document.body.appendChild(newBullet);
+
+                    newBullet.addEventListener('animationend', function(e){
+                        e.currentTarget.remove();
+                    });
+
+                    //observer.observe(newBullet);
+                }, timing)
+            }
+
             function createIntervalGunnerTank(index, timing, max){
                 spacesIntervals[index] = setInterval(function(){
                     newBullet = document.createElement("div");
@@ -3510,6 +3605,9 @@
                 else if (type == 6){
                     createIntervalIceTank(_selectedIndex, relationUpgradeSkills[type][0]);
                 }
+                else if (type == 9){
+                    createIntervalSpikeTank(_selectedIndex, relationUpgradeSkills[type][0]);
+                }
             }
 
             const indexSlow = 1.6;
@@ -3552,6 +3650,16 @@
                                         bullet.remove();
                                     }
                                 }
+                            }
+                            else if (bullet.classList.contains("spikeBulletStyle")) {
+                                for (var i = -1; i < 2; ++i) {
+                                    for (var j = -1; j < 2; ++j) {
+                                        if (i != 0 || j != 0) {
+                                            spawnSpikeBullet(bullet, i, j);
+                                        }
+                                    }
+                                }
+                                bullet.remove();
                             }
                             else {
                                 bullet.remove();
@@ -3810,29 +3918,57 @@
             animar();
 
             function sellSpaceUser(){
-                let toRefund = 0;
-                for (var i = 0; i < levelsSpaces[selectedIndex]; ++i){
-                    toRefund += realtionUpgrade[spacesToBuy[selectedIndex]][i];
+                if (spacesToBuy[selectedIndex] != 0) {
+                    let toRefund = 0;
+                    for (var i = 0; i < levelsSpaces[selectedIndex]; ++i){
+                        toRefund += realtionUpgrade[spacesToBuy[selectedIndex]][i];
+                    }
+                    if (levelsSpaces[selectedIndex] == 7) {
+                        toRefund -= realtionUpgrade[spacesToBuy[selectedIndex]][6];
+                        currentElixir += realtionUpgrade[spacesToBuy[selectedIndex]][6]*0.4;
+                        elixirCounterDOC.textContent = currentElixir;
+                    }
+                    currentMoney += toRefund*0.4;
+                    moneyCounterDOC.textContent = currentMoney;
+
+                    numBuilt[spacesToBuy[selectedIndex]]--;
+                    clearInterval(spacesIntervals[selectedIndex]);
+                    spacesToBuy[selectedIndex] = 0;
+                    lifeSpaces[selectedIndex] = NaN;
+
+                    let currentSpace = document.querySelectorAll(".armourSub")[selectedIndex];
+
+                    currentSpace.firstChild.firstChild.remove();
+                    currentSpace.firstChild.style.background = "transparent";
+                    currentSpace.firstChild.textContent = "Buy Space";
+                    closeUpgradeMenu();
                 }
-                if (levelsSpaces[selectedIndex] == 7) {
-                    toRefund -= realtionUpgrade[spacesToBuy[selectedIndex]][6];
-                    currentElixir += realtionUpgrade[spacesToBuy[selectedIndex]][6]*0.4;
-                    elixirCounterDOC.textContent = currentElixir;
-                }
-                currentMoney += toRefund*0.4;
-                moneyCounterDOC.textContent = currentMoney;
+            }
 
-                numBuilt[spacesToBuy[selectedIndex]]--;
-                clearInterval(spacesIntervals[selectedIndex]);
-                spacesToBuy[selectedIndex] = 0;
-                lifeSpaces[selectedIndex] = NaN;
+            function spawnSpikeBullet(bullet, movI, movJ) {
+                let newSpikeBullet = document.createElement("div");
+                newSpikeBullet.classList.add("spikeBullet");
+                newSpikeBullet.classList.add("bulletType");
 
-                let currentSpace = document.querySelectorAll(".armourSub")[selectedIndex];
+                newSpikeBullet.style.left = parseFloat(getComputedStyle(bullet).left) + "px";
+                newSpikeBullet.style.top = parseFloat(getComputedStyle(bullet).top) + "px";
 
-                currentSpace.firstChild.firstChild.remove();
-                currentSpace.firstChild.style.background = "transparent";
-                currentSpace.firstChild.textContent = "Buy Space";
-                closeUpgradeMenu();
+                let baseToMove = 15; // In vh
+
+                let animationSpike = newSpikeBullet.animate(
+                    [
+                    { transform: `translate(${baseToMove*movI}vh, ${baseToMove*movJ}vh)` }
+                    ],
+                    { duration: 200 }
+                )
+
+                console.log("aa");
+
+                animationSpike.finished.then(function(e){
+                    e.effect.target.remove();
+                })
+
+                document.body.appendChild(newSpikeBullet);
             }
 
             function createNewBasicTank(){
@@ -3848,6 +3984,7 @@
                                 currentMoney += toRefund*0.4;
                                 moneyCounterDOC.textContent = currentMoney;
                             }
+                            alertNoMoney.style.display = "none";
                             numBuilt[1]++;
                             selectedSpace.firstChild.textContent = "";
                             var newEle = document.createElement("img");
@@ -3901,6 +4038,7 @@
                                 currentMoney += toRefund*0.4;
                                 moneyCounterDOC.textContent = currentMoney;
                             }
+                            alertNoMoney.style.display = "none";
                             numBuilt[2]++;
                             selectedSpace.firstChild.textContent = "";
                             var newEle = document.createElement("img");
@@ -3953,6 +4091,7 @@
                                 currentMoney += toRefund*0.4;
                                 moneyCounterDOC.textContent = currentMoney;
                             }
+                            alertNoMoney.style.display = "none";
                             numBuilt[5]++;
                             selectedSpace.firstChild.textContent = "";
                             var newEle = document.createElement("img");
@@ -3992,6 +4131,59 @@
                 }
             }
 
+            function createNewSpikeTank(){
+                if (spacesToBuy[selectedIndex] != 9){
+                    if (currentMoney >= 2000) {
+                        if (numBuilt[9] < limitToBulid[9]) {
+                            if (spacesToBuy[selectedIndex] != 0) {
+                                numBuilt[spacesToBuy[selectedIndex]]--;
+                                var toRefund = 0;
+                                for (var i = 0; i < levelsSpaces[selectedIndex]; ++i){
+                                    toRefund += realtionUpgrade[spacesToBuy[selectedIndex]][i];
+                                }
+                                currentMoney += toRefund*0.4;
+                                moneyCounterDOC.textContent = currentMoney;
+                            }
+                            alertNoMoney.style.display = "none";
+                            numBuilt[9]++;
+                            selectedSpace.firstChild.textContent = "";
+                            var newEle = document.createElement("img");
+                            newEle.setAttribute("src", SPIKETANK_SRC);
+                            newEle.classList.add("structureOwned");
+                            selectedSpace.firstChild.appendChild(newEle);
+                            selectedSpace.firstChild.style.background = 'linear-gradient(to right, rgba(111, 111, 111, 0.1) 100%, rgba(0, 0, 0, 0) 100%)';
+                            lifeSpaces[selectedIndex] = LIFES_SPIKE_TANK;
+                            levelsSpaces[selectedIndex] = 1;
+                            currentMoney -= 2000;
+                            moneyCounterDOC.textContent = currentMoney;
+    
+                            spacesToBuy[selectedIndex] = 9;
+    
+                            createIntervalBullet(selectedIndex, 9);
+                            
+                            // SHOW LEVEL
+                            /*let newLevelTag = document.createElement("div");
+                            newLevelTag.classList.add("levelArmourTag");
+                            newLevelTag.classList.add("levelTagDown");
+                            newLevelTag.textContent = 1;
+                            selectedSpace.firstChild.appendChild(newLevelTag);*/
+                        }
+                        else {
+                            alertNoMoney.innerHTML = `<span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span>Maximum structure limit reached!`
+                            alertNoMoney.style.display = "flex";
+                        }
+                    }
+                    else {
+                        alertNoMoney.innerHTML = `<span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span>Not Enough Money!`
+                        alertNoMoney.style.display = "flex";
+                    }
+                }
+                else {
+                    alertNoMoney.innerHTML = `<span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span>You already have this structure built here!`
+                    alertNoMoney.style.display = "flex";
+                }
+            }
+
             function createNewIceTank(){
                 if (spacesToBuy[selectedIndex] != 6){
                     if (currentMoney >= 400) {
@@ -4005,6 +4197,7 @@
                                 currentMoney += toRefund*0.4;
                                 moneyCounterDOC.textContent = currentMoney;
                             }
+                            alertNoMoney.style.display = "none";
                             numBuilt[6]++;
                             selectedSpace.firstChild.textContent = "";
                             var newEle = document.createElement("img");
@@ -4057,6 +4250,7 @@
                                 currentMoney += toRefund*0.4;
                                 moneyCounterDOC.textContent = currentMoney;
                             }
+                            alertNoMoney.style.display = "none";
                             numBuilt[3]++;
                             selectedSpace.firstChild.textContent = "";
                             var newEle = document.createElement("img");
@@ -4111,6 +4305,7 @@
                                 currentMoney += toRefund*0.4;
                                 moneyCounterDOC.textContent = currentMoney;
                             }
+                            alertNoMoney.style.display = "none";
                             numBuilt[7]++;
                             selectedSpace.firstChild.textContent = "";
                             var newEle = document.createElement("img");
@@ -4165,6 +4360,7 @@
                                 currentMoney += toRefund*0.4;
                                 moneyCounterDOC.textContent = currentMoney;
                             }
+                            alertNoMoney.style.display = "none";
                             numBuilt[8]++;
                             selectedSpace.firstChild.textContent = "";
                             var newEle = document.createElement("img");
@@ -4219,6 +4415,7 @@
                                 currentMoney += toRefund*0.4;
                                 moneyCounterDOC.textContent = currentMoney;
                             }
+                            alertNoMoney.style.display = "none";
                             numBuilt[4]++;
                             selectedSpace.firstChild.textContent = "";
                             var newEle = document.createElement("img");
