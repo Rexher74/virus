@@ -5116,7 +5116,7 @@
                         }
                         spawnMiniVirusGene(mainVirus);
                     }
-                }, 5000)
+                }, 6000)
             }
 
             function spawnGenerativeVirus(posTop=null, posLeft=null, duration=null, mini = false){
@@ -5134,7 +5134,7 @@
                 else {
                     widthVHNewVirus = 8;
                     spawnMiniVirusGene(newVirus);
-                    newVirus.dataset.lifes = 16;
+                    newVirus.dataset.lifes = 20;
                 }
                 let virusSizeTotal = window.innerHeight*widthVHNewVirus/100;
                 newVirus.style.fontSize = widthVHNewVirus+"vh";
