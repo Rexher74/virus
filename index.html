@@ -8,6 +8,9 @@
         <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
         <title>Virutz</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css_fa/fontawesome.css" rel="stylesheet">
+        <!--<link href="css_fa/brands.css" rel="stylesheet">-->
+        <link href="css_fa/solid.css" rel="stylesheet">
         <style>
             html{
                 margin: 0;
@@ -267,6 +270,11 @@
             }
 
             .enemyBasic{
+                position: absolute;
+                animation: moveEnemy 55s linear;
+            }
+
+            .enemyGhost {
                 position: absolute;
                 animation: moveEnemy 55s linear;
             }
@@ -916,6 +924,12 @@
                 background-color: rgba(136, 255, 118, 0.8);
             }
 
+            .miniCertificate{
+                color: rgb(32, 32, 32);
+                opacity: 0;
+                transition: opacity 2s ease-in-out;
+            }
+
             @keyframes fadeIn {
                 from {
                     opacity: 0;
@@ -1313,6 +1327,41 @@
                         <div></div>
                         <div class="buttonOpenLevel">Play</div>
                     </div>
+                    <div class="newLevelToShowUser"></div>
+                    <div class="newInfoDataLevel">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div class="buttonOpenLevel">Play</div>
+                    </div>
+                    <div class="newLevelToShowUser"></div>
+                    <div class="newInfoDataLevel">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div class="buttonOpenLevel">Play</div>
+                    </div>
+                    <div class="newLevelToShowUser"></div>
+                    <div class="newInfoDataLevel">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div class="buttonOpenLevel">Play</div>
+                    </div>
+                    <div class="newLevelToShowUser"></div>
+                    <div class="newInfoDataLevel">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div class="buttonOpenLevel">Play</div>
+                    </div>
+                    <div class="newLevelToShowUser"></div>
+                    <div class="newInfoDataLevel">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div class="buttonOpenLevel">Play</div>
+                    </div>
                 </div>
             </div>
 
@@ -1470,7 +1519,7 @@
         <div id="smartphoneFullScreen">
             <div style="font-size: 35px; margin: 10px auto; text-align: center;">Tap to open full screen mode <i class="fa-solid fa-maximize"></i></div>
         </div>
-        <script src="https://kit.fontawesome.com/8378f11a1e.js" crossorigin="anonymous"></script>
+        <!--<script src="https://kit.fontawesome.com/8378f11a1e.js" crossorigin="anonymous"></script>-->
         <script>
 
             // TIMER
@@ -1493,6 +1542,17 @@
             
                 this.resume();
             };
+
+
+            // KEYFRAMES
+
+            const showHideGhostKF= [
+                { opacity: 0, offset: 0, display: "none" },
+                { opacity: 0, offset: 0.4, display: "none" },
+                { opacity: 1, offset: 0.45, display: "block" },
+                { opacity: 1, offset: 0.75, display: "block" },
+                { opacity: 0, offset: 1, display: "none" }
+            ];
 
 
             // SRC's
@@ -1627,6 +1687,8 @@
                 typeBasic: bool
                 typeDouble: bool
                 typeCovid: bool
+                typeGhost: bool
+                typeGenerative: bool
                 typeDiseaseB: bool
                 typeDiseaseH: bool
                 typeSkull: bool
@@ -1660,6 +1722,8 @@
             var undefinedSpawnType = {
                 typeBasic: undefined,
                 typeDouble: undefined,
+                typeGhost: undefined,
+                typeGenerative: undefined,
                 typeCovid: undefined,
                 typeDiseaseB: undefined,
                 typeDiseaseH: undefined,
@@ -1799,10 +1863,12 @@
                             typeBasic: true,
                             typeDouble: true,
                             typeCovid: false,
+                            typeGenerative: false,
+                            typeGhost: false,
                             typeDiseaseB: false,
                             typeDiseaseH: false,
                             typeSkull: false,
-                            typeBoss: false
+                            typeBoss: false,
                         }
                     },
                     15: {
@@ -1816,6 +1882,8 @@
                             typeBasic: true,
                             typeDouble: true,
                             typeCovid: true,
+                            typeGhost: true,
+                            typeGenerative: false,
                             typeDiseaseB: false,
                             typeDiseaseH: false,
                             typeSkull: false,
@@ -1833,6 +1901,8 @@
                             typeBasic: true,
                             typeDouble: true,
                             typeCovid: true,
+                            typeGhost: true,
+                            typeGenerative: true,
                             typeDiseaseB: true,
                             typeDiseaseH: false,
                             typeSkull: false,
@@ -1850,6 +1920,8 @@
                             typeBasic: true,
                             typeDouble: true,
                             typeCovid: true,
+                            typeGhost: true,
+                            typeGenerative: true,
                             typeDiseaseB: true,
                             typeDiseaseH: false,
                             typeSkull: true,
@@ -1867,6 +1939,8 @@
                             typeBasic: true,
                             typeDouble: true,
                             typeCovid: true,
+                            typeGhost: true,
+                            typeGenerative: true,
                             typeDiseaseB: true,
                             typeDiseaseH: true,
                             typeSkull: true,
@@ -1899,6 +1973,8 @@
                             typeBasic: false,
                             typeDouble: true,
                             typeCovid: true,
+                            typeGhost: true,
+                            typeGenerative: true,
                             typeDiseaseB: true,
                             typeDiseaseH: true,
                             typeSkull: true,
@@ -1953,6 +2029,8 @@
                             typeBasic: true,
                             typeDouble: true,
                             typeCovid: true,
+                            typeGhost: true,
+                            typeGenerative: true,
                             typeDiseaseB: true,
                             typeDiseaseH: true,
                             typeSkull: true,
@@ -1994,6 +2072,8 @@
                             typeBasic: false,
                             typeDouble: false,
                             typeCovid: false,
+                            typeGhost: false,
+                            typeGenerative: false,
                             typeDiseaseB: true,
                             typeDiseaseH: true,
                             typeSkull: false,
@@ -2035,6 +2115,8 @@
                             typeBasic: true,
                             typeDouble: true,
                             typeCovid: true,
+                            typeGhost: true,
+                            typeGenerative: true,
                             typeDiseaseB: true,
                             typeDiseaseH: true,
                             typeSkull: true,
@@ -2050,10 +2132,10 @@
                 nameLevel: "Level 9",
                 artisticName: "Bad Guys",
                 goalTime: 600000,
-                iniDiffSpawn: 9000,
+                iniDiffSpawn: 20000,
                 changeDiffSpawn: 800,
-                money: 7000,
-                moneyIntervalEarned: 150,
+                money: 10000,
+                moneyIntervalEarned: 200,
                 asymptLevel: 1,
                 virusTimeline: {
                     0: {
@@ -2191,10 +2273,150 @@
                 }
             }
 
+            var optionsL11 = {
+                id: 11,
+                indexLevel: 11,
+                nameLevel: "Level 11",
+                artisticName: "Halloween",
+                goalTime: 600000,
+                iniDiffSpawn: 5000,
+                changeDiffSpawn: 140,
+                money: 2000,
+                moneyIntervalEarned: 25,
+                asymptLevel: 0.35,
+                virusTimeline: {
+                    0: {
+                        uniqueType: true,
+                        typeUnique: "ghost",
+                        params: undefinedParams,
+                        diffSpawn: 0,
+                        fixedSP: false,
+                        setDiffSpawnGlobal: false,
+                        spawn: undefinedSpawnType
+                    },
+                }
+            }
+
+            var optionsL12 = {
+                id: 12,
+                indexLevel: 12,
+                nameLevel: "Level 12",
+                artisticName: "Black Death",
+                goalTime: 500000,
+                iniDiffSpawn: 3000,
+                changeDiffSpawn: 100,
+                money: 1500,
+                moneyIntervalEarned: 100,
+                asymptLevel: 0.1,
+                virusTimeline: {
+                    0: {
+                        uniqueType: true,
+                        typeUnique: "double",
+                        params: undefinedParams,
+                        diffSpawn: 0,
+                        fixedSP: false,
+                        setDiffSpawnGlobal: false,
+                        spawn: undefinedSpawnType
+                    },
+                }
+            }
+
+            var optionsL13 = {
+                id: 13,
+                indexLevel: 13,
+                nameLevel: "Level 13",
+                artisticName: "Lost Valley",
+                goalTime: 700000,
+                iniDiffSpawn: 15000,
+                changeDiffSpawn: 300,
+                money: 0,
+                moneyIntervalEarned: 250,
+                asymptLevel: 0.35,
+                virusTimeline: {
+                    0: {
+                        uniqueType: false,
+                        typeUnique: undefined,
+                        params: undefinedParams,
+                        diffSpawn: 0,
+                        fixedSP: false,
+                        setDiffSpawnGlobal: false,
+                        spawn: {
+                            typeBasic: false,
+                            typeDouble: false,
+                            typeCovid: false,
+                            typeGhost: false,
+                            typeGenerative: false,
+                            typeDiseaseB: false,
+                            typeDiseaseH: false,
+                            typeSkull: true,
+                            typeBoss: true
+                        }
+                    },
+                }
+            }
+
+            var optionsL14 = {
+                id: 14,
+                indexLevel: 14,
+                nameLevel: "Level 14",
+                artisticName: "Dark Depths",
+                goalTime: 650000,
+                iniDiffSpawn: 10000,
+                changeDiffSpawn: 130,
+                money: 4000,
+                moneyIntervalEarned: 25,
+                asymptLevel: 0.35,
+                virusTimeline: {
+                    0: {
+                        uniqueType: true,
+                        typeUnique: "generative",
+                        params: undefinedParams,
+                        diffSpawn: 0,
+                        fixedSP: false,
+                        setDiffSpawnGlobal: false,
+                        spawn: undefinedSpawnType
+                    },
+                }
+            }
+
+            var optionsL15 = {
+                id: 15,
+                indexLevel: 15,
+                nameLevel: "Level 15",
+                artisticName: "End Game",
+                goalTime: 500000,
+                iniDiffSpawn: 4000,
+                changeDiffSpawn: 85,
+                money: 10000,
+                moneyIntervalEarned: 0,
+                asymptLevel: 0.1,
+                virusTimeline: {
+                    0: {
+                        uniqueType: false,
+                        typeUnique: undefined,
+                        params: undefinedParams,
+                        diffSpawn: 0,
+                        fixedSP: false,
+                        setDiffSpawnGlobal: false,
+                        spawn: {
+                            typeBasic: false,
+                            typeDouble: true,
+                            typeCovid: true,
+                            typeGhost: true,
+                            typeGenerative: true,
+                            typeDiseaseB: true,
+                            typeDiseaseH: true,
+                            typeSkull: true,
+                            typeBoss: true
+                        }
+                    },
+                }
+            }
 
 
 
-            var levelsOptionsMain = [null, optionsL1, optionsL2, optionsL3, optionsL4, optionsL5, optionsL6, optionsL7, optionsL8, optionsL9, optionsL10];
+
+            var levelsOptionsMain = [null, optionsL1, optionsL2, optionsL3, optionsL4, optionsL5, optionsL6, optionsL7, optionsL8, optionsL9, optionsL10, optionsL11, optionsL12, optionsL13, optionsL14, optionsL15];
 
             document.querySelectorAll(".newLevelToShowUser").forEach(function(e, i){
                 e.nextElementSibling.style.display = "none";
@@ -2351,12 +2573,28 @@
                         document.querySelectorAll(".enemy").forEach(function(ele){
                             ele.dataset.frozen = "true";
                             let animationsVirus = ele.getAnimations();
-                            if (animationsVirus.length == 1) {
-                                animationsVirus[0].pause();
+                            if (!ele.classList.contains("fa-ghost")) {
+                                if (animationsVirus.length == 1) {
+                                    animationsVirus[0].pause();
+                                }
+                                else {
+                                    animationsVirus[1].pause();
+                                }
+                            }
+                            else if (!ele.classList.contains("fa-certificate")) {
+                                animationsVirus.forEach(function(a){
+                                    a.pause();
+                                })
                             }
                             else {
-                                animationsVirus[0].pause();
-                                animationsVirus[1].pause();
+                                if (animationsVirus.length == 2) {
+                                    animationsVirus[0].pause();
+                                    animationsVirus[1].pause();
+                                }
+                                else {
+                                    animationsVirus[1].pause();
+                                    animationsVirus[2].pause();
+                                }
                             }
                         })
                     }
@@ -2368,11 +2606,28 @@
                             if (ele.dataset.frozen == "true") {
                                 ele.dataset.frozen = "false";
                                 let animationsVirus = ele.getAnimations();
-                                if (animationsVirus.length == 1) {
-                                    animationsVirus[0].play();
+                                if (!ele.classList.contains("fa-ghost")) {
+                                    if (animationsVirus.length == 1) {
+                                        animationsVirus[0].play();
+                                    }
+                                    else {
+                                        animationsVirus[1].play();
+                                    }
+                                }
+                                else if (!ele.classList.contains("fa-certificate")) {
+                                    animationsVirus.forEach(function(a){
+                                        a.play();
+                                    })
                                 }
                                 else {
-                                    animationsVirus[1].play();
+                                    if (animationsVirus.length == 2) {
+                                        animationsVirus[0].play();
+                                        animationsVirus[1].play();
+                                    }
+                                    else {
+                                        animationsVirus[1].play();
+                                        animationsVirus[2].play();
+                                    }
                                 }
                             }
                         })
@@ -3668,7 +3923,9 @@
 
                                 virus.style.color = "#72E5FF";
 
-                                virus.getAnimations()[0].pause();
+                                virus.getAnimations().forEach(function(ani){
+                                    if (ani.animationName == "moveEnemy") ani.pause();
+                                })
 
                                 let toUseSlowIndex = indexSlow;
                                 if (bullet.dataset.max == "true") {
@@ -3697,7 +3954,11 @@
                                     });
                                 }
                                 else {
-                                    let timeRemaining = (1-virus.getAnimations()[0].effect.getComputedTiming().progress)*parseInt(window.getComputedStyle(virus).animationDuration)*1000;
+                                    let aniProgress;
+                                    virus.getAnimations().forEach(function(ani){
+                                        if (ani.animationName == "moveEnemy") aniProgress = ani.effect.getComputedTiming().progress;
+                                    })
+                                    let timeRemaining = (1-aniProgress)*parseInt(window.getComputedStyle(virus).animationDuration)*1000;
                                     virus.style.animation = `${window.getComputedStyle(virus).animationName} ${window.getComputedStyle(virus).animationDuration} linear paused, moveEnemy ${timeRemaining*toUseSlowIndex/1000}s linear`
                                 }
 
@@ -3759,6 +4020,59 @@
                                     virus.dataset.lifes -= 1;
                                 }
                             }
+                            else if (virus.classList.contains("fa-ghost") && getComputedStyle(virus).opacity != "0"){
+                                console.log(getComputedStyle(virus).opacity)
+                                if (virus.dataset.lifes == 1) {
+                                    virus.remove();
+                                }
+                                else {
+                                    virus.dataset.lifes -= 1;
+                                }
+                                virus.style.color = "#FF7272";
+                                
+                                setTimeout(function(){
+                                    if (virus.dataset.slowed == "true"){
+                                        virus.style.color = "#72E5FF";
+                                    }
+                                    else {
+                                        virus.style.color = "black";
+                                    }
+                                }, 75);
+                            }
+                            else if (virus.classList.contains("fa-certificate") && !virus.classList.contains("miniCertificate")) {
+                                if (virus.dataset.lifes == 1) {
+                                    virus.remove();
+                                }
+                                else {
+                                    virus.dataset.lifes -= 1;
+                                }
+                                virus.style.color = "#FF7272";
+                                setTimeout(function(){
+                                    if (virus.dataset.slowed == "true"){
+                                        virus.style.color = "#72E5FF";
+                                    }
+                                    else {
+                                        virus.style.color = "black";
+                                    }
+                                }, 75);
+                            }
+                            else if (virus.classList.contains("miniCertificate")) {
+                                if (virus.dataset.lifes == 1) {
+                                    virus.remove();
+                                }
+                                else {
+                                    virus.dataset.lifes -= 1;
+                                }
+                                virus.style.color = "#FF7272";
+                                setTimeout(function(){
+                                    if (virus.dataset.slowed == "true"){
+                                        virus.style.color = "#72E5FF";
+                                    }
+                                    else {
+                                        virus.style.color = "black";
+                                    }
+                                }, 75);
+                            }
                             else if (virus.classList.contains("enemySuperFast")) {
                                 if (virus.dataset.lifes == 1) {
                                     virus.remove();
@@ -3802,7 +4116,7 @@
                                     }
                                 }, 75);
                             }
-                            else{
+                            else if(virus.classList.contains("fa-virus-covid")){
                                 if (virus.dataset.lifes == 1) {
                                     if (parseInt(virus.dataset.covidSize) > 1) {
                                         let fontSizeCovid = parseInt(virus.style.fontSize);
@@ -3837,6 +4151,18 @@
                                     virus.remove();
                                 }
                                 else if(virus.classList.contains("fa-virus") && !virus.classList.contains("enemySuperSlow")){
+                                    lifeSpaces[i] -= 1;
+                                    virus.remove();
+                                }
+                                else if(virus.classList.contains("fa-ghost")){
+                                    lifeSpaces[i] -= 1;
+                                    virus.remove();
+                                }
+                                else if (virus.classList.contains("fa-certificate") && !virus.classList.contains("miniCertificate")) {
+                                    lifeSpaces[i] -= 3;
+                                    virus.remove();
+                                }
+                                else if (virus.classList.contains("miniCertificate")) {
                                     lifeSpaces[i] -= 1;
                                     virus.remove();
                                 }
@@ -4718,15 +5044,141 @@
                 document.body.appendChild(newVirus);
             }
 
+            function spawnGhost(posTop=null, posLeft = null, duration=null){
+                var newGhost = document.createElement("div");
+                newGhost.classList.add("fa-solid");
+                newGhost.dataset.lifes = 10;
+                newGhost.dataset.slowed = "false";
+                newGhost.classList.add("fa-ghost");
+                newGhost.classList.add("enemyGhost");
+                let widthVHNewVirus = 6;
+                let virusSizeTotal = window.innerHeight*widthVHNewVirus/100;
+                newGhost.style.fontSize = widthVHNewVirus+"vh";
+                newGhost.style.left = posLeft+"px";
+
+                if(duration != null) {
+                    newGhost.style.animationDuration = duration+"s";
+                }
+
+                let FS_Virus = newGhost.getBoundingClientRect().width;
+
+                if (posTop == null) {
+                    newGhost.style.top = getRandomInt(armourSpaceDiv.getBoundingClientRect().height-virusSizeTotal)+0.5*virusSizeTotal+"px";
+                }
+                else {
+                    newGhost.style.top = posTop + "px";
+                }
+
+                if (posLeft == null) {
+                    newGhost.style.left = 1.03*window.screen.width+"px";
+                }
+                else {
+                    newGhost.style.top = posLeft + "px";
+                }
+
+                newGhost.classList.add("enemy");
+                newGhost.style.top = posTop + "px";
+
+                newGhost.animate(showHideGhostKF,{
+                    duration: 10000,
+                    iterations: Infinity
+                })
+
+                newGhost.addEventListener("animationend", function(evt){
+                    endGame();
+                    evt.currentTarget.remove();
+                });
+
+                document.body.appendChild(newGhost);
+            }
+
+            function spawnMiniVirusGene(mainVirus) {
+                mainVirus.dataset.newtimerSpawnMini = new Timer(function(){
+                    if (document.body.contains(mainVirus)){
+                        if (!gameStatePaused && !allFrozen) {
+                            let decideTop = getRandomInt(3*parseInt(getComputedStyle(mainVirus).height))-1.5*parseInt(getComputedStyle(mainVirus).height);
+
+                            let decideLeft = getRandomInt(3*parseInt(getComputedStyle(mainVirus).width))-1.5*parseInt(getComputedStyle(mainVirus).width);;
+
+                            let posTopMini = parseInt(getComputedStyle(mainVirus).top)+decideTop;
+                            let posLeftMini = parseInt(getComputedStyle(mainVirus).left)+decideLeft;
+                            
+                            let windowWidth = window.screen.width;
+
+                            let timeNewAnimation = (1-((windowWidth-parseInt(getComputedStyle(mainVirus).left))/(1.125*windowWidth)))*30;
+                            if (posTopMini > 0 && posTopMini < armourSpaceDiv.getBoundingClientRect().height) {
+                                spawnGenerativeVirus(posTopMini, posLeftMini, timeNewAnimation, true);
+                            }
+                        }
+                        spawnMiniVirusGene(mainVirus);
+                    }
+                }, 4000)
+            }
+
+            function spawnGenerativeVirus(posTop=null, posLeft=null, duration=null, mini = false){
+                var newVirus = document.createElement("div");
+                newVirus.classList.add("fa-solid");
+                newVirus.dataset.slowed = "false";
+
+                newVirus.classList.add("fa-certificate");
+                let widthVHNewVirus;
+                if (mini) {
+                    widthVHNewVirus = 3;
+                    newVirus.classList.add("miniCertificate");
+                    newVirus.dataset.lifes = 5;
+                }
+                else {
+                    widthVHNewVirus = 8;
+                    spawnMiniVirusGene(newVirus);
+                    newVirus.dataset.lifes = 15;
+                }
+                let virusSizeTotal = window.innerHeight*widthVHNewVirus/100;
+                newVirus.style.fontSize = widthVHNewVirus+"vh";
+                newVirus.classList.add("enemyBasic");
+                newVirus.style.left = posLeft+"px";
+
+                if (duration != null) {
+                    newVirus.style.animationDuration = duration+"s";
+                }
+
+                if (posTop == null) {
+                    newVirus.style.top = getRandomInt(armourSpaceDiv.getBoundingClientRect().height-2*virusSizeTotal)+virusSizeTotal+"px";
+                }
+                else {
+                    newVirus.style.top = posTop + "px";
+                }
+
+                if (posLeft == null) {
+                    newVirus.style.left = (1+(widthVHNewVirus/200))*window.screen.width+"px";
+                }
+                else {
+                    newVirus.style.top = posLeft + "px";
+                }
+
+                newVirus.classList.add("enemy");
+                newVirus.style.top = posTop+"px";
+
+                newVirus.addEventListener("animationend", function(evt){
+                    endGame();
+                    evt.currentTarget.remove();
+                });
+                document.body.appendChild(newVirus);
+                setTimeout(function(){
+                    newVirus.style.opacity = 1;
+                }, 100)
+            }
+
 
             var pcSpawnVirusType = {
                 "boss": 0.025,
                 "diseaseH": 0.975,
                 "skull": 1,
-                "covid": 5,
-                "diseaseB": 15,
-                "double": 23,
-                "basic": 55,
+                "covid": 2,
+                "generative": 4,
+                "ghost": 10,
+                "diseaseB": 13,
+                "double": 19,
+                "basic": 50,
             }
 
             var psSpawnSkullSize = {
@@ -4737,7 +5189,7 @@
                 5: 2
             }
 
-            function spawnVirusByPc(basic, double, diseaseB, covid, skull, diseaseH, boss, skullSize = undefined, bossSize = undefined, timeAnimation = undefined){
+            function spawnVirusByPc(basic, double, diseaseB, ghost, generative, covid, skull, diseaseH, boss, skullSize = undefined, bossSize = undefined, timeAnimation = undefined){
                 let totalSumPc = 0;
                 let listVirusToTake = [];
 
@@ -4752,6 +5204,14 @@
                 if (diseaseB) {
                     totalSumPc += pcSpawnVirusType["diseaseB"];
                     listVirusToTake.push("diseaseB");
+                }
+                if (ghost) {
+                    totalSumPc += pcSpawnVirusType["ghost"];
+                    listVirusToTake.push("ghost");
+                }
+                if (generative) {
+                    totalSumPc += pcSpawnVirusType["generative"];
+                    listVirusToTake.push("generative");
                 }
                 if (covid) {
                     totalSumPc += pcSpawnVirusType["covid"];
@@ -4837,34 +5297,37 @@
             function spawnVirusTime(){
                 let currentTime = new Date().getTime();
                 if (currentTime - d < 60000) {
-                    spawnVirusByPc(true, false, false, false, false, false, false);
+                    spawnVirusByPc(true, false, false, false, false, false, false, false, false);
                 }
                 else if (currentTime - d < 120000) {
-                    spawnVirusByPc(true, true, false, false, false, false, false);
+                    spawnVirusByPc(true, true, false, false, false, false, false, false, false);
                 }
                 else if (currentTime - d < 180000){
-                    spawnVirusByPc(true, true, true, false, false, false, false);
+                    spawnVirusByPc(true, true, true, false, false, false, false, false, false);
                 }
                 else if (currentTime - d < 240000){
-                    spawnVirusByPc(true, true, true, true, false, false, false);
+                    spawnVirusByPc(true, true, true, true, false, false, false, false, false);
                 }
                 else if (currentTime - d < 300000){
-                    spawnVirusByPc(false, true, true, true, false, false, false);
+                    spawnVirusByPc(true, true, true, true, true, false, false, false, false);
                 }
                 else if (currentTime - d < 360000){
-                    spawnVirusByPc(false, true, true, true, true, false, false);
+                    spawnVirusByPc(false, true, true, true, true, false, false, false, false);
                 }
                 else if (currentTime - d < 420000) {
-                    spawnVirusByPc(false, true, true, true, true, true, false);
+                    spawnVirusByPc(false, true, true, true, true, true, false, false, false);
                 }
                 else if (currentTime - d < 480000){
-                    spawnVirusByPc(false, true, true, true, true, true, true);
+                    spawnVirusByPc(false, true, true, true, true, true, true, false, false);
                 }
                 else if (currentTime - d < 540000){
-                    spawnVirusByPc(false, false, true, true, true, true, true);
+                    spawnVirusByPc(false, true, true, true, true, true, true, true, false);
+                }
+                else if (currentTime - d < 600000){
+                    spawnVirusByPc(false, true, true, true, true, true, true, true, true);
                 }
                 else{
-                    spawnVirusByPc(false, false, false, true, true, true, true);
+                    spawnVirusByPc(false, false, true, true, true, true, true, true, true);
                 }
             }
 
@@ -4895,7 +5358,7 @@
                     newVirus.style.animationDuration = animationTime+"s";
                 }
 
-                if (size < armourSpaceDiv.getBoundingClientRect().height) {
+                if (newBossFontSizeVH*window.innerHeight/100 < armourSpaceDiv.getBoundingClientRect().height) {
                     newVirus.style.top = getRandomInt(armourSpaceDiv.getBoundingClientRect().height-(newBossFontSizeVH/100)*window.innerHeight)+0.5*(newBossFontSizeVH/100)*window.innerHeight+"px";
                 }
                 else {
@@ -5014,12 +5477,28 @@
     
                         document.querySelectorAll(".enemy").forEach(function(ele){
                             let animationsVirus = ele.getAnimations();
-                            if (animationsVirus.length == 1) {
-                                animationsVirus[0].pause();
+                            if (!ele.classList.contains("fa-ghost")) {
+                                if (animationsVirus.length == 1) {
+                                    animationsVirus[0].pause();
+                                }
+                                else {
+                                    animationsVirus[1].pause();
+                                }
+                            }
+                            else if (!ele.classList.contains("fa-certificate")) {
+                                animationsVirus.forEach(function(a){
+                                    a.pause();
+                                })
                             }
                             else {
-                                animationsVirus[0].pause();
-                                animationsVirus[1].pause();
+                                if (animationsVirus.length == 2) {
+                                    animationsVirus[0].pause();
+                                    animationsVirus[1].pause();
+                                }
+                                else {
+                                    animationsVirus[1].pause();
+                                    animationsVirus[2].pause();
+                                }
                             }
                         });
     
@@ -5074,11 +5553,28 @@
 
                     document.querySelectorAll(".enemy").forEach(function(ele){
                         let animationsVirus = ele.getAnimations();
-                        if (animationsVirus.length == 1) {
-                            animationsVirus[0].play();
+                        if (!ele.classList.contains("fa-ghost")) {
+                            if (animationsVirus.length == 1) {
+                                animationsVirus[0].play();
+                            }
+                            else {
+                                animationsVirus[1].play();
+                            }
+                        }
+                        else if (!ele.classList.contains("fa-certificate")) {
+                            animationsVirus.forEach(function(a){
+                                a.play();
+                            })
                         }
                         else {
-                            animationsVirus[1].play();
+                            if (animationsVirus.length == 2) {
+                                animationsVirus[0].play();
+                                animationsVirus[1].play();
+                            }
+                            else {
+                                animationsVirus[1].play();
+                                animationsVirus[2].play();
+                            }
                         }
                     });
 
@@ -5210,6 +5706,12 @@
                 }
                 else if (type == "diseaseH"){
                     spawnDisease(true);
+                }
+                else if (type == "ghost"){
+                    spawnGhost()
+                }
+                else if (type == "generative") {
+                    spawnGenerativeVirus();
                 }
                 else if (type == "skull"){
                     if (skullSize != undefined) {
