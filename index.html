@@ -1225,15 +1225,6 @@
 
         </style>
     </head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RFZM98L10H"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-    
-      gtag('config', 'G-RFZM98L10H');
-    </script>
     <body>
         <div id="presentationLevelDiv">
             <span id="levelNum"></span>
@@ -2687,7 +2678,11 @@
                             });
                         }
                         else {
-                            let timeRemaining = (1-virus.getAnimations()[0].effect.getComputedTiming().progress)*parseInt(window.getComputedStyle(virus).animationDuration)*1000;
+                            let aniProgress;
+                            virus.getAnimations().forEach(function(ani){
+                                if (ani.animationName == "moveEnemy") aniProgress = ani.effect.getComputedTiming().progress;
+                            })
+                            let timeRemaining = (1-aniProgress)*parseInt(window.getComputedStyle(virus).animationDuration)*1000;
                             virus.style.animation = `${window.getComputedStyle(virus).animationName} ${window.getComputedStyle(virus).animationDuration} linear paused, moveEnemy ${timeRemaining*indexSlow/1000}s linear`
                         }
 
@@ -4155,7 +4150,7 @@
                                     virus.remove();
                                 }
                                 else if(virus.classList.contains("fa-ghost")){
-                                    lifeSpaces[i] -= 1;
+                                    lifeSpaces[i] -= 2;
                                     virus.remove();
                                 }
                                 else if (virus.classList.contains("fa-certificate") && !virus.classList.contains("miniCertificate")) {
@@ -5112,7 +5107,7 @@
                         }
                         spawnMiniVirusGene(mainVirus);
                     }
-                }, 4000)
+                }, 5000)
             }
 
             function spawnGenerativeVirus(posTop=null, posLeft=null, duration=null, mini = false){
@@ -5125,12 +5120,12 @@
                 if (mini) {
                     widthVHNewVirus = 3;
                     newVirus.classList.add("miniCertificate");
-                    newVirus.dataset.lifes = 5;
+                    newVirus.dataset.lifes = 6;
                 }
                 else {
                     widthVHNewVirus = 8;
                     spawnMiniVirusGene(newVirus);
-                    newVirus.dataset.lifes = 15;
+                    newVirus.dataset.lifes = 16;
                 }
                 let virusSizeTotal = window.innerHeight*widthVHNewVirus/100;
                 newVirus.style.fontSize = widthVHNewVirus+"vh";
