@@ -2280,7 +2280,7 @@
                 artisticName: "Halloween",
                 goalTime: 600000,
                 iniDiffSpawn: 5000,
-                changeDiffSpawn: 140,
+                changeDiffSpawn: 125,
                 money: 2000,
                 moneyIntervalEarned: 25,
                 asymptLevel: 0.35,
@@ -5051,11 +5051,11 @@
             function spawnGhost(posTop=null, posLeft = null, duration=null){
                 var newGhost = document.createElement("div");
                 newGhost.classList.add("fa-solid");
-                newGhost.dataset.lifes = 10;
+                newGhost.dataset.lifes = 16;
                 newGhost.dataset.slowed = "false";
                 newGhost.classList.add("fa-ghost");
                 newGhost.classList.add("enemyGhost");
-                let widthVHNewVirus = 6;
+                let widthVHNewVirus = 7;
                 let virusSizeTotal = window.innerHeight*widthVHNewVirus/100;
                 newGhost.style.fontSize = widthVHNewVirus+"vh";
                 newGhost.style.left = posLeft+"px";
@@ -5074,7 +5074,7 @@
                 }
 
                 if (posLeft == null) {
-                    newGhost.style.left = 1.03*window.screen.width+"px";
+                    newGhost.style.left = 1.035*window.screen.width+"px";
                 }
                 else {
                     newGhost.style.top = posLeft + "px";
@@ -5870,7 +5870,7 @@
                     spawnCustomVirus(options.typeUnique, options.params.skullSize, options.params.bossSize, options.params.timeAnimation);
                 }
                 else {
-                    spawnVirusByPc(options.spawn.typeBasic, options.spawn.typeDouble, options.spawn.typeDiseaseB, options.spawn.typeCovid, options.spawn.typeSkull, options.spawn.typeDiseaseH, options.spawn.typeBoss, options.params.skullSize, options.params.bossSize, options.params.timeAnimation);
+                    spawnVirusByPc(options.spawn.typeBasic, options.spawn.typeDouble, options.spawn.typeDiseaseB, options.spawn.ghost, options.spawn.generative,  options.spawn.typeCovid, options.spawn.typeSkull, options.spawn.typeDiseaseH, options.spawn.typeBoss, options.params.skullSize, options.params.bossSize, options.params.timeAnimation);
                 }
             }
 
