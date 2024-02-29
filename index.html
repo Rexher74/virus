@@ -2330,13 +2330,82 @@
                 iniDiffSpawn: 15000,
                 changeDiffSpawn: 300,
                 money: 0,
-                moneyIntervalEarned: 250,
+                moneyIntervalEarned: 150,
                 asymptLevel: 0.35,
                 virusTimeline: {
                     0: {
                         uniqueType: false,
                         typeUnique: undefined,
                         params: undefinedParams,
+                        diffSpawn: 0,
+                        fixedSP: false,
+                        setDiffSpawnGlobal: false,
+                        spawn: {
+                            typeBasic: false,
+                            typeDouble: false,
+                            typeCovid: false,
+                            typeGhost: false,
+                            typeGenerative: false,
+                            typeDiseaseB: false,
+                            typeDiseaseH: false,
+                            typeSkull: true,
+                            typeBoss: true
+                        }
+                    },
+                    20: {
+                        uniqueType: false,
+                        typeUnique: undefined,
+                        params: {
+                            skullSize: [2, 3, 4, 5],
+                            bossSize: undefined,
+                            timeAnimation: undefined,
+                        },
+                        diffSpawn: 0,
+                        fixedSP: false,
+                        setDiffSpawnGlobal: false,
+                        spawn: {
+                            typeBasic: false,
+                            typeDouble: false,
+                            typeCovid: false,
+                            typeGhost: false,
+                            typeGenerative: false,
+                            typeDiseaseB: false,
+                            typeDiseaseH: false,
+                            typeSkull: true,
+                            typeBoss: true
+                        }
+                    },
+                    50: {
+                        uniqueType: false,
+                        typeUnique: undefined,
+                        params: {
+                            skullSize: [3, 4, 5],
+                            bossSize: undefined,
+                            timeAnimation: undefined,
+                        },
+                        diffSpawn: 0,
+                        fixedSP: false,
+                        setDiffSpawnGlobal: false,
+                        spawn: {
+                            typeBasic: false,
+                            typeDouble: false,
+                            typeCovid: false,
+                            typeGhost: false,
+                            typeGenerative: false,
+                            typeDiseaseB: false,
+                            typeDiseaseH: false,
+                            typeSkull: true,
+                            typeBoss: true
+                        }
+                    },
+                    85: {
+                        uniqueType: false,
+                        typeUnique: undefined,
+                        params: {
+                            skullSize: [4, 5],
+                            bossSize: undefined,
+                            timeAnimation: undefined,
+                        },
                         diffSpawn: 0,
                         fixedSP: false,
                         setDiffSpawnGlobal: false,
@@ -2650,7 +2719,6 @@
             })
 
             function slowAll(){
-                console.log("slow")
                 var freezeDivAnimation = document.createElement("div");
                 freezeDivAnimation.classList.add("divFreezeAllAnimation");
                 document.body.appendChild(freezeDivAnimation);
@@ -3944,6 +4012,7 @@
                                     virus.style.animation = `${window.getComputedStyle(virus).animationName} ${window.getComputedStyle(virus).animationDuration} linear paused, moveEnemySlow ${timeRemaining*(toUseSlowIndex-0.3)/1000}s linear`
                                 }
                                 else if (virus.classList.contains("fa-skull")){
+                                    virus.getAnimations()[0].pause();
                                     let windowWidth = window.screen.width;
                                     let posLeft = virus.getBoundingClientRect().left;
 
