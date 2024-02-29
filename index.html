@@ -2614,7 +2614,7 @@
                                         animationsVirus[1].play();
                                     }
                                 }
-                                else if (!ele.classList.contains("fa-certificate")) {
+                                else if (!ele.classList.contains("fa-certificate") && !ele.classList.contains("fa-ghost")) {
                                     animationsVirus.forEach(function(a){
                                         a.play();
                                     })
@@ -2650,6 +2650,7 @@
             })
 
             function slowAll(){
+                console.log("slow")
                 var freezeDivAnimation = document.createElement("div");
                 freezeDivAnimation.classList.add("divFreezeAllAnimation");
                 document.body.appendChild(freezeDivAnimation);
@@ -2661,7 +2662,9 @@
                     if (virus.dataset.slowed == "false"){
                         virus.style.color = "#72E5FF";
 
-                        virus.getAnimations()[0].pause();
+                        virus.getAnimations().forEach(function(ani){
+                            if (ani.animationName == "moveEnemy" || ani.animationName == "moveEnemySlow") ani.pause();
+                        })
 
                         if (virus.classList.contains("enemySuperSlow")){
                             let timeRemaining = (1-virus.getAnimations()[0].effect.getComputedTiming().progress)*parseInt(window.getComputedStyle(virus).animationDuration)*1000;
@@ -2689,7 +2692,7 @@
                         else {
                             let aniProgress;
                             virus.getAnimations().forEach(function(ani){
-                                if (ani.animationName == "moveEnemy") aniProgress = ani.effect.getComputedTiming().progress;
+                                if (ani.animationName == "moveEnemy" || ani.animationName == "moveEnemySlow") aniProgress = ani.effect.getComputedTiming().progress;
                             })
                             let timeRemaining = (1-aniProgress)*parseInt(window.getComputedStyle(virus).animationDuration)*1000;
                             virus.style.animation = `${window.getComputedStyle(virus).animationName} ${window.getComputedStyle(virus).animationDuration} linear paused, moveEnemy ${timeRemaining*indexSlow/1000}s linear`
@@ -2697,7 +2700,7 @@
 
                         virus.dataset.slowed = "true";
 
-                        if (allFrozen) {
+                        if (virus.dataset.frozen == "true") {
                             virus.getAnimations()[1].pause();
                         }
                     }
@@ -3928,7 +3931,7 @@
                                 virus.style.color = "#72E5FF";
 
                                 virus.getAnimations().forEach(function(ani){
-                                    if (ani.animationName == "moveEnemy") ani.pause();
+                                    if (ani.animationName == "moveEnemy" || ani.animationName == "moveEnemySlow") ani.pause();
                                 })
 
                                 let toUseSlowIndex = indexSlow;
@@ -3960,7 +3963,7 @@
                                 else {
                                     let aniProgress;
                                     virus.getAnimations().forEach(function(ani){
-                                        if (ani.animationName == "moveEnemy") aniProgress = ani.effect.getComputedTiming().progress;
+                                        if (ani.animationName == "moveEnemy" || ani.animationName == "moveEnemySlow") aniProgress = ani.effect.getComputedTiming().progress;
                                     })
                                     let timeRemaining = (1-aniProgress)*parseInt(window.getComputedStyle(virus).animationDuration)*1000;
                                     virus.style.animation = `${window.getComputedStyle(virus).animationName} ${window.getComputedStyle(virus).animationDuration} linear paused, moveEnemy ${timeRemaining*toUseSlowIndex/1000}s linear`
@@ -3968,7 +3971,7 @@
 
                                 virus.dataset.slowed = "true";
 
-                                if (allFrozen) {
+                                if (virus.dataset.frozen == "true") {
                                     virus.getAnimations()[1].pause();
                                 }
 
@@ -5109,7 +5112,7 @@
                             
                             let windowWidth = window.screen.width;
 
-                            let timeNewAnimation = (1-((windowWidth-parseInt(getComputedStyle(mainVirus).left))/(1.125*windowWidth)))*30;
+                            let timeNewAnimation = (1-((windowWidth-parseInt(getComputedStyle(mainVirus).left))/(1.125*windowWidth)))*25;
                             if (posTopMini > 0 && posTopMini < armourSpaceDiv.getBoundingClientRect().height) {
                                 spawnGenerativeVirus(posTopMini, posLeftMini, timeNewAnimation, true);
                             }
@@ -5565,7 +5568,7 @@
                                 animationsVirus[1].play();
                             }
                         }
-                        else if (!ele.classList.contains("fa-certificate")) {
+                        else if (!ele.classList.contains("fa-certificate") && !ele.classList.contains("fa-ghost")) {
                             animationsVirus.forEach(function(a){
                                 a.play();
                             })
