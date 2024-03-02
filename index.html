@@ -265,6 +265,9 @@
             .bulletMoveL5{
                 animation: moveBullet 2.8s linear;
             }
+            .bulletMoveL6{
+                animation: moveBullet 2.5s linear;
+            }
             .moveBulletSpull{
                 animation: moveBulletSpullAnimation  4.3s linear;
             }
@@ -1486,6 +1489,12 @@
             <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
             <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
             <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
+            <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
+            <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
+            <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
+            <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
+            <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
+            <div class="armourSub"><div class="gradientLifesSpace">Buy Space</div></div>
         </div>
         <div id="menuOperationsUser">
             <div class="divLeftMenuOperations">
@@ -2457,7 +2466,7 @@
                 goalTime: 500000,
                 iniDiffSpawn: 4000,
                 changeDiffSpawn: 85,
-                money: 10000,
+                money: 20000,
                 moneyIntervalEarned: 0,
                 asymptLevel: 0.1,
                 virusTimeline: {
@@ -2748,7 +2757,7 @@
                         }
 
                         virus.dataset.slowed = "true";
-                        console.log(virus.dataset.frozen)
+
                         if (virus.dataset.frozen == "true") {
                             if (!virus.classList.contains("fa-skull")) {
                                 virus.getAnimations().forEach(function(ani){
@@ -2842,10 +2851,10 @@
             var cactus = document.getElementById("buyCactus");
             var spikeTank = document.getElementById("buySpikeTank");
 
-            var spacesToBuy = new Array(30).fill(0);
-            var spacesIntervals = new Array(30);
-            var lifeSpaces = new Array(30).fill(NaN);
-            var levelsSpaces = new Array(30).fill(0);
+            var spacesToBuy = new Array(36).fill(0);
+            var spacesIntervals = new Array(36);
+            var lifeSpaces = new Array(36).fill(NaN);
+            var levelsSpaces = new Array(36).fill(0);
 
             var numBuilt = {
                 1: 0,
@@ -2902,7 +2911,7 @@
                 3: 1250,
                 4: 1600,
                 5: 2700,
-                6: 900 // ELIXIR (4250$)
+                6: 500 // ELIXIR (4250$)
             }
 
             var upgradeGoldmine = {
@@ -2912,7 +2921,7 @@
                 3: 1350,
                 4: 1900,
                 5: 2900,
-                6: 800 // ELIXIR (4200$)
+                6: 500 // ELIXIR (4200$)
             }
 
             var upgradeWall = {
@@ -2932,7 +2941,7 @@
                 3: 900,
                 4: 1400,
                 5: 2000,
-                6: 1000 // ELIXIR (2800$)
+                6: 600 // ELIXIR (2800$)
             }
 
             var upgradeIceTank = {
@@ -2942,7 +2951,7 @@
                 3: 1100,
                 4: 1500,
                 5: 2000,
-                6: 600 // ELIXIR (2700$)
+                6: 300 // ELIXIR (2700$)
             }
 
             var upgradeElixirmine = {
@@ -2952,17 +2961,17 @@
                 3: 1250,
                 4: 1600,
                 5: 2000,
-                6: 500, // ELIXIR
+                6: 300, // ELIXIR
             }
 
             var upgradeCactus= {
                 0: 1200,
-                1: 700,
-                2: 1000,
-                3: 1350,
-                4: 1750,
-                5: 2400,
-                6: 600, // ELIXIR
+                1: 400,
+                2: 650,
+                3: 900,
+                4: 1300,
+                5: 1750,
+                6: 400, // ELIXIR
             }
 
             var upgradeSpikeTank= {
@@ -2972,7 +2981,7 @@
                 3: 1400,
                 4: 1750,
                 5: 2500,
-                6: 1000, // ELIXIR
+                6: 600, // ELIXIR
             }
 
             var realtionUpgrade = {
@@ -3121,7 +3130,7 @@
                     e.style.lineHeight = window.getComputedStyle(e).getPropertyValue('height');
                     e.style.visibility = "visible";
                 })
-                armourSpaceDiv.style.width = parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[0]).getPropertyValue('width'))*5+41+"px";
+                armourSpaceDiv.style.width = parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[0]).getPropertyValue('width'))*6+41+"px";
             }
 
             function reloadPage(){
@@ -3648,7 +3657,7 @@
                     newBullet.style.left = listSpacesQuery[index].getBoundingClientRect().left+parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[index]).getPropertyValue('width'))+"px";
                     newBullet.style.top = listSpacesQuery[index].getBoundingClientRect().top+parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[index]).getPropertyValue('width'))/2+"px";
                     
-                    newBullet.classList.add(`bulletMoveL${(index%5)+1}`);
+                    newBullet.classList.add(`bulletMoveL${(index%6)+1}`);
 
                     document.body.appendChild(newBullet);
 
@@ -3670,7 +3679,7 @@
                             newBullet.style.left = listSpacesQuery[index].getBoundingClientRect().left+parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[index]).getPropertyValue('width'))+"px";
                             newBullet.style.top = listSpacesQuery[index].getBoundingClientRect().top+sizeNewBullet/2+i+"px";
     
-                            newBullet.classList.add(`bulletMoveL${(index%5)+1}`);
+                            newBullet.classList.add(`bulletMoveL${(index%6)+1}`);
         
                             document.body.appendChild(newBullet);
         
@@ -3691,7 +3700,7 @@
                             newBullet.style.left = listSpacesQuery[index].getBoundingClientRect().left+parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[index]).getPropertyValue('width'))+"px";
                             newBullet.style.top = listSpacesQuery[index].getBoundingClientRect().top+parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[index]).getPropertyValue('width'))/2+i+"px";
     
-                            newBullet.classList.add(`bulletMoveL${(index%5)+1}`);
+                            newBullet.classList.add(`bulletMoveL${(index%6)+1}`);
         
                             document.body.appendChild(newBullet);
         
@@ -3713,7 +3722,7 @@
                     newBullet.style.left = listSpacesQuery[index].getBoundingClientRect().left+parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[index]).getPropertyValue('width'))+"px";
                     newBullet.style.top = listSpacesQuery[index].getBoundingClientRect().top+parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[index]).getPropertyValue('width'))/2+"px";
 
-                    newBullet.classList.add(`bulletMoveL${(index%5)+1}`);
+                    newBullet.classList.add(`bulletMoveL${(index%6)+1}`);
 
                     document.body.appendChild(newBullet);
 
@@ -3736,7 +3745,7 @@
                     newBullet.style.top = listSpacesQuery[index].getBoundingClientRect().top+parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[index]).getPropertyValue('width'))/2+"px";
 
                     
-                    newBullet.classList.add(`bulletMoveL${(index%5)+1}`);
+                    newBullet.classList.add(`bulletMoveL${(index%6)+1}`);
 
                     document.body.appendChild(newBullet);
 
@@ -3759,7 +3768,7 @@
                     newBullet.style.top = listSpacesQuery[index].getBoundingClientRect().top+parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[index]).getPropertyValue('width'))/2+"px";
 
                     
-                    newBullet.classList.add(`bulletMoveL${(index%5)+1}`);
+                    newBullet.classList.add(`bulletMoveL${(index%6)+1}`);
 
                     document.body.appendChild(newBullet);
 
@@ -5090,7 +5099,7 @@
                 }
                 let virusSizeTotal = window.innerHeight*widthVHNewVirus/100;
                 newVirus.style.fontSize = widthVHNewVirus+"vh";
-                newVirus.classList.add("enemyBasic");
+                newVirus.classList.add("enemySlow");
                 newVirus.style.left = posLeft+"px";
 
                 if (duration != null) {
@@ -5410,7 +5419,7 @@
                             timeOutUnFreezeSpull.pause();
                         }
     
-                        for (var i = 0; i < 30; ++i) {
+                        for (var i = 0; i < 36; ++i) {
                             clearInterval(spacesIntervals[i]);
                             clearInterval(spacesIntervals[i]);
                         }
@@ -5524,7 +5533,7 @@
                         });
                     }
 
-                    for (var i = 0; i < 30; ++i) {
+                    for (var i = 0; i < 36; ++i) {
                         if (spacesToBuy[i] != 0) {
                             createIntervalByType(spacesToBuy[i], i);
                         }
@@ -5619,7 +5628,7 @@
                         clearTimeout(listTimeOutsSpawnBoss[i]);
                     }
 
-                    for (var i = 0; i < 30; ++i) {
+                    for (var i = 0; i < 36; ++i) {
                         clearInterval(spacesIntervals[i]);
                     }
                     document.querySelectorAll(".enemy").forEach(function(ele){
@@ -5812,7 +5821,7 @@
                     spawnCustomVirus(options.typeUnique, options.params.skullSize, options.params.bossSize, options.params.timeAnimation);
                 }
                 else {
-                    spawnVirusByPc(options.spawn.typeBasic, options.spawn.typeDouble, options.spawn.typeDiseaseB, options.spawn.ghost, options.spawn.generative,  options.spawn.typeCovid, options.spawn.typeSkull, options.spawn.typeDiseaseH, options.spawn.typeBoss, options.params.skullSize, options.params.bossSize, options.params.timeAnimation);
+                    spawnVirusByPc(options.spawn.typeBasic, options.spawn.typeDouble, options.spawn.typeDiseaseB, options.spawn.typeGhost, options.spawn.typeGenerative,  options.spawn.typeCovid, options.spawn.typeSkull, options.spawn.typeDiseaseH, options.spawn.typeBoss, options.params.skullSize, options.params.bossSize, options.params.timeAnimation);
                 }
             }
 
