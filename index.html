@@ -295,6 +295,7 @@
             }
 
             .enemy{
+                will-change: left;
                 z-index: 99;
                 pointer-events: none;
                 transform: translate(-50%, -50%);
@@ -699,6 +700,7 @@
             }
 
             .bulletType {
+                will-change: left;
                 pointer-events: none;
                 z-index: 10;
             }
@@ -1732,7 +1734,6 @@
             }
 
 
-
             var optionsL1 = {
                 id: 1,
                 indexLevel: 1,
@@ -2494,7 +2495,6 @@
                 e.nextElementSibling.querySelector(":nth-child(2)").innerHTML = "<strong>Money: </strong>"+levelsOptionsMain[i+1].money+"$";
                 e.nextElementSibling.querySelector(":nth-child(3)").innerHTML = "<strong>Basic Income: </strong>"+levelsOptionsMain[i+1].moneyIntervalEarned+"$";
 
-
                 e.addEventListener("click", function(){
                     if (e.nextElementSibling.style.display == "none") {
                         e.nextElementSibling.style.display = "block";
@@ -2633,43 +2633,28 @@
             var timeOutFreezeSpull;
             var timeOutUnFreezeSpull;
             function freezeAll(time) {
-                clearInterval(timeOutFreezeSpull);
-                clearInterval(timeOutUnFreezeSpull);
+                if (timeOutFreezeSpull != undefined) {
+                    timeOutFreezeSpull.pause();
+                    timeOutUnFreezeSpull.pause();
+                }
                 allFrozen = false;
-                timeOutFreezeSpull = setTimeout(function(){
+                timeOutFreezeSpull = new Timer(function(){
                     if (!allFrozen) {
                         allFrozen = true;
                         document.querySelectorAll(".enemy").forEach(function(ele){
                             ele.dataset.frozen = "true";
                             let animationsVirus = ele.getAnimations();
-                            if (!ele.classList.contains("fa-ghost")) {
-                                if (animationsVirus.length == 1) {
-                                    animationsVirus[0].pause();
-                                }
-                                else {
-                                    animationsVirus[1].pause();
-                                }
-                            }
-                            else if (!ele.classList.contains("fa-certificate")) {
-                                animationsVirus.forEach(function(a){
-                                    a.pause();
-                                })
-                            }
-                            else {
-                                if (animationsVirus.length == 2) {
-                                    animationsVirus[0].pause();
-                                    animationsVirus[1].pause();
-                                }
-                                else {
-                                    animationsVirus[1].pause();
-                                    animationsVirus[2].pause();
-                                }
+                            animationsVirus.forEach(function(a){
+                                a.pause();
+                            })
+                            if (ele.classList.contains("miniCertificate") && animationsVirus[0].animationName == undefined) {
+                                animationsVirus[0].play()
                             }
                         })
                     }
                 }, 300)
 
-                timeOutUnFreezeSpull = setTimeout(function(){
+                timeOutUnFreezeSpull = new Timer(function(){
                     if (allFrozen) {
                         document.querySelectorAll(".enemy").forEach(function(ele){
                             if (ele.dataset.frozen == "true") {
@@ -2730,10 +2715,6 @@
                     if (virus.dataset.slowed == "false"){
                         virus.style.color = "#72E5FF";
 
-                        virus.getAnimations().forEach(function(ani){
-                            if (ani.animationName == "moveEnemy" || ani.animationName == "moveEnemySlow") ani.pause();
-                        })
-
                         if (virus.classList.contains("enemySuperSlow")){
                             let timeRemaining = (1-virus.getAnimations()[0].effect.getComputedTiming().progress)*parseInt(window.getComputedStyle(virus).animationDuration)*1000;
                             virus.style.animation = `${window.getComputedStyle(virus).animationName} ${window.getComputedStyle(virus).animationDuration} linear paused, moveEnemySlow ${timeRemaining*indexSlow/1000}s linear`
@@ -2767,9 +2748,16 @@
                         }
 
                         virus.dataset.slowed = "true";
-
+                        console.log(virus.dataset.frozen)
                         if (virus.dataset.frozen == "true") {
-                            virus.getAnimations()[1].pause();
+                            if (!virus.classList.contains("fa-skull")) {
+                                virus.getAnimations().forEach(function(ani){
+                                    if (ani.animationName == "moveEnemy" || ani.animationName == "moveEnemySlow") ani.pause();
+                                })
+                            }
+                            else {
+                                virus.getAnimations()[1].pause();
+                            }
                         }
                     }
                 })
@@ -3614,7 +3602,6 @@
                 })
 
 
-                // Agrega evento de inicio de arrastre al elemento
                 function createNewStructureSmarthoneView(event, functionStructure) {    
                     if (gameStatePaused) {
                         reanudeGame();
@@ -3661,40 +3648,7 @@
                     newBullet.style.left = listSpacesQuery[index].getBoundingClientRect().left+parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[index]).getPropertyValue('width'))+"px";
                     newBullet.style.top = listSpacesQuery[index].getBoundingClientRect().top+parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[index]).getPropertyValue('width'))/2+"px";
                     
-                    if (index%5 == 0) {
-                        newBullet.classList.add("bulletMoveL1");
-                    }
-                    else if (index%5 == 1) {
-                        newBullet.classList.add("bulletMoveL2");
-                    }
-                    else if (index%5 == 2) {
-                        newBullet.classList.add("bulletMoveL3");
-                    }
-                    else if (index%5 == 3) {
-                        newBullet.classList.add("bulletMoveL4");
-                    }
-                    else if (index%5 == 4) {
-                        newBullet.classList.add("bulletMoveL5");
-                    }
-
-                    /*if (index<5) {
-                        newBullet.style.top = 60+"px";
-                    }
-                    else if (index<10) {
-                        newBullet.style.top = 210+"px";
-                    }
-                    else if (index<15) {
-                        newBullet.style.top = 360+"px";
-                    }
-                    else if (index<20) {
-                        newBullet.style.top = 510+"px";
-                    }
-                    else if (index<25) {
-                        newBullet.style.top = 660+"px";
-                    }
-                    else if (index<30) {
-                        newBullet.style.top = 810+"px";
-                    }*/
+                    newBullet.classList.add(`bulletMoveL${(index%5)+1}`);
 
                     document.body.appendChild(newBullet);
 
@@ -3702,7 +3656,6 @@
                         e.currentTarget.remove();
                     });
 
-                    //observer.observe(newBullet);
                 }, timing)
             }
 
@@ -3717,21 +3670,7 @@
                             newBullet.style.left = listSpacesQuery[index].getBoundingClientRect().left+parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[index]).getPropertyValue('width'))+"px";
                             newBullet.style.top = listSpacesQuery[index].getBoundingClientRect().top+sizeNewBullet/2+i+"px";
     
-                            if (index%5 == 0) {
-                                newBullet.classList.add("bulletMoveL1");
-                            }
-                            else if (index%5 == 1) {
-                                newBullet.classList.add("bulletMoveL2");
-                            }
-                            else if (index%5 == 2) {
-                                newBullet.classList.add("bulletMoveL3");
-                            }
-                            else if (index%5 == 3) {
-                                newBullet.classList.add("bulletMoveL4");
-                            }
-                            else if (index%5 == 4) {
-                                newBullet.classList.add("bulletMoveL5");
-                            }
+                            newBullet.classList.add(`bulletMoveL${(index%5)+1}`);
         
                             document.body.appendChild(newBullet);
         
@@ -3740,7 +3679,6 @@
                             });
                         }
     
-                        //observer.observe(newBullet);
                     }, timing)
                 }
                 else {
@@ -3753,21 +3691,7 @@
                             newBullet.style.left = listSpacesQuery[index].getBoundingClientRect().left+parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[index]).getPropertyValue('width'))+"px";
                             newBullet.style.top = listSpacesQuery[index].getBoundingClientRect().top+parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[index]).getPropertyValue('width'))/2+i+"px";
     
-                            if (index%5 == 0) {
-                                newBullet.classList.add("bulletMoveL1");
-                            }
-                            else if (index%5 == 1) {
-                                newBullet.classList.add("bulletMoveL2");
-                            }
-                            else if (index%5 == 2) {
-                                newBullet.classList.add("bulletMoveL3");
-                            }
-                            else if (index%5 == 3) {
-                                newBullet.classList.add("bulletMoveL4");
-                            }
-                            else if (index%5 == 4) {
-                                newBullet.classList.add("bulletMoveL5");
-                            }
+                            newBullet.classList.add(`bulletMoveL${(index%5)+1}`);
         
                             document.body.appendChild(newBullet);
         
@@ -3776,7 +3700,6 @@
                             });
                         }
     
-                        //observer.observe(newBullet);
                     }, timing)
                 }
             }
@@ -3790,22 +3713,7 @@
                     newBullet.style.left = listSpacesQuery[index].getBoundingClientRect().left+parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[index]).getPropertyValue('width'))+"px";
                     newBullet.style.top = listSpacesQuery[index].getBoundingClientRect().top+parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[index]).getPropertyValue('width'))/2+"px";
 
-                    
-                    if (index%5 == 0) {
-                        newBullet.classList.add("bulletMoveL1");
-                    }
-                    else if (index%5 == 1) {
-                        newBullet.classList.add("bulletMoveL2");
-                    }
-                    else if (index%5 == 2) {
-                        newBullet.classList.add("bulletMoveL3");
-                    }
-                    else if (index%5 == 3) {
-                        newBullet.classList.add("bulletMoveL4");
-                    }
-                    else if (index%5 == 4) {
-                        newBullet.classList.add("bulletMoveL5");
-                    }
+                    newBullet.classList.add(`bulletMoveL${(index%5)+1}`);
 
                     document.body.appendChild(newBullet);
 
@@ -3828,21 +3736,7 @@
                     newBullet.style.top = listSpacesQuery[index].getBoundingClientRect().top+parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[index]).getPropertyValue('width'))/2+"px";
 
                     
-                    if (index%5 == 0) {
-                        newBullet.classList.add("bulletMoveL1");
-                    }
-                    else if (index%5 == 1) {
-                        newBullet.classList.add("bulletMoveL2");
-                    }
-                    else if (index%5 == 2) {
-                        newBullet.classList.add("bulletMoveL3");
-                    }
-                    else if (index%5 == 3) {
-                        newBullet.classList.add("bulletMoveL4");
-                    }
-                    else if (index%5 == 4) {
-                        newBullet.classList.add("bulletMoveL5");
-                    }
+                    newBullet.classList.add(`bulletMoveL${(index%5)+1}`);
 
                     document.body.appendChild(newBullet);
 
@@ -3865,21 +3759,7 @@
                     newBullet.style.top = listSpacesQuery[index].getBoundingClientRect().top+parseFloat(window.getComputedStyle(document.querySelectorAll(".armourSub")[index]).getPropertyValue('width'))/2+"px";
 
                     
-                    if (index%5 == 0) {
-                        newBullet.classList.add("bulletMoveL1");
-                    }
-                    else if (index%5 == 1) {
-                        newBullet.classList.add("bulletMoveL2");
-                    }
-                    else if (index%5 == 2) {
-                        newBullet.classList.add("bulletMoveL3");
-                    }
-                    else if (index%5 == 3) {
-                        newBullet.classList.add("bulletMoveL4");
-                    }
-                    else if (index%5 == 4) {
-                        newBullet.classList.add("bulletMoveL5");
-                    }
+                    newBullet.classList.add(`bulletMoveL${(index%5)+1}`);
 
                     document.body.appendChild(newBullet);
 
@@ -5525,6 +5405,10 @@
                         gameStatePaused = true;
                         clearInterval(mainMoneyInterval);
                         clearInterval(chronoInterval);
+
+                        if (allFrozen) {
+                            timeOutUnFreezeSpull.pause();
+                        }
     
                         for (var i = 0; i < 30; ++i) {
                             clearInterval(spacesIntervals[i]);
@@ -5553,29 +5437,9 @@
     
                         document.querySelectorAll(".enemy").forEach(function(ele){
                             let animationsVirus = ele.getAnimations();
-                            if (!ele.classList.contains("fa-ghost")) {
-                                if (animationsVirus.length == 1) {
-                                    animationsVirus[0].pause();
-                                }
-                                else {
-                                    animationsVirus[1].pause();
-                                }
-                            }
-                            else if (!ele.classList.contains("fa-certificate")) {
-                                animationsVirus.forEach(function(a){
-                                    a.pause();
-                                })
-                            }
-                            else {
-                                if (animationsVirus.length == 2) {
-                                    animationsVirus[0].pause();
-                                    animationsVirus[1].pause();
-                                }
-                                else {
-                                    animationsVirus[1].pause();
-                                    animationsVirus[2].pause();
-                                }
-                            }
+                            animationsVirus.forEach(function(a){
+                                a.pause();
+                            })
                         });
     
                         document.querySelectorAll(".bulletType").forEach(function(ele){
@@ -5604,6 +5468,10 @@
 
                     startChrono();
 
+                    if (allFrozen) {
+                        timeOutUnFreezeSpull.resume();
+                    }
+
                     // level
 
                     if (playingAtLevel) {
@@ -5627,32 +5495,34 @@
                         ele.getAnimations()[0].play();
                     });
 
-                    document.querySelectorAll(".enemy").forEach(function(ele){
-                        let animationsVirus = ele.getAnimations();
-                        if (!ele.classList.contains("fa-ghost")) {
-                            if (animationsVirus.length == 1) {
-                                animationsVirus[0].play();
+                    if (!allFrozen) {
+                        document.querySelectorAll(".enemy").forEach(function(ele){
+                            let animationsVirus = ele.getAnimations();
+                            if (!ele.classList.contains("fa-ghost")) {
+                                if (animationsVirus.length == 1) {
+                                    animationsVirus[0].play();
+                                }
+                                else {
+                                    animationsVirus[1].play();
+                                }
+                            }
+                            else if (!ele.classList.contains("fa-certificate") && !ele.classList.contains("fa-ghost")) {
+                                animationsVirus.forEach(function(a){
+                                    a.play();
+                                })
                             }
                             else {
-                                animationsVirus[1].play();
+                                if (animationsVirus.length == 2) {
+                                    animationsVirus[0].play();
+                                    animationsVirus[1].play();
+                                }
+                                else {
+                                    animationsVirus[1].play();
+                                    animationsVirus[2].play();
+                                }
                             }
-                        }
-                        else if (!ele.classList.contains("fa-certificate") && !ele.classList.contains("fa-ghost")) {
-                            animationsVirus.forEach(function(a){
-                                a.play();
-                            })
-                        }
-                        else {
-                            if (animationsVirus.length == 2) {
-                                animationsVirus[0].play();
-                                animationsVirus[1].play();
-                            }
-                            else {
-                                animationsVirus[1].play();
-                                animationsVirus[2].play();
-                            }
-                        }
-                    });
+                        });
+                    }
 
                     for (var i = 0; i < 30; ++i) {
                         if (spacesToBuy[i] != 0) {
