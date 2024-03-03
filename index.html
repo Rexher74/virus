@@ -298,7 +298,6 @@
             }
 
             .enemy{
-                will-change: left;
                 z-index: 99;
                 pointer-events: none;
                 transform: translate(-50%, -50%);
@@ -1382,7 +1381,7 @@
                         GUNNER TANK ( <i class="fa-solid fa-heart"></i> 3/<i class="fa-solid fa-sack-dollar"></i> 500 ): <i>Fires large bullets that split.</i><br>
                         MULTI TANK ( <i class="fa-solid fa-heart"></i> 4/<i class="fa-solid fa-sack-dollar"></i> 1000 ): <i>Shoots bullets three at a time.</i><br>
                         SPIKE TANK( <i class="fa-solid fa-heart"></i> 3/<i class="fa-solid fa-sack-dollar"></i> 1500 ): <i>Throws bullets that divides into 8.</i><br>
-                        LIXIR MINE( <i class="fa-solid fa-heart"></i> 1/<i class="fa-solid fa-sack-dollar"></i> 600 ): <i>Gives you 10 elixir every 6 seconds.</i><br>
+                        ELIXIR MINE( <i class="fa-solid fa-heart"></i> 1/<i class="fa-solid fa-sack-dollar"></i> 600 ): <i>Gives you 10 elixir every 6 seconds.</i><br>
                         GOLDMINE( <i class="fa-solid fa-heart"></i> 2/<i class="fa-solid fa-sack-dollar"></i> 400 ): <i>Gives you 25$ every 2 seconds.</i><br>
                         WALL( <i class="fa-solid fa-heart"></i> 6/<i class="fa-solid fa-sack-dollar"></i> 300 ): <i>Prevent viruses from passing.</i><br>
                         CACTUS( <i class="fa-solid fa-heart"></i> 15/<i class="fa-solid fa-sack-dollar"></i> 1200 ): <i>Regenerate life every 15 seconds..</i><br>
@@ -1445,7 +1444,7 @@
 
             </div>
         </div>
-        <div class="dataPlayer"><i class="fa-solid fa-sack-dollar" style="color: rgb(205, 205, 0)"></i><span id="moneyCounter" style="color: rgb(205, 205, 0); margin-left: 5px;"></span><i class="fa-solid fa-droplet margin-left-dataUser" style="color:rgb(190, 69, 255);"></i><span id="elixirCounter" style="color:rgb(190, 69, 255); margin-left: 5px;"></span><i class="fa-solid fa-heart margin-left-dataUser" style="color: red"></i><span id="lifesCounter" style="color:red; margin-left: 5px;"></span></div>
+        <div class="dataPlayer"><i class="fa-solid fa-sack-dollar" style="color: rgb(205, 205, 0)"></i><span id="moneyCounter" style="color: rgb(205, 205, 0); margin-left: 5px;"></span><i class="fa-solid fa-droplet margin-left-dataUser" style="color:rgb(190, 69, 255);"></i><span id="elixirCounter" style="color:rgb(190, 69, 255); margin-left: 5px;"></span></div>
         <div id="mainAlertNoBuyDiv">
             <div id="alertNotEnoughMoney" class="alertRed">
                 <span class="closebtnAlertRed" onclick="this.parentElement.style.display='none';">&times;</span> 
@@ -2465,7 +2464,7 @@
                 artisticName: "End Game",
                 goalTime: 500000,
                 iniDiffSpawn: 4000,
-                changeDiffSpawn: 85,
+                changeDiffSpawn: 100,
                 money: 20000,
                 moneyIntervalEarned: 0,
                 asymptLevel: 0.1,
@@ -2722,52 +2721,9 @@
                 })
                 document.querySelectorAll(".enemy").forEach(function(virus){
                     if (virus.dataset.slowed == "false"){
-                        virus.style.color = "#72E5FF";
-
-                        if (virus.classList.contains("enemySuperSlow")){
-                            let timeRemaining = (1-virus.getAnimations()[0].effect.getComputedTiming().progress)*parseInt(window.getComputedStyle(virus).animationDuration)*1000;
-                            virus.style.animation = `${window.getComputedStyle(virus).animationName} ${window.getComputedStyle(virus).animationDuration} linear paused, moveEnemySlow ${timeRemaining*indexSlow/1000}s linear`
-                        }
-                        else if (virus.classList.contains("fa-skull")){
-                            virus.getAnimations()[0].pause();
-
-                            let windowWidth = window.screen.width;
-                            let posLeft = virus.getBoundingClientRect().left;
-
-                            let remainingWayAnimation = 1-((windowWidth-posLeft)/(1.125*windowWidth));
-
-                            let timeAnimation = remainingWayAnimation * virus.getAnimations()[0].effect.getComputedTiming().duration;
-
-                            virus.animate([
-                                { left: "-10vw" }
-                            ], {
-                                duration: timeAnimation*indexSlow,
-                            }).finished.then(function(e) {
-                                e.effect.target.remove();
-                                endGame();
-                            });
-                        }
-                        else {
-                            let aniProgress;
-                            virus.getAnimations().forEach(function(ani){
-                                if (ani.animationName == "moveEnemy" || ani.animationName == "moveEnemySlow") aniProgress = ani.effect.getComputedTiming().progress;
-                            })
-                            let timeRemaining = (1-aniProgress)*parseInt(window.getComputedStyle(virus).animationDuration)*1000;
-                            virus.style.animation = `${window.getComputedStyle(virus).animationName} ${window.getComputedStyle(virus).animationDuration} linear paused, moveEnemy ${timeRemaining*indexSlow/1000}s linear`
-                        }
-
                         virus.dataset.slowed = "true";
-
-                        if (virus.dataset.frozen == "true") {
-                            if (!virus.classList.contains("fa-skull")) {
-                                virus.getAnimations().forEach(function(ani){
-                                    if (ani.animationName == "moveEnemy" || ani.animationName == "moveEnemySlow") ani.pause();
-                                })
-                            }
-                            else {
-                                virus.getAnimations()[1].pause();
-                            }
-                        }
+                        virus.style.color = "#72E5FF";
+                        slowVirus(virus, indexSlow);
                     }
                 })
             }
@@ -3104,15 +3060,12 @@
 
             // OTHER
             var currentMoney = 1000;
-            var currentLifes = 3;
             var currentElixir = 0;
 
             var moneyCounterDOC = document.getElementById("moneyCounter");
-            var lifesCounterDOC = document.getElementById("lifesCounter");
             var elixirCounterDOC = document.getElementById("elixirCounter");
 
             moneyCounterDOC.textContent = currentMoney;
-            lifesCounterDOC.textContent = currentLifes;
             elixirCounterDOC.textContent = currentElixir;
 
             var alertNoMoney = document.getElementById("alertNotEnoughMoney");
@@ -3203,7 +3156,6 @@
                 if (!endGameVar) {
                     endGameVar = true;
                     closeUpgradeMenu();
-                    lifesCounterDOC.textContent = 0;
                     clearInterval(mainMoneyInterval);
                     clearInterval(chronoInterval);
 
@@ -3829,7 +3781,17 @@
                 }
             }
 
-            const indexSlow = 1.6;
+            function slowVirus(virus, toSlow) {
+                if (!virus.classList.contains("fa-skull"))
+                virus.getAnimations().forEach(function(ani){
+                    if (ani.animationName == "moveEnemy" || ani.animationName == "moveEnemySlow") ani.updatePlaybackRate(toSlow);
+                })
+                else {
+                    virus.getAnimations()[0].updatePlaybackRate(toSlow);
+                }
+            }
+
+            const indexSlow = 0.6;
 
             var absoluteD = new Date().getTime();
 
@@ -3885,7 +3847,7 @@
                             }
                             if (bullet.classList.contains("iceBulletStyle") && virus.dataset.slowed == "false"){
 
-                                virus.style.color = "#72E5FF";
+                                /*virus.style.color = "#72E5FF";
 
                                 virus.getAnimations().forEach(function(ani){
                                     if (ani.animationName == "moveEnemy" || ani.animationName == "moveEnemySlow") ani.pause();
@@ -3931,7 +3893,15 @@
 
                                 if (virus.dataset.frozen == "true") {
                                     virus.getAnimations()[1].pause();
+                                }*/
+                                let toUseSlowIndex = indexSlow;
+                                if (bullet.dataset.max == "true") {
+                                    toUseSlowIndex -= 0.2;
                                 }
+
+                                virus.dataset.slowed = "true";
+                                virus.style.color = "#72E5FF";
+                                slowVirus(virus, toUseSlowIndex);
 
                             }
                             if (virus.classList.contains("fa-viruses")) {
@@ -4857,11 +4827,7 @@
                     document.body.appendChild(newVirus);
 
                     newVirus.addEventListener("animationend", function(evt){
-                        currentLifes -= 1;
-                        lifesCounterDOC.textContent = currentLifes;
-                        if (currentLifes <= 0) {
-                            endGame();
-                        }
+                        endGame();
                         evt.currentTarget.remove();
                     });
                 }
@@ -4906,11 +4872,7 @@
                 newVirus.style.top = posTop + "px";
 
                 newVirus.addEventListener("animationend", function(evt){
-                    currentLifes -= 1;
-                    lifesCounterDOC.textContent = currentLifes;
-                    if (currentLifes <= 0) {
-                        endGame();
-                    }
+                    endGame();
                     evt.currentTarget.remove();
                 });
 
@@ -4952,11 +4914,7 @@
                 newVirus.style.top = posTop+"px";
 
                 newVirus.addEventListener("animationend", function(evt){
-                    currentLifes -= 2;
-                    lifesCounterDOC.textContent = currentLifes;
-                    if (currentLifes <= 0) {
-                        endGame();
-                    }
+                    endGame();
                     evt.currentTarget.remove();
                 });
                 document.body.appendChild(newVirus);
@@ -4999,11 +4957,7 @@
                 }
 
                 newVirus.addEventListener("animationend", function(evt){
-                    currentLifes -= ((parseInt(evt.currentTarget.style.fontSize)-10)/30);
-                    lifesCounterDOC.textContent = currentLifes;
-                    if (currentLifes <= 0) {
-                        endGame();
-                    }
+                    endGame();
                     evt.currentTarget.remove();
                 });
                 document.body.appendChild(newVirus);
@@ -5506,30 +5460,9 @@
 
                     if (!allFrozen) {
                         document.querySelectorAll(".enemy").forEach(function(ele){
-                            let animationsVirus = ele.getAnimations();
-                            if (!ele.classList.contains("fa-ghost")) {
-                                if (animationsVirus.length == 1) {
-                                    animationsVirus[0].play();
-                                }
-                                else {
-                                    animationsVirus[1].play();
-                                }
-                            }
-                            else if (!ele.classList.contains("fa-certificate") && !ele.classList.contains("fa-ghost")) {
-                                animationsVirus.forEach(function(a){
-                                    a.play();
-                                })
-                            }
-                            else {
-                                if (animationsVirus.length == 2) {
-                                    animationsVirus[0].play();
-                                    animationsVirus[1].play();
-                                }
-                                else {
-                                    animationsVirus[1].play();
-                                    animationsVirus[2].play();
-                                }
-                            }
+                            ele.getAnimations().forEach(function(ani){
+                                ani.play();
+                            })
                         });
                     }
 
