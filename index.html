@@ -2592,10 +2592,12 @@
             var iceSpell = document.getElementById("buyIceSpell");
             var bulletSpell = document.getElementById("buyBulletSpell");
 
+            var listBulletSpells = [];
+
             function createBulletSpell(){
                 let gameZoneHeight = armourSpaceDiv.getBoundingClientRect().height;
                 for (var i = 0; i < 5; ++i) {
-                    setTimeout(function(){
+                    let newBulletSpellTimer = new Timer(function(){
                         for (var i = 0; i < gameZoneHeight; i+=gameZoneHeight/25) {
                             let newBullet = document.createElement("div");
                             newBullet.classList.add("bulletType");
@@ -2610,7 +2612,9 @@
                                 e.currentTarget.remove();
                             });
                         }
+                        listBulletSpells.shift();
                     }, i*1500);
+                    listBulletSpells.push(newBulletSpellTimer);
                 }
             }
 
@@ -3166,7 +3170,7 @@
                         clearInterval(controlBossSpawnInterval);
 
                         for (var i = 0; i < listTimeOutsSpawnBoss.length; i++) {
-                            clearTimeout(listTimeOutsSpawnBoss[i]);
+                            listTimeOutsSpawnBoss[i].pause();
                         }
 
                         let newCurrentDate = new Date().getTime();
@@ -5516,7 +5520,10 @@
                         }
     
                         for (var i = 0; i < listTimeOutsSpawnBoss.length; i++) {
-                            clearTimeout(listTimeOutsSpawnBoss[i]);
+                            listTimeOutsSpawnBoss[i].pause()
+                        }
+                        for (var i = 0; i < listBulletSpells.length; ++i) {
+                            listBulletSpells[i].pause();
                         }
     
                         if (playingAtLevel) {
@@ -5555,6 +5562,10 @@
 
                     for (var i = 0; i < listTimeOutsSpawnBoss.length; i++) {
                         listTimeOutsSpawnBoss[i].resume();
+                    }
+                    
+                    for (var i = 0; i < listBulletSpells.length; ++i) {
+                        listBulletSpells[i].resume();
                     }
 
                     pausedMainIconDiv.style.display = "none";
@@ -5695,7 +5706,7 @@
                     intervalDifficultyLevel.pause();
 
                     for (var i = 0; i < listTimeOutsSpawnBoss.length; i++) {
-                        clearTimeout(listTimeOutsSpawnBoss[i]);
+                        listTimeOutsSpawnBoss[i].pause();
                     }
 
                     for (var i = 0; i < 36; ++i) {
