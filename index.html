@@ -8,6 +8,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
         <title>Virutz</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="google-adsense-account" content="ca-pub-5275099172308839">
         <link href="css_fa/fontawesome.css" rel="stylesheet">
         <!--<link href="css_fa/brands.css" rel="stylesheet">-->
         <link href="css_fa/solid.css" rel="stylesheet">
@@ -1233,6 +1234,7 @@
             }
 
         </style>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5275099172308839" crossorigin="anonymous"></script>
     </head>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-RFZM98L10H"></script>
@@ -1380,7 +1382,7 @@
                     <span id="instructionsHeader">How to Play <i id="arrowDownInstructions" style="cursor: pointer; font-size: 20px;" class="fa-solid fa-chevron-down" onclick="toggleInstructions()"></i></span>
                     <div id="instructionsMain" style="display: none">
                         <strong>Objective:</strong> eliminate viruses and resist as long as possible.<br>
-                        To do this, you can buy six types of structures:<br>
+                        To do this, you can buy nine types of structures:<br>
                         BASIC TANK ( <i class="fa-solid fa-heart"></i> 2/<i class="fa-solid fa-sack-dollar"></i> 200 ): <i>Shoots bullets one at a time.</i><br>
                         ICE TANK ( <i class="fa-solid fa-heart"></i> 1/<i class="fa-solid fa-sack-dollar"></i> 400 ): <i>Slows down viruses and harms them.</i><br>
                         GUNNER TANK ( <i class="fa-solid fa-heart"></i> 3/<i class="fa-solid fa-sack-dollar"></i> 500 ): <i>Fires large bullets that split.</i><br>
@@ -1389,7 +1391,7 @@
                         ELIXIR MINE( <i class="fa-solid fa-heart"></i> 1/<i class="fa-solid fa-sack-dollar"></i> 600 ): <i>Gives you 10 elixir every 6 seconds.</i><br>
                         GOLDMINE( <i class="fa-solid fa-heart"></i> 2/<i class="fa-solid fa-sack-dollar"></i> 400 ): <i>Gives you 25$ every 2 seconds.</i><br>
                         WALL( <i class="fa-solid fa-heart"></i> 6/<i class="fa-solid fa-sack-dollar"></i> 300 ): <i>Prevent viruses from passing.</i><br>
-                        CACTUS( <i class="fa-solid fa-heart"></i> 15/<i class="fa-solid fa-sack-dollar"></i> 1200 ): <i>Regenerate life every 15 seconds..</i><br>
+                        CACTUS( <i class="fa-solid fa-heart"></i> 15/<i class="fa-solid fa-sack-dollar"></i> 1200 ): <i>Regenerate life every 15 seconds.</i><br>
 
 
                         <br style="margin-top: 2em; display: inline-block; content: '';">You can also use spells to defeat viruses, there are 4 types:<br>
@@ -1416,7 +1418,6 @@
                 </div>
             </div>
         </div>
-
         <div id="selectUpgrade" class="mainMenuOperations">
             <div id="divOptionsUpgrade" class="divOptionsMainMenu">
                 <i id="xmark_close_buy_upgrade" class="fa-solid fa-xmark fa-2x" style="position:absolute; top: 20px; right: 20px;color:rgb(132, 132, 132); cursor: pointer;"></i>
@@ -2860,12 +2861,12 @@
             }
 
             var upgradeGoldmine = {
-                0: 600,
-                1: 600,
-                2: 850,
-                3: 1350,
-                4: 1900,
-                5: 2900,
+                0: 400,
+                1: 400,
+                2: 600,
+                3: 1300,
+                4: 1750,
+                5: 3000,
                 6: 500 // ELIXIR (4200$)
             }
 
@@ -3286,10 +3287,11 @@
                         maxLvl = true;
 
                         if (spacesToBuy[index] == 1 || spacesToBuy[index] == 2 || spacesToBuy[index] == 5 || spacesToBuy[index] == 6 || spacesToBuy[index] == 9) {
-                            let currentSRC = ele.target.getAttribute("src");
-                            let typeSRC = currentSRC.substring(0, currentSRC.indexOf('.'));
-                            ele.target.setAttribute("src", typeSRC+"_max.png");
+                        	let currentSRC = ele.target.getAttribute("src");
+                        	let typeSRC = currentSRC.substring(0, currentSRC.indexOf('.'));
+                        	ele.target.setAttribute("src", typeSRC+"_max.png");
                         }
+
                     }
 
                     clearInterval(spacesIntervals[index]);
@@ -3343,14 +3345,6 @@
                     createIntervalSpikeTank(index, relationUpgradeSkills[spacesToBuy[index]][levelsSpaces[index]-1], maxLvl);
                 }
             }
-
-            /*basicTank.addEventListener("click", createNewBasicTank);
-            multiTank.addEventListener("click", createNewMultiTank);
-            goldmine.addEventListener("click", createNewGoldmine);
-            wall.addEventListener("click", createNewWall);
-            gunnerTank.addEventListener("click", createNewGunnerTank);
-            iceTank.addEventListener("click", createNewIceTank);*/
-            
             
             let startMouseX, startMouseY;
 
